@@ -7,6 +7,9 @@ import subprocess
 import signal
 import threading
 import pygame_widgets
+import sys
+sys.path.append('/Users/s1034274/Desktop/globals/')
+from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 
 pygame.init()
 pygame.font.init()
@@ -25,13 +28,13 @@ white = (255,255,255)
 grey = (128,128,128)
 black = (0,0,0)
 
-## CENTER
-redFlagColorCenter = red
-orangeFlagColorCenter = orange
-whiteFlagColorCenter = white
-yellowFlagColorCenter = yellow
-greenFlagColorCenter = green
-blueFlagColorCenter = blue
+## Left
+redFlagColorLeft = red
+orangeFlagColorLeft = orange
+whiteFlagColorLeft = white
+yellowFlagColorLeft = yellow
+greenFlagColorLeft = green
+blueFlagColorLeft = blue
 ## MIDDLE
 redFlagColorMiddle = red
 orangeFlagColorMiddle = orange
@@ -39,28 +42,28 @@ whiteFlagColorMiddle = white
 yellowFlagColorMiddle = yellow
 greenFlagColorMiddle = green
 blueFlagColorMiddle = blue
-## OUTER
-redFlagColorOuter = red
-orangeFlagColorOuter = orange
-whiteFlagColorOuter = white
-yellowFlagColorOuter = yellow
-greenFlagColorOuter = green
-blueFlagColorOuter = blue
+## Right
+redFlagColorRight = red
+orangeFlagColorRight = orange
+whiteFlagColorRight = white
+yellowFlagColorRight = yellow
+greenFlagColorRight = green
+blueFlagColorRight = blue
 
-## CENTER
-redFlagCenterOrig = (120, 330, 39, 39)
-orangeFlagCenterOrig = (450, 280, 39, 39)
-whiteFlagCenterOrig = (340, 190, 39, 39)
-yellowFlagCenterOrig = (150, 220, 39, 39)
-greenFlagCenterOrig = (240, 160, 39, 39)
-blueFlagCenterOrig = (470, 100, 39, 39)
+## Left
+redFlagLeftOrig = (120, 330, 39, 39)
+orangeFlagLeftOrig = (450, 280, 39, 39)
+whiteFlagLeftOrig = (340, 190, 39, 39)
+yellowFlagLeftOrig = (150, 220, 39, 39)
+greenFlagLeftOrig = (240, 160, 39, 39)
+blueFlagLeftOrig = (470, 100, 39, 39)
 
-redFlagCenter = pygame.Rect(redFlagCenterOrig)
-orangeFlagCenter = pygame.Rect(orangeFlagCenterOrig)
-whiteFlagCenter = pygame.Rect(whiteFlagCenterOrig)
-yellowFlagCenter = pygame.Rect(yellowFlagCenterOrig)
-greenFlagCenter = pygame.Rect(greenFlagCenterOrig)
-blueFlagCenter = pygame.Rect(blueFlagCenterOrig)
+redFlagLeft = pygame.Rect(redFlagLeftOrig)
+orangeFlagLeft = pygame.Rect(orangeFlagLeftOrig)
+whiteFlagLeft = pygame.Rect(whiteFlagLeftOrig)
+yellowFlagLeft = pygame.Rect(yellowFlagLeftOrig)
+greenFlagLeft = pygame.Rect(greenFlagLeftOrig)
+blueFlagLeft = pygame.Rect(blueFlagLeftOrig)
 ##MIDDLE
 redFlagMiddleOrig = (110, 320, 59, 59)
 orangeFlagMiddleOrig = (430, 270, 59, 59)
@@ -75,187 +78,187 @@ whiteFlagMiddle = pygame.Rect(whiteFlagMiddleOrig)
 yellowFlagMiddle = pygame.Rect(yellowFlagMiddleOrig)
 greenFlagMiddle = pygame.Rect(greenFlagMiddleOrig)
 blueFlagMiddle = pygame.Rect(blueFlagMiddleOrig)
-##Outer
-redFlagOuterOrig = (100, 310, 79, 79)
-orangeFlagOuterOrig = (430, 260, 79, 79)
-whiteFlagOuterOrig = (320, 170, 79, 79)
-yellowFlagOuterOrig = (130, 200, 79, 79)
-greenFlagOuterOrig = (220, 140, 79, 79)
-blueFlagOuterOrig = (450, 80, 79, 79)
+##Right
+redFlagRightOrig = (100, 310, 79, 79)
+orangeFlagRightOrig = (430, 260, 79, 79)
+whiteFlagRightOrig = (320, 170, 79, 79)
+yellowFlagRightOrig = (130, 200, 79, 79)
+greenFlagRightOrig = (220, 140, 79, 79)
+blueFlagRightOrig = (450, 80, 79, 79)
 
-redFlagOuter = pygame.Rect(redFlagOuterOrig)
-orangeFlagOuter = pygame.Rect(orangeFlagOuterOrig)
-whiteFlagOuter = pygame.Rect(whiteFlagOuterOrig)
-yellowFlagOuter = pygame.Rect(yellowFlagOuterOrig)
-greenFlagOuter = pygame.Rect(greenFlagOuterOrig)
-blueFlagOuter = pygame.Rect(blueFlagOuterOrig)
+redFlagRight = pygame.Rect(redFlagRightOrig)
+orangeFlagRight = pygame.Rect(orangeFlagRightOrig)
+whiteFlagRight = pygame.Rect(whiteFlagRightOrig)
+yellowFlagRight = pygame.Rect(yellowFlagRightOrig)
+greenFlagRight = pygame.Rect(greenFlagRightOrig)
+blueFlagRight = pygame.Rect(blueFlagRightOrig)
 
 def sparkleRed():
     print("Sparkling")
-    setRedFlag(red, grey, grey, redFlagCenterOrig)
+    setRedFlag(red, grey, grey, redFlagLeftOrig)
     time.sleep(0.2)
-    setRedFlag(grey, red, grey, redFlagCenterOrig)
+    setRedFlag(grey, red, grey, redFlagLeftOrig)
     time.sleep(0.2)
-    setRedFlag(red, grey, grey, redFlagCenterOrig)
+    setRedFlag(red, grey, grey, redFlagLeftOrig)
     time.sleep(0.2)
-    setRedFlag(grey, grey, red, redFlagCenterOrig)
+    setRedFlag(grey, grey, red, redFlagLeftOrig)
     time.sleep(0.2)
-    setRedFlag(red, grey, grey, redFlagCenterOrig)
+    setRedFlag(red, grey, grey, redFlagLeftOrig)
     time.sleep(0.2)
-    setRedFlag(grey, grey, red, redFlagCenterOrig)
+    setRedFlag(grey, grey, red, redFlagLeftOrig)
     time.sleep(0.2)
-    setRedFlag(grey, red, grey, redFlagCenterOrig)
+    setRedFlag(grey, red, grey, redFlagLeftOrig)
     time.sleep(0.2)
 
 def pulseRed():
     while (hit == False):
-        setRedFlag(red, grey, grey, redFlagCenterOrig)
+        setRedFlag(red, grey, grey, redFlagLeftOrig)
         time.sleep(0.2)
-        setRedFlag(grey, red, grey, redFlagCenterOrig)
+        setRedFlag(grey, red, grey, redFlagLeftOrig)
         time.sleep(0.1)
-        setRedFlag(grey, grey, red, redFlagCenterOrig)
+        setRedFlag(grey, grey, red, redFlagLeftOrig)
         time.sleep(0.09)
-        setRedFlag(grey, grey, grey, redFlagCenterOrig)
+        setRedFlag(grey, grey, grey, redFlagLeftOrig)
         time.sleep(1)
     
 def pulseOrange():
     while (hit == False):
-        setOrangeFlag(orange, grey, grey, orangeFlagCenterOrig)
+        setOrangeFlag(orange, grey, grey, orangeFlagLeftOrig)
         time.sleep(0.2)
-        setOrangeFlag(grey, orange, grey, orangeFlagCenterOrig)
+        setOrangeFlag(grey, orange, grey, orangeFlagLeftOrig)
         time.sleep(0.1)
-        setOrangeFlag(grey, grey, orange, orangeFlagCenterOrig)
+        setOrangeFlag(grey, grey, orange, orangeFlagLeftOrig)
         time.sleep(0.09)
-        setOrangeFlag(grey, grey, grey, orangeFlagCenterOrig)
+        setOrangeFlag(grey, grey, grey, orangeFlagLeftOrig)
         time.sleep(1)
 
 def pulseWhite():
     while (hit == False):
-        setWhiteFlag(white, grey, grey, whiteFlagCenterOrig)
+        setWhiteFlag(white, grey, grey, whiteFlagLeftOrig)
         time.sleep(0.2)
-        setWhiteFlag(grey, white, grey, whiteFlagCenterOrig)
+        setWhiteFlag(grey, white, grey, whiteFlagLeftOrig)
         time.sleep(0.1)
-        setWhiteFlag(grey, grey, white, whiteFlagCenterOrig)
+        setWhiteFlag(grey, grey, white, whiteFlagLeftOrig)
         time.sleep(0.09)
-        setWhiteFlag(grey, grey, grey, whiteFlagCenterOrig)
+        setWhiteFlag(grey, grey, grey, whiteFlagLeftOrig)
         time.sleep(1)
 
 def pulseYellow():
     while (hit == False):
-        setYellowFlag(yellow, grey, grey, yellowFlagCenterOrig)
+        setYellowFlag(yellow, grey, grey, yellowFlagLeftOrig)
         time.sleep(0.2)
-        setYellowFlag(grey, yellow, grey, yellowFlagCenterOrig)
+        setYellowFlag(grey, yellow, grey, yellowFlagLeftOrig)
         time.sleep(0.1)
-        setYellowFlag(grey, grey, yellow, yellowFlagCenterOrig)
+        setYellowFlag(grey, grey, yellow, yellowFlagLeftOrig)
         time.sleep(0.09)
-        setYellowFlag(grey, grey, grey, yellowFlagCenterOrig)
+        setYellowFlag(grey, grey, grey, yellowFlagLeftOrig)
         time.sleep(1)
 
 def pulseGreen():
     while (hit == False):
-        setGreenFlag(green, grey, grey, greenFlagCenterOrig)
+        setGreenFlag(green, grey, grey, greenFlagLeftOrig)
         time.sleep(0.2)
-        setGreenFlag(grey, green, grey, greenFlagCenterOrig)
+        setGreenFlag(grey, green, grey, greenFlagLeftOrig)
         time.sleep(0.1)
-        setGreenFlag(grey, grey, green, greenFlagCenterOrig)
+        setGreenFlag(grey, grey, green, greenFlagLeftOrig)
         time.sleep(0.09)
-        setGreenFlag(grey, grey, grey, greenFlagCenterOrig)
+        setGreenFlag(grey, grey, grey, greenFlagLeftOrig)
         time.sleep(1)
 
 def pulseBlue():
     while (hit == False):
-        setBlueFlag(blue, grey, grey, blueFlagCenterOrig)
+        setBlueFlag(blue, grey, grey, blueFlagLeftOrig)
         time.sleep(0.2)
-        setBlueFlag(grey, blue, grey, blueFlagCenterOrig)
+        setBlueFlag(grey, blue, grey, blueFlagLeftOrig)
         time.sleep(0.1)
-        setBlueFlag(grey, grey, blue, blueFlagCenterOrig)
+        setBlueFlag(grey, grey, blue, blueFlagLeftOrig)
         time.sleep(0.09)
-        setBlueFlag(grey, grey, grey, blueFlagCenterOrig)
+        setBlueFlag(grey, grey, grey, blueFlagLeftOrig)
         time.sleep(1)
 
-def setRedFlag(colorInner, colorMiddle, colorOuter, space):
+def setRedFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    inner = space
+    Left = space
     middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    outer = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
+    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
 
-    global redFlagColorCenter, redFlagCenter, redFlagColorMiddle, redFlagMiddle, redFlagColorOuter, redFlagOuter
-    redFlagColorCenter = colorInner
-    redFlagCenter = pygame.Rect(inner)
+    global redFlagColorLeft, redFlagLeft, redFlagColorMiddle, redFlagMiddle, redFlagColorRight, redFlagRight
+    redFlagColorLeft = colorLeft
+    redFlagLeft = pygame.Rect(Left)
     redFlagColorMiddle = colorMiddle
     redFlagMiddle = pygame.Rect(middle)
-    redFlagColorOuter = colorOuter
-    redFlagOuter = pygame.Rect(outer)
+    redFlagColorRight = colorRight
+    redFlagRight = pygame.Rect(Right)
 
-def setOrangeFlag(colorInner, colorMiddle, colorOuter, space):
+def setOrangeFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    inner = space
+    Left = space
     middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    outer = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
+    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
 
-    global orangeFlagColorCenter, orangeFlagCenter, orangeFlagColorMiddle, orangeFlagMiddle, orangeFlagColorOuter, orangeFlagOuter
-    orangeFlagColorCenter = colorInner
-    orangeFlagCenter = pygame.Rect(inner)
+    global orangeFlagColorLeft, orangeFlagLeft, orangeFlagColorMiddle, orangeFlagMiddle, orangeFlagColorRight, orangeFlagRight
+    orangeFlagColorLeft = colorLeft
+    orangeFlagLeft = pygame.Rect(Left)
     orangeFlagColorMiddle = colorMiddle
     orangeFlagMiddle = pygame.Rect(middle)
-    orangeFlagColorOuter = colorOuter
-    orangeFlagOuter = pygame.Rect(outer)
+    orangeFlagColorRight = colorRight
+    orangeFlagRight = pygame.Rect(Right)
 
-def setWhiteFlag(colorInner, colorMiddle, colorOuter, space):
+def setWhiteFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    inner = space
+    Left = space
     middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    outer = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
+    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
 
-    global whiteFlagColorCenter, whiteFlagCenter, whiteFlagColorMiddle, whiteFlagMiddle, whiteFlagColorOuter, whiteFlagOuter
-    whiteFlagColorCenter = colorInner
-    whiteFlagCenter = pygame.Rect(inner)
+    global whiteFlagColorLeft, whiteFlagLeft, whiteFlagColorMiddle, whiteFlagMiddle, whiteFlagColorRight, whiteFlagRight
+    whiteFlagColorLeft = colorLeft
+    whiteFlagLeft = pygame.Rect(Left)
     whiteFlagColorMiddle = colorMiddle
     whiteFlagMiddle = pygame.Rect(middle)
-    whiteFlagColorOuter = colorOuter
-    whiteFlagOuter = pygame.Rect(outer)
+    whiteFlagColorRight = colorRight
+    whiteFlagRight = pygame.Rect(Right)
 
-def setYellowFlag(colorInner, colorMiddle, colorOuter, space):
+def setYellowFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    inner = space
+    Left = space
     middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    outer = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
+    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
 
-    global yellowFlagColorCenter, yellowFlagCenter, yellowFlagColorMiddle, yellowFlagMiddle, yellowFlagColorOuter, yellowFlagOuter
-    yellowFlagColorCenter = colorInner
-    yellowFlagCenter = pygame.Rect(inner)
+    global yellowFlagColorLeft, yellowFlagLeft, yellowFlagColorMiddle, yellowFlagMiddle, yellowFlagColorRight, yellowFlagRight
+    yellowFlagColorLeft = colorLeft
+    yellowFlagLeft = pygame.Rect(Left)
     yellowFlagColorMiddle = colorMiddle
     yellowFlagMiddle = pygame.Rect(middle)
-    yellowFlagColorOuter = colorOuter
-    yellowFlagOuter = pygame.Rect(outer)
+    yellowFlagColorRight = colorRight
+    yellowFlagRight = pygame.Rect(Right)
 
-def setGreenFlag(colorInner, colorMiddle, colorOuter, space):
+def setGreenFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    inner = space
+    Left = space
     middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    outer = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
+    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
 
-    global greenFlagColorCenter, greenFlagCenter, greenFlagColorMiddle, greenFlagMiddle, greenFlagColorOuter, greenFlagOuter
-    greenFlagColorCenter = colorInner
-    greenFlagCenter = pygame.Rect(inner)
+    global greenFlagColorLeft, greenFlagLeft, greenFlagColorMiddle, greenFlagMiddle, greenFlagColorRight, greenFlagRight
+    greenFlagColorLeft = colorLeft
+    greenFlagLeft = pygame.Rect(Left)
     greenFlagColorMiddle = colorMiddle
     greenFlagMiddle = pygame.Rect(middle)
-    greenFlagColorOuter = colorOuter
-    greenFlagOuter = pygame.Rect(outer)
+    greenFlagColorRight = colorRight
+    greenFlagRight = pygame.Rect(Right)
 
-def setBlueFlag(colorInner, colorMiddle, colorOuter, space):
+def setBlueFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    inner = space
+    Left = space
     middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    outer = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
+    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
 
-    global blueFlagColorCenter, blueFlagCenter, blueFlagColorMiddle, blueFlagMiddle, blueFlagColorOuter, blueFlagOuter
-    blueFlagColorCenter = colorInner
-    blueFlagCenter = pygame.Rect(inner)
+    global blueFlagColorLeft, blueFlagLeft, blueFlagColorMiddle, blueFlagMiddle, blueFlagColorRight, blueFlagRight
+    blueFlagColorLeft = colorLeft
+    blueFlagLeft = pygame.Rect(Left)
     blueFlagColorMiddle = colorMiddle
     blueFlagMiddle = pygame.Rect(middle)
-    blueFlagColorOuter = colorOuter
-    blueFlagOuter = pygame.Rect(outer)
+    blueFlagColorRight = colorRight
+    blueFlagRight = pygame.Rect(Right)
 
 def setRedFlagSame(color, space):
     setRedFlag(color, color, color, space)
@@ -276,53 +279,53 @@ def setBlueFlagSame(color, space):
     setBlueFlag(color, color, color, space)
 
 def resetAllFlags():
-    setRedFlag(red, red, red,redFlagCenterOrig)
-    setOrangeFlag(orange, orange, orange, orangeFlagCenterOrig)
-    setWhiteFlag(white, white, white, whiteFlagCenterOrig)
-    setYellowFlag(yellow, yellow, yellow, yellowFlagCenterOrig)
-    setGreenFlag(green, green, green, greenFlagCenterOrig)
-    setBlueFlag(blue, blue, blue, blueFlagCenterOrig)
+    setRedFlag(red, red, red,redFlagLeftOrig)
+    setOrangeFlag(orange, orange, orange, orangeFlagLeftOrig)
+    setWhiteFlag(white, white, white, whiteFlagLeftOrig)
+    setYellowFlag(yellow, yellow, yellow, yellowFlagLeftOrig)
+    setGreenFlag(green, green, green, greenFlagLeftOrig)
+    setBlueFlag(blue, blue, blue, blueFlagLeftOrig)
 
 def toTuple(before):
-    print(before)
+    print("Before: " + str(before))
     firstNum = float(before[before.find("(")+1:before.find(",")])
-    secNum = float(before[before.find(",")+2:before.find(",", 5)])
-    thirdNum = float(before[before.find(",", 5)+2:before.find(")")])
+    secNum = float(before[before.find(",")+2:before.find(",", 7)])
+    thirdNum = float(before[before.find(",", 7)+2:before.find(")")])
     returning = (firstNum, secNum, thirdNum)
-    print(returning)
+    print("Returning:" + str(returning))
     return returning
 
 def showTargets(rand, count, i):
-    redInfo = pd.read_excel("songs/song" + str(rand[count]+1) + "Red.xlsx")
+    allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
     screen.fill([0,0,0])
-    print(len(redInfo))
+    print(len(allInfo))
     #print(str(i)+ " "+ str(toColor(df.loc[(i),'Red 1'])))
-    print(toTuple(redInfo.loc[(i),'red Inner']))
-    setRedFlagSame(toTuple(redInfo.loc[(i),'red Inner']), redFlagCenterOrig)
-    # setOrangeFlagSame(toColor(df.loc[(i),'Orange 2']), orangeFlagCenterOrig)
-    # setWhiteFlagSame(toColor(df.loc[(i),'White 3']), whiteFlagCenterOrig)
-    # setYellowFlagSame(toColor(df.loc[(i),'Yellow 4']), yellowFlagCenterOrig)
-    # setGreenFlagSame(toColor(df.loc[(i),'Green 5']), greenFlagCenterOrig)
-    # setBlueFlagSame(toColor(df.loc[(i),'Blue 6']), blueFlagCenterOrig)
+    print(toTuple(allInfo.loc[(i),'red Left']))
+    setRedFlagSame(toTuple(allInfo.loc[(i),'red Left']), redFlagLeftOrig)
+    setOrangeFlagSame(toTuple(allInfo.loc[(i),'orange Left']), orangeFlagLeftOrig)
+    setWhiteFlagSame(toTuple(allInfo.loc[(i),'white Left']), whiteFlagLeftOrig)
+    setYellowFlagSame(toTuple(allInfo.loc[(i),'yellow Left']), yellowFlagLeftOrig)
+    setGreenFlagSame(toTuple(allInfo.loc[(i),'green Left']), greenFlagLeftOrig)
+    setBlueFlagSame(toTuple(allInfo.loc[(i),'blue Left']), blueFlagLeftOrig)
 
-    pygame.draw.rect(screen, redFlagColorCenter, redFlagCenter)  # draw button
-    # pygame.draw.rect(screen, orangeFlagColorCenter, orangeFlagCenter)  # draw button
-    # pygame.draw.rect(screen, whiteFlagColorCenter, whiteFlagCenter)  # draw button
-    # pygame.draw.rect(screen, yellowFlagColorCenter, yellowFlagCenter)  # draw button
-    # pygame.draw.rect(screen, greenFlagColorCenter, greenFlagCenter)  # draw button
-    # pygame.draw.rect(screen, blueFlagColorCenter, blueFlagCenter)  # draw button
+    pygame.draw.rect(screen, redFlagColorLeft, redFlagLeft)  # draw button
+    pygame.draw.rect(screen, orangeFlagColorLeft, orangeFlagLeft)  # draw button
+    pygame.draw.rect(screen, whiteFlagColorLeft, whiteFlagLeft)  # draw button
+    pygame.draw.rect(screen, yellowFlagColorLeft, yellowFlagLeft)  # draw button
+    pygame.draw.rect(screen, greenFlagColorLeft, greenFlagLeft)  # draw button
+    pygame.draw.rect(screen, blueFlagColorLeft, blueFlagLeft)  # draw button
     pygame.draw.rect(screen, redFlagColorMiddle, redFlagMiddle)  # draw button
-    # pygame.draw.rect(screen, orangeFlagColorMiddle, orangeFlagMiddle)  # draw button
-    # pygame.draw.rect(screen, whiteFlagColorMiddle, whiteFlagMiddle)  # draw button
-    # pygame.draw.rect(screen, yellowFlagColorMiddle, yellowFlagMiddle)  # draw button
-    # pygame.draw.rect(screen, greenFlagColorMiddle, greenFlagMiddle)  # draw button
-    # pygame.draw.rect(screen, blueFlagColorMiddle, blueFlagMiddle)  # draw button
-    pygame.draw.rect(screen, redFlagColorOuter, redFlagOuter)  # draw button
-    # pygame.draw.rect(screen, orangeFlagColorOuter, orangeFlagOuter)  # draw button
-    # pygame.draw.rect(screen, whiteFlagColorOuter, whiteFlagOuter)  # draw button
-    # pygame.draw.rect(screen, yellowFlagColorOuter, yellowFlagOuter)  # draw button
-    # pygame.draw.rect(screen, greenFlagColorOuter, greenFlagOuter)  # draw button
-    # pygame.draw.rect(screen, blueFlagColorOuter, blueFlagOuter)  # draw button
+    pygame.draw.rect(screen, orangeFlagColorMiddle, orangeFlagMiddle)  # draw button
+    pygame.draw.rect(screen, whiteFlagColorMiddle, whiteFlagMiddle)  # draw button
+    pygame.draw.rect(screen, yellowFlagColorMiddle, yellowFlagMiddle)  # draw button
+    pygame.draw.rect(screen, greenFlagColorMiddle, greenFlagMiddle)  # draw button
+    pygame.draw.rect(screen, blueFlagColorMiddle, blueFlagMiddle)  # draw button
+    pygame.draw.rect(screen, redFlagColorRight, redFlagRight)  # draw button
+    pygame.draw.rect(screen, orangeFlagColorRight, orangeFlagRight)  # draw button
+    pygame.draw.rect(screen, whiteFlagColorRight, whiteFlagRight)  # draw button
+    pygame.draw.rect(screen, yellowFlagColorRight, yellowFlagRight)  # draw button
+    pygame.draw.rect(screen, greenFlagColorRight, greenFlagRight)  # draw button
+    pygame.draw.rect(screen, blueFlagColorRight, blueFlagRight)  # draw button
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.mixer.music.stop()

@@ -8,24 +8,23 @@ import signal
 import threading
 import pygame_widgets
 from broadcastDisplay import showTargets, stopbutton, showStop
-
-numInPlaylist = 1
+import sys
+sys.path.append('/Users/s1034274/Desktop/globals/')
+from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 
 def play(playlist):
-    count = numInPlaylist-1
-    rand = random.sample(range(numInPlaylist), numInPlaylist)
+    count = numSongs-1
+    rand = random.sample(range(numSongs), numSongs)
     print(rand)
-    while count < numInPlaylist:
+    while count < numSongs:
         print("Programmed song playing. Programmed song count: " + str(count+1) + ". Song index: " + str(rand[count]+1) + "")
         i = 5
-        redInfo = pd.read_excel("songs/song" + str(rand[count]+1) + "Red.xlsx")
-        pygame.mixer.music.load("songs/song" + str(rand[count]+1) + ".mp3")
-        #df = pd.read_excel("/home/pi/Desktop/coreLightShow/songs/song" + str(rand[count]+1) + ".xlsx")
-        #pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/songs/song" + str(rand[count]+1) + ".mp3")
+        allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
+        pygame.mixer.music.load(path + "/songs/song" + str(rand[count]+1) + ".mp3")
         pygame.mixer.music.play(0)
-        while (i < len(redInfo)):
+        while (i < len(allInfo)):
             showTargets(rand, count, i)
-            i+=1
+            i+=7
 
         count+=1
         pygame.mixer.music.stop()

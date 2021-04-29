@@ -7,7 +7,8 @@ import subprocess
 import signal
 import threading
 import playMusic
-from lightSequencer import program
+import sys
+sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht
 
 mix = pygame.Rect(10, 10, 99, 39)
@@ -75,8 +76,6 @@ def main():
         
         clock.tick(60)
 
-loadButton = pygame.Rect(115, 50, 144, 39)
-loadButtonText = font.render('Load', True, black)
 
 songName = font.render('Hit Me', True, white)
 song = 1
@@ -172,7 +171,6 @@ def lightsOptions(mouse_pos):
         stationText = font.render('Micheal J', True, white)
         playStation = michealJ
 
-    pygame.draw.rect(screen, white, loadButton)  # draw button
     pygame.draw.rect(screen, white, pastSong)  # draw button
     pygame.draw.rect(screen, white, nextSong)  # draw button
     pygame.draw.rect(screen, white, playButton)  # draw button
@@ -180,7 +178,6 @@ def lightsOptions(mouse_pos):
     pygame.draw.rect(screen, white, pastStation)  # draw button
     pygame.draw.rect(screen, white, nextStation)  # draw button
     pygame.draw.rect(screen, white, periodButton)  # draw button
-    screen.blit(loadButtonText, loadButton)
     screen.blit(songName, (115, 90))
     screen.blit(pastSongText, pastSong)
     screen.blit(nextSongText, nextSong)
@@ -234,8 +231,6 @@ def checkEventMain(mouse_pos):
         else:
             state = 0
 
-    if loadButton.collidepoint(mouse_pos):
-        program(song)
 
     if nextSong.collidepoint(mouse_pos):
         if (song < numSongs):
