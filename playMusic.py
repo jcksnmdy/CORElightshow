@@ -7,13 +7,43 @@ import subprocess
 import signal
 import threading
 import pygame_widgets
+import paho.mqtt.client as mqtt
 from broadcastDisplay import showTargets, stopbutton, showStop
 import sys
-sys.path.append('/Users/s1034274/Desktop/globals/')
+sys.path.append('/home/pi/Desktop/globals/')
+#sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 
+MQTT_SERVER = "192.168.1.119"
+MQTT_PATH = "test_channel"
+globalSoundEffect = "pew"
+
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+ 
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe(MQTT_PATH)
+ 
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    print(msg.topic+" "+str(msg.payload))
+    if("hit" in str(msg.payload)):
+        print("hittt")
+        pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/" + globalSoundEffect + ".mp3")
+        pygame.mixer.music.play(0)
+
+ 
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+ 
+client.connect(MQTT_SERVER, 1883, 60)
+
 def playSong(rand, count):
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str(rand[count]+1))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'song' + str(rand[count]+1))
     print("Programmed song playing. Programmed song count: " + str(count+1) + ". Song index: " + str(rand[count]+1) + "")
     i = 5
     allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
@@ -21,14 +51,21 @@ def playSong(rand, count):
     pygame.mixer.music.play(0)
     while (i < len(allInfo)):
         showTargets(rand, count, i)
-        i+=7
+        i+=8
+        #time.sleep(0.0001)
     pygame.mixer.music.stop()
 
-def playPandora(playlist, delay):
+def playPandora(playlist, delay, soundEffect):
+    global globalSoundEffect
+    globalSoundEffect = soundEffect
+    print(globalSoundEffect)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "wait")
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
     print(proc.pid)
     timer = 0
+    client.loop_start()
     while timer < delay*60:
         time.sleep(1)
         timer+=1
@@ -39,16 +76,23 @@ def playPandora(playlist, delay):
                 if stopbutton.collidepoint(mouse_pos):
                     stop(proc.pid)
                     print("Done")
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+                    client.loop_start()
                     break
 
-def play(playlist, delay):
-    count = numSongs-1
+def play(playlist, delay, soundEffect):
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    #client.loop_forever()
+    count = 0
     rand = random.sample(range(numSongs), numSongs)
     print(rand)
     while count < numSongs:
         playSong(rand, count)
         count+=1
         pygame.mixer.music.stop()
+        #os.system("mosquitto_pub -h localhost -t test_channel -m " + str(4))
+        #pandoraA = threading.Thread(group=None, target=playPandora, args=("playlist, delay,"), name=None)
+        #pandoraA.start()
         playPandora(playlist, delay)
     print("Yep Done")
 
@@ -56,4 +100,11 @@ def stop(id):
     pygame.mixer.music.stop()
     pygame.mixer.music.stop()
     os.killpg(id, signal.SIGTERM)
+    #pandoraA.join()
     pygame.quit()
+
+# Blocking call that processes network traffic, dispatches callbacks and
+# handles reconnecting.
+# Other loop*() functions are available that give a threaded interface and a
+# manual interface.
+#client.loop_forever()

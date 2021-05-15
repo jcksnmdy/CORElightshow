@@ -8,7 +8,7 @@ import signal
 import threading
 import pygame_widgets
 import sys
-sys.path.append('/Users/s1034274/Desktop/globals/')
+sys.path.append('/home/pi/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 
 pygame.init()
@@ -379,9 +379,9 @@ def refresh():
 def showTargets(rand, count, i):
     allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
     screen.fill([0,0,0])
-    print(len(allInfo))
+    #print(len(allInfo))
     #print(str(i)+ " "+ str(toColor(df.loc[(i),'Red 1'])))
-    print(toTuple(allInfo.loc[(i),'red Left']))
+    #print(toTuple(allInfo.loc[(i),'red Left']))
     setRedFlagSame(toTuple(allInfo.loc[(i),'red Left']), redFlagLeftOrig)
     setOrangeFlagSame(toTuple(allInfo.loc[(i),'orange Left']), orangeFlagLeftOrig)
     setWhiteFlagSame(toTuple(allInfo.loc[(i),'white Left']), whiteFlagLeftOrig)
