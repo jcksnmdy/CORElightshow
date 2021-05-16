@@ -36,15 +36,80 @@ def on_connect(client, userdata, flags, rc):
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     client.subscribe(MQTT_PATH)
- 
+reds = 3
+blues = 3
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
+    global reds, blues
     print(msg.topic+" "+str(msg.payload))
     if("hit" in str(msg.payload)):
         print("hittt")
         setHit(True)
         pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/" + globalSound + ".mp3")
         pygame.mixer.music.play(0)
+    if ("redStatus:rK" in str(msg.payload)):
+        red+=1
+        blue-=1
+    if ("orangeStatus:rK" in str(msg.payload)):
+        red+=1
+        blue-=1
+    if ("yellowStatus:rK" in str(msg.payload)):
+        red+=1
+        blue-=1
+    if ("greenStatus:rK" in str(msg.payload)):
+        red+=1
+        blue-=1
+    if ("blueStatus:rK" in str(msg.payload)):
+        red+=1
+        blue-=1
+    if ("whiteStatus:rK" in str(msg.payload)):
+        red+=1
+        blue-=1
+    if ("redStatus:bK" in str(msg.payload)):
+        red-=1
+        blue+=1
+    if ("orangeStatus:bK" in str(msg.payload)):
+        red-=1
+        blue+=1
+    if ("yellowStatus:bK" in str(msg.payload)):
+        red-=1
+        blue+=1
+    if ("greenStatus:bK" in str(msg.payload)):
+        red-=1
+        blue+=1
+    if ("blueStatus:bK" in str(msg.payload)):
+        red-=1
+        blue+=1
+    if ("whiteStatus:bK" in str(msg.payload)):
+        red-=1
+        blue+=1
+    if ("captured:red" in str(msg.payload)):
+        pygame.mixer.music.load("effects/redCaptured.mp3")
+        pygame.mixer.music.play(0)
+    if ("captured:blue" in str(msg.payload)):
+        pygame.mixer.music.load("effects/blueCaptured.mp3")
+        pygame.mixer.music.play(0)
+    if ("captured:green" in str(msg.payload)):
+        pygame.mixer.music.load("effects/greenCaptured.mp3")
+        pygame.mixer.music.play(0)
+    if ("captured:white" in str(msg.payload)):
+        pygame.mixer.music.load("effects/whiteCaptured.mp3")
+        pygame.mixer.music.play(0)
+    if ("captured:yellow" in str(msg.payload)):
+        pygame.mixer.music.load("effects/yellowCaptured.mp3")
+        pygame.mixer.music.play(0)
+    if ("captured:orange" in str(msg.payload)):
+        pygame.mixer.music.load("effects/orangeCaptured.mp3")
+        pygame.mixer.music.play(0)
+    
+    print("Reds: " + str(reds) + ", Blues: " + str(blues))
+    if (reds-1>blues):
+        pygame.mixer.music.load("effects/redWinning.mp3")
+        pygame.mixer.music.play(0)
+    elif (reds<blues-1):
+        pygame.mixer.music.load("effects/blueWinning.mp3")
+        pygame.mixer.music.play(0)
+    
 
  
 client = mqtt.Client()
@@ -86,38 +151,43 @@ def startTargetGame(playlist, soundEffect, targetFlag):
     count = 0
     print(rand)
     client.loop_start()
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGame")
     while (count < 6):
         print("Target: " + str(targetFlag))
         setHit(False)
         if (targetFlag == 1):
             pygame.mixer.music.load("effects/targetRed.mp3")
             pygame.mixer.music.play(0)
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameR")
             pulse = threading.Thread(group=None, target=pulseRed, name=None)
             pulse.start()
         elif (targetFlag == 2):
             pygame.mixer.music.load("effects/targetOrange.mp3")
             pygame.mixer.music.play(0)
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameO")
             pulse = threading.Thread(group=None, target=pulseOrange, name=None)
             pulse.start()
         elif (targetFlag == 3):
             pygame.mixer.music.load("effects/targetWhite.mp3")
             pygame.mixer.music.play(0)
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameW")
             pulse = threading.Thread(group=None, target=pulseWhite, name=None)
             pulse.start()
         elif (targetFlag == 4):
             pygame.mixer.music.load("effects/targetYellow.mp3")
             pygame.mixer.music.play(0)
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameY")
             pulse = threading.Thread(group=None, target=pulseYellow, name=None)
             pulse.start()
         elif (targetFlag == 5):
             pygame.mixer.music.load("effects/targetGreen.mp3")
             pygame.mixer.music.play(0)
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameG")
             pulse = threading.Thread(group=None, target=pulseGreen, name=None)
             pulse.start()
         elif (targetFlag == 6):
             pygame.mixer.music.load("effects/targetBlue.mp3")
             pygame.mixer.music.play(0)
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameB")
             pulse = threading.Thread(group=None, target=pulseBlue, name=None)
             pulse.start()
         time.sleep(1)
@@ -204,7 +274,9 @@ def startTargetGame(playlist, soundEffect, targetFlag):
 
 def startKnockOutGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    global globalSound
+    global globalSound, reds, blues
+    reds = 3
+    blues = 3
     globalSound = soundEffect
     print(globalSound)
     # 1 = Red
@@ -213,7 +285,7 @@ def startKnockOutGame(playlist, soundEffect):
     # 4 = Yellow
     # 5 = Green
     # 6 = blue
-    pygame.mixer.music.load("effects/targetGameStarted.mp3")
+    pygame.mixer.music.load("effects/knockoutGameStarted.mp3")
     pygame.mixer.music.play(0)
     time.sleep(5)
     pygame.init()
@@ -232,6 +304,7 @@ def startKnockOutGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "knockout")
     while (count < 9000):
         count+=1
+        #os.system("mosquitto_pub -h localhost -t test_channel -m " + "status")
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.mixer.music.stop()
@@ -298,7 +371,7 @@ def startCaptureGame(playlist, soundEffect):
     # 4 = Yellow
     # 5 = Green
     # 6 = blue
-    pygame.mixer.music.load("effects/targetGameStarted.mp3")
+    pygame.mixer.music.load("effects/captureGameStarted.mp3")
     pygame.mixer.music.play(0)
     time.sleep(5)
     pygame.init()
