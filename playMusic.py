@@ -8,7 +8,7 @@ import signal
 import threading
 import pygame_widgets
 import paho.mqtt.client as mqtt
-from broadcastDisplay import showTargets, stopbutton, showStop
+from broadcastDisplay import showTargets, stopbutton, showStop, pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
 import sys
 sys.path.append('/home/pi/Desktop/globals/')
 #sys.path.append('/Users/s1034274/Desktop/globals/')
@@ -60,19 +60,50 @@ def playPandora(playlist, delay, soundEffect):
     globalSoundEffect = soundEffect
     print(globalSoundEffect)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("red") + str(1))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("orange") + str(2))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("yellow") + str(3))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("blue") + str(4))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("green") + str(5))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("white") + str(6))
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "wait")
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
     print(proc.pid)
     timer = 0
+    
     client.loop_start()
     while timer < delay*60:
         time.sleep(1)
         timer+=1
         showStop()
+        refresh()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
+                if redFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
+                    time.sleep(1)
+
+                if whiteFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
+                    time.sleep(1)
+
+                if orangeFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
+                    time.sleep(1)
+
+                if yellowFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
+                    time.sleep(1)
+
+                if greenFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
+                    time.sleep(1)
+
+                if blueFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
+                    time.sleep(1)
                 if stopbutton.collidepoint(mouse_pos):
                     stop(proc.pid)
                     print("Done")
@@ -93,7 +124,7 @@ def play(playlist, delay, soundEffect):
         #os.system("mosquitto_pub -h localhost -t test_channel -m " + str(4))
         #pandoraA = threading.Thread(group=None, target=playPandora, args=("playlist, delay,"), name=None)
         #pandoraA.start()
-        playPandora(playlist, delay)
+        playPandora(playlist, delay, globalSoundEffect)
     print("Yep Done")
 
 def stop(id):
