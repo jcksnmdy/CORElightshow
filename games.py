@@ -164,6 +164,12 @@ def startTargetGame(playlist, soundEffect, targetFlag):
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
     count = 0
     print(rand)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("red") + str(1))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("orange") + str(2))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("yellow") + str(3))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("blue") + str(4))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("green") + str(5))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("white") + str(6))
     client.loop_start()
     while (count < 6):
         print("Target: " + str(targetFlag))
