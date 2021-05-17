@@ -42,12 +42,12 @@ blues = 3
 def on_message(client, userdata, msg):
     global reds, blues, red, blue, black, grey
     print(msg.topic+" "+str(msg.payload))
-    if("hit" in str(msg.payload)):
+    if("hit" in str(msg.payload) and "red" not in str(msg.payload) and "yellow" not in str(msg.payload) and "orange" not in str(msg.payload) and "green" not in str(msg.payload) and "blue" not in str(msg.payload) and "white" not in str(msg.payload)):
         print("hittt")
         setHit(True)
         pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/" + globalSound + ".mp3")
         pygame.mixer.music.play(0)
-        time.sleep(1)
+        time.sleep(0.5)
     if ("redStatus:rK" in str(msg.payload)):
         reds+=1
         blues-=1
@@ -120,7 +120,7 @@ def on_message(client, userdata, msg):
         pygame.mixer.music.load("effects/orangeCaptured.mp3")
         setOrangeFlagSame(grey, orangeFlagLeftOrig)
         pygame.mixer.music.play(0)
-    time.sleep(1)
+    time.sleep(0.1)
     
     print("Reds: " + str(reds) + ", Blues: " + str(blues))
     
@@ -138,7 +138,7 @@ client.connect(MQTT_SERVER, 1883, 60)
 # manual interface.
 #client.loop_forever()
 
-def startTargetGame(playlist, soundEffect, targetFlag):
+def startTargetGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     global globalSound
     globalSound = soundEffect
@@ -159,10 +159,10 @@ def startTargetGame(playlist, soundEffect, targetFlag):
     screen = pygame.display.set_mode((640, 480))
     clock = pygame.time.Clock()
     rand = random.sample(range(6), 6)
+    count = 0
     pygame.mixer.music.set_volume(1.0)
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
-    count = 0
     print(rand)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + str("red") + str(1))
     os.system("mosquitto_pub -h localhost -t test_channel -m " + str("orange") + str(2))
@@ -172,6 +172,8 @@ def startTargetGame(playlist, soundEffect, targetFlag):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + str("white") + str(6))
     client.loop_start()
     while (count < 6):
+        targetFlag = ((rand[count])+1)
+        print(rand)
         print("Target: " + str(targetFlag))
         setHit(False)
         if (targetFlag == 1):
@@ -277,11 +279,9 @@ def startTargetGame(playlist, soundEffect, targetFlag):
             clock.tick(60)
         pulse.join()
         count+=1
-        if (count<len(rand)):
-            targetFlag = ((rand[count-1])+1)
-        print(rand)
-        setHit(True)
+        setHit(False)
     pygame.mixer.music.load("effects/gameCompleted.mp3")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     pygame.mixer.music.play(0)
     time.sleep(1.5)
     pygame.mixer.music.stop()
@@ -373,6 +373,7 @@ def startKnockOutGame(playlist, soundEffect):
         pygame.display.flip()   
         clock.tick(60)
     pygame.mixer.music.load("effects/gameCompleted.mp3")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     pygame.mixer.music.play(0)
     time.sleep(1.5)
     pygame.mixer.music.stop()
@@ -461,6 +462,7 @@ def startCaptureGame(playlist, soundEffect):
         pygame.display.flip()   
         clock.tick(60)
     pygame.mixer.music.load("effects/gameCompleted.mp3")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     pygame.mixer.music.play(0)
     time.sleep(1.5)
     pygame.mixer.music.stop()

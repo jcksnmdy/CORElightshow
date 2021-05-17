@@ -409,7 +409,7 @@ def checkEventMain(mouse_pos):
         playMusic.play(playStation, period, soundEffect)
     if mix.collidepoint(mouse_pos):
         print("MIX: " + soundEffect)
-        startTargetGame(fridayHits, soundEffect, 1)
+        startTargetGame(fridayHits, soundEffect)
                         
     if lights.collidepoint(mouse_pos):
         if (state!=1):
@@ -419,7 +419,6 @@ def checkEventMain(mouse_pos):
             state = 0
 
     if games.collidepoint(mouse_pos):
-        #targetGameSetup()
         if (state!=3):
             state = 3
             print("game option")
@@ -489,7 +488,7 @@ def checkEventMain(mouse_pos):
         startKnockOutGame(playStation, soundEffect)
     if targetButton.collidepoint(mouse_pos):
         print("Target")
-        startTargetGame(playStation, soundEffect, 1)
+        startTargetGame(playStation, soundEffect)
     if captureButton.collidepoint(mouse_pos):
         print("Capture")
         startCaptureGame(playStation, soundEffect)

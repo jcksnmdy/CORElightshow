@@ -29,7 +29,7 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     print(msg.topic+" "+str(msg.payload))
-    if("hit" in str(msg.payload)):
+    if("hit" in str(msg.payload) and "red" not in str(msg.payload) and "yellow" not in str(msg.payload) and "orange" not in str(msg.payload) and "green" not in str(msg.payload) and "blue" not in str(msg.payload) and "white" not in str(msg.payload)):
         print("hittt")
         pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/" + globalSoundEffect + ".mp3")
         pygame.mixer.music.play(0)
@@ -108,7 +108,7 @@ def playPandora(playlist, delay, soundEffect):
                     stop(proc.pid)
                     print("Done")
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-                    client.loop_start()
+                    client.loop_stop()
                     break
 
 def play(playlist, delay, soundEffect):
