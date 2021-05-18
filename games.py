@@ -65,12 +65,12 @@ def on_message(client, userdata, msg):
         blues-=1
         setGreenFlagSame(red, greenFlagLeftOrig)
     if ("blueStatus:rK" in str(msg.payload)):
-        red+=1
-        blue-=1
+        reds+=1
+        blues-=1
         setBlueFlagSame(red, blueFlagLeftOrig)
     if ("whiteStatus:rK" in str(msg.payload)):
-        red+=1
-        blue-=1
+        reds+=1
+        blues-=1
         setWhiteFlagSame(red, whiteFlagLeftOrig)
     if ("redStatus:bK" in str(msg.payload)):
         reds-=1
