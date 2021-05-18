@@ -140,6 +140,7 @@ client.connect(MQTT_SERVER, 1883, 60)
 
 def startTargetGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    time.sleep(1)
     global globalSound
     globalSound = soundEffect
     print(globalSound)
@@ -176,6 +177,7 @@ def startTargetGame(playlist, soundEffect):
         print(rand)
         print("Target: " + str(targetFlag))
         setHit(False)
+        time.sleep(1)
         if (targetFlag == 1):
             pygame.mixer.music.load("effects/targetRed.mp3")
             pygame.mixer.music.play(0)
@@ -280,6 +282,7 @@ def startTargetGame(playlist, soundEffect):
         pulse.join()
         count+=1
         setHit(False)
+    time.sleep(1)
     pygame.mixer.music.load("effects/gameCompleted.mp3")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     pygame.mixer.music.play(0)
@@ -294,6 +297,7 @@ def startTargetGame(playlist, soundEffect):
 
 def startKnockOutGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    time.sleep(1)
     global globalSound, reds, blues
     reds = 3
     blues = 3
@@ -319,7 +323,7 @@ def startKnockOutGame(playlist, soundEffect):
     pygame.mixer.music.set_volume(1.0)
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
-
+    time.sleep(1)
     client.loop_start()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "knockout")
     while (count < 9000):
@@ -388,6 +392,7 @@ def startCaptureGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     global globalSound
     globalSound = soundEffect
+    time.sleep(1)
     print(globalSound)
     # 1 = Red
     # 2 = Orange
@@ -409,7 +414,7 @@ def startCaptureGame(playlist, soundEffect):
     pygame.mixer.music.set_volume(1.0)
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
-
+    time.sleep(1)
     client.loop_start()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "capture")
     while (count < 9000):

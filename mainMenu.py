@@ -13,6 +13,8 @@ from games import startTargetGame, startKnockOutGame, startCaptureGame
 sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht
 
+pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/welcome.mp3")
+pygame.mixer.music.play(0)
 
 mix = pygame.Rect(10, 10, 99, 39)
 lights = pygame.Rect(115, 10, 99, 39)
