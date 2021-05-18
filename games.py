@@ -79,7 +79,7 @@ def on_message(client, userdata, msg):
     if ("orangeStatus:bK" in str(msg.payload)):
         reds-=1
         blues+=1
-        setOrangeFlagSame(blue, OrangeFlagLeftOrig)
+        setOrangeFlagSame(blue, orangeFlagLeftOrig)
     if ("yellowStatus:bK" in str(msg.payload)):
         reds-=1
         blues+=1

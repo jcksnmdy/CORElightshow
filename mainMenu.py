@@ -13,11 +13,12 @@ from games import startTargetGame, startKnockOutGame, startCaptureGame
 sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht
 
+
 mix = pygame.Rect(10, 10, 99, 39)
 lights = pygame.Rect(115, 10, 99, 39)
 games = pygame.Rect(220, 10, 99, 39)
 control = pygame.Rect(325, 10, 109, 39)
-quick = pygame.Rect(440, 10, 99, 39)
+quick = pygame.Rect(450, 10, 99, 39)
 
 red = (255,0,0)
 orange = (255,128,0)
@@ -34,7 +35,7 @@ grey = (128,128,128)
 black = (0,0,0)
 pygame.init()
 pygame.font.init()
-font = pygame.font.Font('freesansbold.ttf', 28)
+font = pygame.font.Font('freesansbold.ttf', 19)
 screen = pygame.display.set_mode((750, 500))
 clock = pygame.time.Clock()
 pygame.display.set_caption("Main Menu")
@@ -62,14 +63,14 @@ def main():
                 mouse_pos = event.pos  # gets mouse position
                 checkEventMain(mouse_pos)
 
-        if (state == 1):
-            lightsOptions(mouse_pos)
-        elif (state == 2):
-            quickOptions(mouse_pos)
-        elif (state == 3):
-            gameOptions(mouse_pos)
-        elif (state == 4):
-            controlOptions(mouse_pos)
+#        if (state == 1):
+        lightsOptions()
+#        elif (state == 2):
+        quickOptions()
+#        elif (state == 3):
+        gameOptions()
+#        elif (state == 4):
+        controlOptions()
         pygame.draw.rect(screen, white, mix)  # draw button
         pygame.draw.rect(screen, white, lights)  # draw button
         pygame.draw.rect(screen, white, games)  # draw button
@@ -92,55 +93,55 @@ def main():
 songName = font.render('Hit Me', True, white)
 song = 1
 
-endButton = pygame.Rect(565, 30, 159, 39)
+endButton = pygame.Rect(565, 430, 159, 39)
 endText = font.render('Shutdown', True, black)
 sendButton = pygame.Rect(330, 410, 69, 89)
 sendText = font.render('Send', True, black)
 
-pastSong = pygame.Rect(115, 130, 69, 39)
-pastSongText = font.render('Last', True, black)
-nextSong = pygame.Rect(190, 130, 69, 39)
-nextSongText = font.render('Next', True, black)
-playButton = pygame.Rect(115, 170, 144, 39)
+pastSong = pygame.Rect(115, 130, 45, 39)
+pastSongText = font.render('<-', True, black)
+nextSong = pygame.Rect(170, 130, 45, 39)
+nextSongText = font.render('->', True, black)
+playButton = pygame.Rect(115, 170, 100, 39)
 playButtonText = font.render('Play', True, black)
 
-pandoraButton = pygame.Rect(115, 210, 144, 39)
+pandoraButton = pygame.Rect(115, 210, 100, 39)
 pandoraButtonText = font.render('Pandora', True, black)
 
 stationText = font.render('Top 40', True, white)
 station = 1
 playStation = 4
 
-pastStation = pygame.Rect(115, 290, 69, 39)
-pastStationText = font.render('Last', True, black)
-nextStation = pygame.Rect(190, 290, 69, 39)
-nextStationText = font.render('Next', True, black)
+pastStation = pygame.Rect(115, 290, 45, 39)
+pastStationText = font.render('<-', True, black)
+nextStation = pygame.Rect(170, 290, 45, 39)
+nextStationText = font.render('->', True, black)
 
 periodTitleText = font.render('Period', True, white)
-periodButton = pygame.Rect(115, 370, 144, 39)
+periodButton = pygame.Rect(115, 370, 100, 39)
 periodText = font.render('7 mins', True, black)
 period = 7
-playBoth = pygame.Rect(115, 410, 144, 39)
-playBothText = font.render('Play Both', True, black)
+playBoth = pygame.Rect(115, 410, 100, 39)
+playBothText = font.render('Both', True, black)
 
-monday = pygame.Rect(440, 50, 150, 39)
+monday = pygame.Rect(450, 50, 140, 39)
 mondayText = font.render('Monday', True, black)
-tuesday = pygame.Rect(440, 90, 150, 39)
+tuesday = pygame.Rect(450, 90, 140, 39)
 tuesdayText = font.render('Tuesday', True, black)
-wednesday = pygame.Rect(440, 130, 150, 39)
+wednesday = pygame.Rect(450, 130, 140, 39)
 wednesdayText = font.render('Wednesday', True, black)
-thursday = pygame.Rect(440, 170, 150, 39)
+thursday = pygame.Rect(450, 170, 140, 39)
 thursdayText = font.render('Thursday', True, black)
-friday = pygame.Rect(440, 210, 150, 39)
+friday = pygame.Rect(450, 210, 140, 39)
 fridayText = font.render('Friday', True, black)
-saturday = pygame.Rect(440, 250, 150, 39)
+saturday = pygame.Rect(450, 250, 140, 39)
 saturdayText = font.render('Saturday', True, black)
-sunday = pygame.Rect(440, 290, 150, 39)
+sunday = pygame.Rect(450, 290, 140, 39)
 sundayText = font.render('Sunday', True, black)
 
 
 
-def lightsOptions(mouse_pos):
+def lightsOptions():
     global songName, stationText, song, station, period, periodText, playStation
     if (song == 1):
         songName = font.render('Serious', True, white)
@@ -208,18 +209,18 @@ def lightsOptions(mouse_pos):
     pygame.draw.rect(screen, white, playBoth)  # draw button
     screen.blit(playBothText, playBoth)
 
-knockButton = pygame.Rect(220, 50, 150, 39)
+knockButton = pygame.Rect(220, 50, 100, 39)
 knockGameName = font.render('KnockOut', True, black)
-targetButton = pygame.Rect(220, 90, 150, 39)
+targetButton = pygame.Rect(220, 90, 100, 39)
 targetGameName = font.render('Target', True, black)
-captureButton = pygame.Rect(220, 130, 150, 39)
-captureGameName = font.render('Capture Flag', True, black)
+captureButton = pygame.Rect(220, 130, 100, 39)
+captureGameName = font.render('Capture', True, black)
 
 soundEffect = "pew"
-soundButton = pygame.Rect(225, 250, 100, 39)
+soundButton = pygame.Rect(225, 250, 90, 39)
 soundEffectText = font.render(soundEffect, True, black)
 
-def gameOptions(mouse_pos):
+def gameOptions():
     global knockGameName, targetGameName, captureGameName, soundEffect
     soundEffectText = font.render(soundEffect, True, black)
     pygame.draw.rect(screen, white, knockButton)  # draw button
@@ -256,7 +257,7 @@ purSelector = pygame.Rect(325, 370, 39, 39)
 pinSelector = pygame.Rect(365, 370, 39, 39)
 offSelector = pygame.Rect(405, 370, 39, 39)
 
-def controlOptions(mouse_pos):
+def controlOptions():
     global knockGameName, targetGameName, captureGameName, selectedColor, selectedFlag
     if selectedFlag == "red":
         pygame.draw.rect(screen, white, redT)  # draw button
@@ -327,6 +328,33 @@ def controlOptions(mouse_pos):
     screen.blit(greTtext, greT)
     screen.blit(whiTtext, whiT)
     screen.blit(redTtext, redT)
+    
+
+def quickOptions():
+    pygame.draw.rect(screen, white, monday)  # draw button
+    screen.blit(mondayText, monday)
+    pygame.draw.rect(screen, white, tuesday)  # draw button
+    screen.blit(tuesdayText, tuesday)
+    pygame.draw.rect(screen, white, wednesday)  # draw button
+    screen.blit(wednesdayText, wednesday)
+    pygame.draw.rect(screen, white, thursday)  # draw button
+    screen.blit(thursdayText, thursday)
+    pygame.draw.rect(screen, white, friday)  # draw button
+    screen.blit(fridayText, friday)
+    pygame.draw.rect(screen, white, saturday)  # draw button
+    screen.blit(saturdayText, saturday)
+    pygame.draw.rect(screen, white, sunday)  # draw button
+    screen.blit(sundayText, sunday)
+
+def checkEventMain(mouse_pos):
+    global state, song, station, period, periodText, selectedColor, selectedFlag, soundEffect, playStation
+    if soundButton.collidepoint(mouse_pos):
+        if (soundEffect == "pew"):
+            soundEffect = "ka-ching"
+        elif (soundEffect == "ka-ching"):
+            soundEffect = "shatter"
+        else:
+            soundEffect = "pew"
     if redT.collidepoint(mouse_pos):
         selectedFlag = "red"
 
@@ -371,33 +399,6 @@ def controlOptions(mouse_pos):
 
     if offSelector.collidepoint(mouse_pos):
         selectedColor = 9
-
-
-def quickOptions(mouse_pos):
-    pygame.draw.rect(screen, white, monday)  # draw button
-    screen.blit(mondayText, monday)
-    pygame.draw.rect(screen, white, tuesday)  # draw button
-    screen.blit(tuesdayText, tuesday)
-    pygame.draw.rect(screen, white, wednesday)  # draw button
-    screen.blit(wednesdayText, wednesday)
-    pygame.draw.rect(screen, white, thursday)  # draw button
-    screen.blit(thursdayText, thursday)
-    pygame.draw.rect(screen, white, friday)  # draw button
-    screen.blit(fridayText, friday)
-    pygame.draw.rect(screen, white, saturday)  # draw button
-    screen.blit(saturdayText, saturday)
-    pygame.draw.rect(screen, white, sunday)  # draw button
-    screen.blit(sundayText, sunday)
-
-def checkEventMain(mouse_pos):
-    global state, song, station, period, periodText, selectedColor, selectedFlag, soundEffect, playStation
-    if soundButton.collidepoint(mouse_pos):
-        if (soundEffect == "pew"):
-            soundEffect = "ka-ching"
-        elif (soundEffect == "ka-ching"):
-            soundEffect = "shatter"
-        else:
-            soundEffect = "pew"
 
     if playButton.collidepoint(mouse_pos):
         playMusic.playSong([song-1], 0)
