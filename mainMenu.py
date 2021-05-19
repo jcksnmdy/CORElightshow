@@ -8,13 +8,12 @@ import signal
 import threading
 import playMusic
 import sys
+from funAudio import welcomeMessage
 import paho.mqtt.client as mqtt
-from games import startTargetGame, startKnockOutGame, startCaptureGame
+from games import startTargetGame, startKnockOutGame, startCaptureGame, askReady
 sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht
 
-pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/welcome.mp3")
-pygame.mixer.music.play(0)
 
 mix = pygame.Rect(10, 10, 99, 39)
 lights = pygame.Rect(115, 10, 99, 39)
@@ -38,7 +37,7 @@ black = (0,0,0)
 pygame.init()
 pygame.font.init()
 font = pygame.font.Font('freesansbold.ttf', 19)
-screen = pygame.display.set_mode((750, 500))
+screen = pygame.display.set_mode((750, 550))
 clock = pygame.time.Clock()
 pygame.display.set_caption("Main Menu")
 state = 0
@@ -217,6 +216,10 @@ targetButton = pygame.Rect(220, 90, 100, 39)
 targetGameName = font.render('Target', True, black)
 captureButton = pygame.Rect(220, 130, 100, 39)
 captureGameName = font.render('Capture', True, black)
+welcomeButton = pygame.Rect(565, 470, 100, 39)
+welcomeText = font.render('Welcome', True, black)
+testButton = pygame.Rect(565, 510, 100, 39)
+testText = font.render('Test', True, black)
 
 soundEffect = "pew"
 soundButton = pygame.Rect(225, 250, 90, 39)
@@ -347,6 +350,10 @@ def quickOptions():
     screen.blit(saturdayText, saturday)
     pygame.draw.rect(screen, white, sunday)  # draw button
     screen.blit(sundayText, sunday)
+    pygame.draw.rect(screen, white, welcomeButton)  # draw button
+    screen.blit(welcomeText, welcomeButton)
+    pygame.draw.rect(screen, white, testButton)  # draw button
+    screen.blit(testText, testButton)
 
 def checkEventMain(mouse_pos):
     global state, song, station, period, periodText, selectedColor, selectedFlag, soundEffect, playStation
@@ -517,4 +524,9 @@ def checkEventMain(mouse_pos):
     if saturday.collidepoint(mouse_pos):
         playMusic.play(satDisco, period, soundEffect)
 
+    if welcomeButton.collidepoint(mouse_pos):
+        welcomeMessage()
+    
+    if testButton.collidepoint(mouse_pos):
+        askReady()
 main()

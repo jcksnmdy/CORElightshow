@@ -25,6 +25,13 @@ darkgreen = (0,255/2,0)
 grey = (128,128,128)
 black = (0,0,0)
 
+redReady = False
+orangeReady = False
+whiteReady = False
+greenReady = False
+yellowReady = False
+blueReady = False
+
 globalSound = "pew"
 MQTT_SERVER = "192.168.1.119"
 MQTT_PATH = "test_channel"
@@ -42,6 +49,11 @@ blues = 3
 def on_message(client, userdata, msg):
     global reds, blues, red, blue, black, grey
     print(msg.topic+" "+str(msg.payload))
+    if("Ready" in str(msg.payload)):
+        if("blue:Ready" in str(msg.payload)):
+            blueReady = True
+            time.sleep(0.5)
+        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
     if("hit" in str(msg.payload) and "red" not in str(msg.payload) and "yellow" not in str(msg.payload) and "orange" not in str(msg.payload) and "green" not in str(msg.payload) and "blue" not in str(msg.payload) and "white" not in str(msg.payload)):
         print("hittt")
         setHit(True)
@@ -121,8 +133,9 @@ def on_message(client, userdata, msg):
         setOrangeFlagSame(grey, orangeFlagLeftOrig)
         pygame.mixer.music.play(0)
     time.sleep(0.1)
-    
-    print("Reds: " + str(reds) + ", Blues: " + str(blues))
+
+    if ("bK" in str(msg.payload) or "rK" in str(msg.payload)):
+        print("Reds: " + str(reds) + ", Blues: " + str(blues))
     
 
  
@@ -137,6 +150,39 @@ client.connect(MQTT_SERVER, 1883, 60)
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
 #client.loop_forever()
+
+def askReady():
+    redReady = False
+    orangeReady = False
+    whiteReady = False
+    greenReady = False
+    yellowReady = False
+    blueReady = False
+    client.loop_start()
+    time.sleep(3)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:red")
+    time.sleep(2)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:orange")
+    time.sleep(2)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:white")
+    time.sleep(2)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:green")
+    time.sleep(2)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:yellow")
+    time.sleep(2)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:blue")
+    time.sleep(5)
+    client.loop_stop()
+
+def askReadyGame():
+    pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/pingingBlue.mp3")
+    pygame.mixer.music.play(0)
+    time.sleep(6)
+    pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/connected.mp3")
+    pygame.mixer.music.play(0)
+    time.sleep(1)
+
+
 
 def startTargetGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
