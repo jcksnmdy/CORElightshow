@@ -50,6 +50,9 @@ restartYellowText = font.render('Restart Yellow', True, black)
 restartBlue = pygame.Rect(10, 160, 150, 25)
 restartBlueText = font.render('Restart Blue', True, black)
 
+stop = pygame.Rect(10, 220, 150, 25)
+stopText = font.render('STOP', True, black)
+
 
 # Load the main Menu
 def main():
@@ -80,6 +83,9 @@ def main():
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:yellow")
                 if restartBlue.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:blue")
+                if stop.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+
 
         pygame.draw.rect(screen, white, restartRed)  # draw button
         screen.blit(restartRedText, restartRed)
@@ -93,6 +99,8 @@ def main():
         screen.blit(restartYellowText, restartYellow)
         pygame.draw.rect(screen, white, restartBlue)  # draw button
         screen.blit(restartBlueText, restartBlue)
+        pygame.draw.rect(screen, white, stop)  # draw button
+        screen.blit(stopText, stop)
 
         pygame.display.flip()
         
