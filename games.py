@@ -161,28 +161,18 @@ def askReady():
     client.loop_start()
     time.sleep(3)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:red")
-    time.sleep(2)
+    time.sleep(3)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:orange")
-    time.sleep(2)
+    time.sleep(3)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:white")
-    time.sleep(2)
+    time.sleep(3)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:green")
-    time.sleep(2)
+    time.sleep(3)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:yellow")
-    time.sleep(2)
+    time.sleep(3)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:blue")
-    time.sleep(5)
+    time.sleep(15)
     client.loop_stop()
-
-def askReadyGame():
-    pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/pingingBlue.mp3")
-    pygame.mixer.music.play(0)
-    time.sleep(6)
-    pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/connected.mp3")
-    pygame.mixer.music.play(0)
-    time.sleep(1)
-
-
 
 def startTargetGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")

@@ -84,7 +84,7 @@ def main():
                 if restartBlue.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:blue")
                 if stop.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "endstop")
 
 
         pygame.draw.rect(screen, white, restartRed)  # draw button
