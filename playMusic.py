@@ -109,6 +109,7 @@ def playPandora(playlist, delay, soundEffect):
                     print("Done")
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                     client.loop_stop()
+                    timer = 9999999999999999999999
                     break
 
 def play(playlist, delay, soundEffect):
@@ -131,8 +132,6 @@ def stop(id):
     pygame.mixer.music.stop()
     pygame.mixer.music.stop()
     os.killpg(id, signal.SIGTERM)
-    #pandoraA.join()
-    pygame.quit()
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.

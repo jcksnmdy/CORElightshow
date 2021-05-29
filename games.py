@@ -11,6 +11,11 @@ import paho.mqtt.client as mqtt
 from broadcastDisplay import pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, showStop, stopbutton, redFlagLeftOrig, orangeFlagLeftOrig, whiteFlagLeftOrig, yellowFlagLeftOrig, greenFlagLeftOrig, blueFlagLeftOrig, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
 from playMusic import stop
 
+
+font = pygame.font.Font('freesansbold.ttf', 19)
+screen = pygame.display.set_mode((750, 550))
+clock = pygame.time.Clock()
+
 red = (255,0,0)
 orange = (255,128,0)
 blue = (0,0,255)
@@ -47,9 +52,29 @@ reds = 3
 blues = 3
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    global reds, blues, red, blue, black, grey
+    global reds, blues, red, blue, black, grey, redReady, orangeReady, whiteReady, greenReady, whiteReady, blueReady
     print(msg.topic+" "+str(msg.payload))
     if("Ready" in str(msg.payload)):
+        if("red:Ready" in str(msg.payload)):
+            redReady = True
+            time.sleep(0.5)
+        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
+        if("white:Ready" in str(msg.payload)):
+            whiteReady = True
+            time.sleep(0.5)
+        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
+        if("orange:Ready" in str(msg.payload)):
+            orangeReady = True
+            time.sleep(0.5)
+        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
+        if("green:Ready" in str(msg.payload)):
+            greenReady = True
+            time.sleep(0.5)
+        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
+        if("yellow:Ready" in str(msg.payload)):
+            yellowReady = True
+            time.sleep(0.5)
+        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
         if("blue:Ready" in str(msg.payload)):
             blueReady = True
             time.sleep(0.5)
@@ -189,12 +214,7 @@ def startTargetGame(playlist, soundEffect):
     pygame.mixer.music.load("effects/targetGameStarted.mp3")
     pygame.mixer.music.play(0)
     time.sleep(5)
-    pygame.init()
-    pygame.font.init()
     pygame.display.set_caption("Target Game")
-    pygame.mixer.init()
-    screen = pygame.display.set_mode((640, 480))
-    clock = pygame.time.Clock()
     rand = random.sample(range(6), 6)
     count = 0
     pygame.mixer.music.set_volume(1.0)
@@ -258,7 +278,313 @@ def startTargetGame(playlist, soundEffect):
                     os.killpg(proc.pid, signal.SIGTERM)
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                     pygame.quit()
-                    main()
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = event.pos  # gets mouse position
+                    if stopbutton.collidepoint(mouse_pos):
+                        stop(proc.pid)
+                        print("Done")
+                        count = 9999
+                        os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+                    if redFlagOuter.collidepoint(mouse_pos):
+                        if (targetFlag == 1):
+                            os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
+                            setHit(True)
+                            pulse.join()
+                            time.sleep(1)
+
+                    if whiteFlagOuter.collidepoint(mouse_pos):
+                        if (targetFlag == 3):
+                            os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
+                            setHit(True)
+                            pulse.join()
+                            time.sleep(1)
+
+                    if orangeFlagOuter.collidepoint(mouse_pos):
+                        if (targetFlag == 2):
+                            os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
+                            setHit(True)
+                            pulse.join()
+                            time.sleep(1)
+
+                    if yellowFlagOuter.collidepoint(mouse_pos):
+                        if (targetFlag == 4):
+                            os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
+                            setHit(True)
+                            pulse.join()
+                            time.sleep(1)
+                    
+                    
+                    if greenFlagOuter.collidepoint(mouse_pos):
+                        if (targetFlag == 5):
+                            os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
+                            setHit(True)
+                            pulse.join()
+                            time.sleep(1)
+
+                    if blueFlagOuter.collidepoint(mouse_pos):
+                        if (targetFlag == 6):
+                            os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
+                            setHit(True)
+                            pulse.join()
+                            time.sleep(1)
+
+            screen.fill([0,0,0])
+            refresh()
+            showStop()
+            pygame.display.flip()   
+            clock.tick(60)
+        pulse.join()
+        count+=1
+        setHit(False)
+    time.sleep(1)
+    pygame.mixer.music.load("effects/gameCompleted.mp3")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    pygame.mixer.music.play(0)
+    time.sleep(1.5)
+    pygame.mixer.music.stop()
+    client.loop_stop()
+    os.killpg(proc.pid, signal.SIGTERM)
+    pygame.mixer.music.stop()
+
+def startKnockOutGame(playlist, soundEffect):
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    time.sleep(1)
+    global globalSound, reds, blues
+    reds = 3
+    blues = 3
+    globalSound = soundEffect
+    print(globalSound)
+    # 1 = Red
+    # 2 = Orange
+    # 3 = White
+    # 4 = Yellow
+    # 5 = Green
+    # 6 = blue
+    pygame.mixer.music.load("effects/knockoutGameStarted.mp3")
+    pygame.mixer.music.play(0)
+    pygame.display.set_caption("Knock Out Game")
+    time.sleep(5)
+    count = 0
+    pygame.mixer.music.load("effects/" + soundEffect + ".mp3")
+    pygame.mixer.music.set_volume(1.0)
+    print("playing pandora station: " + str(playlist))
+    proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
+    time.sleep(1)
+    client.loop_start()
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "knockout")
+    while (count < 9000):
+        count+=1
+        #os.system("mosquitto_pub -h localhost -t test_channel -m " + "status")
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.mixer.music.stop()
+                client.loop_stop()
+                os.killpg(proc.pid, signal.SIGTERM)
+                pygame.quit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos  # gets mouse position
+                if stopbutton.collidepoint(mouse_pos):
+                    stop(proc.pid)
+                    print("Done")
+                    client.loop_stop()
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+                    count = 999999999
+
+                if redFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
+                    time.sleep(1)
+
+                if whiteFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
+                    time.sleep(1)
+                    
+                if orangeFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
+                    time.sleep(1)
+
+                if yellowFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
+                    time.sleep(1)
+
+                if greenFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
+                    time.sleep(1)
+
+                if blueFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
+                    time.sleep(1) 
+
+        time.sleep(0.1)
+        screen.fill([0,0,0])
+        refresh()
+        showStop()
+        pygame.display.flip()   
+        clock.tick(60)
+    pygame.mixer.music.load("effects/gameCompleted.mp3")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    pygame.mixer.music.play(0)
+    time.sleep(1.5)
+    pygame.mixer.music.stop()
+    client.loop_stop()
+    print(proc.pid)
+    os.killpg(proc.pid, signal.SIGTERM)
+    pygame.mixer.music.stop()
+
+def startCaptureGame(playlist, soundEffect):
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    global globalSound
+    globalSound = soundEffect
+    time.sleep(1)
+    print(globalSound)
+    # 1 = Red
+    # 2 = Orange
+    # 3 = White
+    # 4 = Yellow
+    # 5 = Green
+    # 6 = blue
+    pygame.mixer.music.load("effects/captureGameStarted.mp3")
+    pygame.mixer.music.play(0)
+    pygame.display.set_caption("Capture Game")
+    time.sleep(5)
+    count = 0
+    pygame.mixer.music.load("effects/" + soundEffect + ".mp3")
+    pygame.mixer.music.set_volume(1.0)
+    print("playing pandora station: " + str(playlist))
+    proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
+    time.sleep(1)
+    client.loop_start()
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "capture")
+    while (count < 9000):
+        count+=1
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.mixer.music.stop()
+                os.killpg(proc.pid, signal.SIGTERM)
+                client.loop_stop()
+                pygame.quit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos  # gets mouse position
+                if stopbutton.collidepoint(mouse_pos):
+                    stop(proc.pid)
+                    print("Done")
+                    client.loop_stop()
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+                    count = 99999999
+
+                if redFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
+                    time.sleep(1)
+
+                if whiteFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
+                    time.sleep(1)
+                    
+                if orangeFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
+                    time.sleep(1)
+
+                if yellowFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
+                    time.sleep(1)
+
+                if greenFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
+                    time.sleep(1)
+
+                if blueFlagOuter.collidepoint(mouse_pos):
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
+                    time.sleep(1) 
+
+        time.sleep(0.1)
+        screen.fill([0,0,0])
+        refresh()
+        showStop()
+        pygame.display.flip()   
+        clock.tick(60)
+    pygame.mixer.music.load("effects/gameCompleted.mp3")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    pygame.mixer.music.play(0)
+    time.sleep(1.5)
+    pygame.mixer.music.stop()
+    print(proc.pid)
+    client.loop_stop()
+    os.killpg(proc.pid, signal.SIGTERM)
+    pygame.mixer.music.stop()
+
+def startPopupGame(playlist, soundEffect):
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    time.sleep(1)
+    global globalSound
+    globalSound = soundEffect
+    print(globalSound)
+    # 1 = Red
+    # 2 = Orange
+    # 3 = White
+    # 4 = Yellow
+    # 5 = Green
+    # 6 = blue
+    pygame.mixer.music.load("effects/popupGameStarted.mp3")
+    pygame.mixer.music.play(0)
+    time.sleep(5)
+    pygame.display.set_caption("Popup Game")
+    rand = random.sample(range(6), 6)
+    count = 0
+    pygame.mixer.music.set_volume(1.0)
+    print("playing pandora station: " + str(playlist))
+    proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
+    print(rand)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("red") + str(1))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("orange") + str(2))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("yellow") + str(3))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("blue") + str(4))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("green") + str(5))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("white") + str(6))
+    client.loop_start()
+    while (count < 10):
+        targetFlag = ((rand[count])+1)
+        print(rand)
+        print("Target: " + str(targetFlag))
+        setHit(False)
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+        time.sleep(1)
+        if (targetFlag == 1):
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "popup:red")
+            pulse = threading.Thread(group=None, target=pulseRed, name=None)
+            pulse.start()
+        elif (targetFlag == 2):
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "popup:orange")
+            pulse = threading.Thread(group=None, target=pulseOrange, name=None)
+            pulse.start()
+        elif (targetFlag == 3):
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "popup:white")
+            pulse = threading.Thread(group=None, target=pulseWhite, name=None)
+            pulse.start()
+        elif (targetFlag == 4):
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "popup:yellow")
+            pulse = threading.Thread(group=None, target=pulseYellow, name=None)
+            pulse.start()
+        elif (targetFlag == 5):
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "popup:green")
+            pulse = threading.Thread(group=None, target=pulseGreen, name=None)
+            pulse.start()
+        elif (targetFlag == 6):
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "popup:blue")
+            pulse = threading.Thread(group=None, target=pulseBlue, name=None)
+            pulse.start()
+        time.sleep(1)
+        popping = 0
+        while (popping < 900 and getHit() == False):
+            time.sleep(0.1)
+            popping += 1
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.mixer.music.stop()
+                    os.killpg(proc.pid, signal.SIGTERM)
+                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+                    pygame.quit()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = event.pos  # gets mouse position
@@ -266,7 +592,8 @@ def startTargetGame(playlist, soundEffect):
                         stop(proc.pid)
                         print("Done")
                         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-                        break
+                        count = 999999
+                        popping = 999999999
                     if redFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 1):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
@@ -328,188 +655,3 @@ def startTargetGame(playlist, soundEffect):
     client.loop_stop()
     os.killpg(proc.pid, signal.SIGTERM)
     pygame.mixer.music.stop()
-    pygame.quit()
-    main()
-
-def startKnockOutGame(playlist, soundEffect):
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    time.sleep(1)
-    global globalSound, reds, blues
-    reds = 3
-    blues = 3
-    globalSound = soundEffect
-    print(globalSound)
-    # 1 = Red
-    # 2 = Orange
-    # 3 = White
-    # 4 = Yellow
-    # 5 = Green
-    # 6 = blue
-    pygame.mixer.music.load("effects/knockoutGameStarted.mp3")
-    pygame.mixer.music.play(0)
-    time.sleep(5)
-    pygame.init()
-    pygame.font.init()
-    pygame.display.set_caption("Knockout Game")
-    pygame.mixer.init()
-    screen = pygame.display.set_mode((640, 480))
-    clock = pygame.time.Clock()
-    count = 0
-    pygame.mixer.music.load("effects/" + soundEffect + ".mp3")
-    pygame.mixer.music.set_volume(1.0)
-    print("playing pandora station: " + str(playlist))
-    proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
-    time.sleep(1)
-    client.loop_start()
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "knockout")
-    while (count < 9000):
-        count+=1
-        #os.system("mosquitto_pub -h localhost -t test_channel -m " + "status")
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.mixer.music.stop()
-                client.loop_stop()
-                os.killpg(proc.pid, signal.SIGTERM)
-                pygame.quit()
-                main()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = event.pos  # gets mouse position
-                if stopbutton.collidepoint(mouse_pos):
-                    stop(proc.pid)
-                    print("Done")
-                    client.loop_stop()
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-                    break
-
-                if redFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
-                    time.sleep(1)
-
-                if whiteFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
-                    time.sleep(1)
-                    
-                if orangeFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
-                    time.sleep(1)
-
-                if yellowFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
-                    time.sleep(1)
-
-                if greenFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
-                    time.sleep(1)
-
-                if blueFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
-                    time.sleep(1) 
-
-        time.sleep(0.1)
-        screen.fill([0,0,0])
-        refresh()
-        showStop()
-        pygame.display.flip()   
-        clock.tick(60)
-    pygame.mixer.music.load("effects/gameCompleted.mp3")
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    pygame.mixer.music.play(0)
-    time.sleep(1.5)
-    pygame.mixer.music.stop()
-    client.loop_stop()
-    print(proc.pid)
-    os.killpg(proc.pid, signal.SIGTERM)
-    pygame.mixer.music.stop()
-    pygame.quit()
-    main()
-
-def startCaptureGame(playlist, soundEffect):
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    global globalSound
-    globalSound = soundEffect
-    time.sleep(1)
-    print(globalSound)
-    # 1 = Red
-    # 2 = Orange
-    # 3 = White
-    # 4 = Yellow
-    # 5 = Green
-    # 6 = blue
-    pygame.mixer.music.load("effects/captureGameStarted.mp3")
-    pygame.mixer.music.play(0)
-    time.sleep(5)
-    pygame.init()
-    pygame.font.init()
-    pygame.display.set_caption("Knockout Game")
-    pygame.mixer.init()
-    screen = pygame.display.set_mode((640, 480))
-    clock = pygame.time.Clock()
-    count = 0
-    pygame.mixer.music.load("effects/" + soundEffect + ".mp3")
-    pygame.mixer.music.set_volume(1.0)
-    print("playing pandora station: " + str(playlist))
-    proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
-    time.sleep(1)
-    client.loop_start()
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "capture")
-    while (count < 9000):
-        count+=1
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.mixer.music.stop()
-                os.killpg(proc.pid, signal.SIGTERM)
-                client.loop_stop()
-                pygame.quit()
-                main()
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = event.pos  # gets mouse position
-                if stopbutton.collidepoint(mouse_pos):
-                    stop(proc.pid)
-                    print("Done")
-                    client.loop_stop()
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-                    break
-
-                if redFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
-                    time.sleep(1)
-
-                if whiteFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
-                    time.sleep(1)
-                    
-                if orangeFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
-                    time.sleep(1)
-
-                if yellowFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
-                    time.sleep(1)
-
-                if greenFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
-                    time.sleep(1)
-
-                if blueFlagOuter.collidepoint(mouse_pos):
-                    os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
-                    time.sleep(1) 
-
-        time.sleep(0.1)
-        screen.fill([0,0,0])
-        refresh()
-        showStop()
-        pygame.display.flip()   
-        clock.tick(60)
-    pygame.mixer.music.load("effects/gameCompleted.mp3")
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    pygame.mixer.music.play(0)
-    time.sleep(1.5)
-    pygame.mixer.music.stop()
-    print(proc.pid)
-    client.loop_stop()
-    os.killpg(proc.pid, signal.SIGTERM)
-    pygame.mixer.music.stop()
-    pygame.quit()
-    main()

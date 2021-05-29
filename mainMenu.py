@@ -10,7 +10,7 @@ import playMusic
 import sys
 from funAudio import welcomeMessage
 import paho.mqtt.client as mqtt
-from games import startTargetGame, startKnockOutGame, startCaptureGame, askReady
+from games import startTargetGame, startKnockOutGame, startCaptureGame, askReady, startPopupGame
 sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht
 
@@ -58,6 +58,7 @@ def main():
             # determin if X was clicked, or Ctrl+W or Alt+F4 was used
             if event.type == pygame.QUIT:
                 pygame.quit()
+                os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                 return
             
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -216,6 +217,8 @@ targetButton = pygame.Rect(220, 90, 100, 39)
 targetGameName = font.render('Target', True, black)
 captureButton = pygame.Rect(220, 130, 100, 39)
 captureGameName = font.render('Capture', True, black)
+popupButton = pygame.Rect(220, 170, 100, 39)
+popupGameName = font.render('Pop Up', True, black)
 welcomeButton = pygame.Rect(565, 470, 100, 39)
 welcomeText = font.render('Welcome', True, black)
 testButton = pygame.Rect(565, 510, 100, 39)
@@ -232,6 +235,8 @@ def gameOptions():
     pygame.draw.rect(screen, white, targetButton)  # draw button
     pygame.draw.rect(screen, white, captureButton)  # draw button
     screen.blit(knockGameName, knockButton)
+    pygame.draw.rect(screen, white, popupButton)  # draw button
+    screen.blit(popupGameName, popupButton)
     screen.blit(targetGameName, targetButton)
     screen.blit(captureGameName, captureButton)
     pygame.draw.rect(screen, white, soundButton)  # draw button
@@ -502,6 +507,11 @@ def checkEventMain(mouse_pos):
     if captureButton.collidepoint(mouse_pos):
         print("Capture")
         startCaptureGame(playStation, soundEffect)
+
+    if popupButton.collidepoint(mouse_pos):
+        print("Pop Up")
+        startPopupGame(playStation, soundEffect)
+    
     
     if sunday.collidepoint(mouse_pos):
         playMusic.play(sunCountry, period, soundEffect)
