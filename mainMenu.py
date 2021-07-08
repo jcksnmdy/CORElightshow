@@ -58,7 +58,6 @@ def main():
             # determin if X was clicked, or Ctrl+W or Alt+F4 was used
             if event.type == pygame.QUIT:
                 pygame.quit()
-                os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                 return
             
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -97,8 +96,10 @@ song = 1
 
 endButton = pygame.Rect(565, 430, 159, 39)
 endText = font.render('Shutdown', True, black)
-sendButton = pygame.Rect(330, 410, 69, 89)
+sendButton = pygame.Rect(330, 410, 99, 39)
 sendText = font.render('Send', True, black)
+sendAllButton = pygame.Rect(330, 450, 99, 39)
+sendAllText = font.render('Send All', True, black)
 
 pastSong = pygame.Rect(115, 130, 45, 39)
 pastSongText = font.render('<-', True, black)
@@ -267,6 +268,9 @@ purSelector = pygame.Rect(325, 370, 39, 39)
 pinSelector = pygame.Rect(365, 370, 39, 39)
 offSelector = pygame.Rect(405, 370, 39, 39)
 
+stopButton = pygame.Rect(475, 450, 69, 39)
+stopText = font.render('Stop', True, black)
+
 def controlOptions():
     global knockGameName, targetGameName, captureGameName, selectedColor, selectedFlag
     if selectedFlag == "red":
@@ -332,6 +336,8 @@ def controlOptions():
         pygame.draw.rect(screen, (64,64,64), offSelector)  # draw button
     pygame.draw.rect(screen, white, sendButton)  # draw button
     screen.blit(sendText, sendButton)
+    pygame.draw.rect(screen, white, sendAllButton)  # draw button
+    screen.blit(sendAllText, sendAllButton)
     screen.blit(oraTtext, oraT)
     screen.blit(bluTtext, bluT)
     screen.blit(yelTtext, yelT)
@@ -341,6 +347,8 @@ def controlOptions():
     
 
 def quickOptions():
+    pygame.draw.rect(screen, white, stopButton)  # draw button
+    screen.blit(stopText, stopButton)
     pygame.draw.rect(screen, white, monday)  # draw button
     screen.blit(mondayText, monday)
     pygame.draw.rect(screen, white, tuesday)  # draw button
@@ -476,6 +484,15 @@ def checkEventMain(mouse_pos):
     if sendButton.collidepoint(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + str(selectedFlag) + str(selectedColor))
 
+    if sendAllButton.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "red" + str(selectedColor))
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "orange" + str(selectedColor))
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "white" + str(selectedColor))
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "green" + str(selectedColor))
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "yellow" + str(selectedColor))
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "blue" + str(selectedColor))
+
+
     if periodButton.collidepoint(mouse_pos):
         if (period == 7):
             period = 11
@@ -539,4 +556,7 @@ def checkEventMain(mouse_pos):
     
     if testButton.collidepoint(mouse_pos):
         askReady()
+
+    if stopButton.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
 main()

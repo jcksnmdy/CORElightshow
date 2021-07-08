@@ -45,36 +45,31 @@ MQTT_PATH = "test_channel"
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
  
-    # Subscribing in on_connect() means that if we lose the connection and
+    # Subscribing in on_connect() means that if we lose the cnection and
     # reconnect then subscriptions will be renewed.
     client.subscribe(MQTT_PATH)
 reds = 3
 blues = 3
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    global reds, blues, red, blue, black, grey, redReady, orangeReady, whiteReady, greenReady, whiteReady, blueReady
+    global reds, blues, red, blue, black, grey, redReady, orangeReady, whiteReady, greenReady, yellowReady, blueReady
     print(msg.topic+" "+str(msg.payload))
     if("Ready" in str(msg.payload)):
         if("red:Ready" in str(msg.payload)):
             redReady = True
             time.sleep(0.5)
-        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
         if("white:Ready" in str(msg.payload)):
             whiteReady = True
             time.sleep(0.5)
-        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
         if("orange:Ready" in str(msg.payload)):
             orangeReady = True
             time.sleep(0.5)
-        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
         if("green:Ready" in str(msg.payload)):
             greenReady = True
             time.sleep(0.5)
-        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
         if("yellow:Ready" in str(msg.payload)):
             yellowReady = True
             time.sleep(0.5)
-        print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
         if("blue:Ready" in str(msg.payload)):
             blueReady = True
             time.sleep(0.5)
@@ -85,81 +80,13 @@ def on_message(client, userdata, msg):
         pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/" + globalSound + ".mp3")
         pygame.mixer.music.play(0)
         time.sleep(0.5)
-    if ("redStatus:rK" in str(msg.payload)):
-        reds+=1
-        blues-=1
-        setRedFlagSame(red, redFlagLeftOrig)
-    if ("orangeStatus:rK" in str(msg.payload)):
-        reds+=1
-        blues-=1
-        setOrangeFlagSame(red, orangeFlagLeftOrig)
-    if ("yellowStatus:rK" in str(msg.payload)):
-        reds+=1
-        blues-=1
-        setYellowFlagSame(red, yellowFlagLeftOrig)
-    if ("greenStatus:rK" in str(msg.payload)):
-        reds+=1
-        blues-=1
-        setGreenFlagSame(red, greenFlagLeftOrig)
-    if ("blueStatus:rK" in str(msg.payload)):
-        reds+=1
-        blues-=1
-        setBlueFlagSame(red, blueFlagLeftOrig)
-    if ("whiteStatus:rK" in str(msg.payload)):
-        reds+=1
-        blues-=1
-        setWhiteFlagSame(red, whiteFlagLeftOrig)
-    if ("redStatus:bK" in str(msg.payload)):
-        reds-=1
-        blues+=1
-        setRedFlagSame(blue, redFlagLeftOrig)
-    if ("orangeStatus:bK" in str(msg.payload)):
-        reds-=1
-        blues+=1
-        setOrangeFlagSame(blue, orangeFlagLeftOrig)
-    if ("yellowStatus:bK" in str(msg.payload)):
-        reds-=1
-        blues+=1
-        setYellowFlagSame(blue, yellowFlagLeftOrig)
-    if ("greenStatus:bK" in str(msg.payload)):
-        reds-=1
-        blues+=1
-        setGreenFlagSame(blue, greenFlagLeftOrig)
-    if ("blueStatus:bK" in str(msg.payload)):
-        reds-=1
-        blues+=1
-        setBlueFlagSame(blue, blueFlagLeftOrig)
-    if ("whiteStatus:bK" in str(msg.payload)):
-        reds-=1
-        blues+=1
-        setWhiteFlagSame(blue, whiteFlagLeftOrig)
-    if ("got:red" in str(msg.payload)):
-        pygame.mixer.music.load("effects/redCaptured.mp3")
-        setRedFlagSame(grey, redFlagLeftOrig)
-        pygame.mixer.music.play(0)
-    if ("got:blue" in str(msg.payload)):
-        pygame.mixer.music.load("effects/blueCaptured.mp3")
-        setBlueFlagSame(grey, blueFlagLeftOrig)
-        pygame.mixer.music.play(0)
-    if ("got:green" in str(msg.payload)):
-        pygame.mixer.music.load("effects/greenCaptured.mp3")
-        setGreenFlagSame(grey, greenFlagLeftOrig)
-        pygame.mixer.music.play(0)
-    if ("got:white" in str(msg.payload)):
-        pygame.mixer.music.load("effects/whiteCaptured.mp3")
-        setWhiteFlagSame(grey, whiteFlagLeftOrig)
-        pygame.mixer.music.play(0)
-    if ("got:yellow" in str(msg.payload)):
-        pygame.mixer.music.load("effects/yellowCaptured.mp3")
-        setYellowFlagSame(grey, yellowFlagLeftOrig)
-        pygame.mixer.music.play(0)
-    if ("got:orange" in str(msg.payload)):
-        pygame.mixer.music.load("effects/orangeCaptured.mp3")
-        setOrangeFlagSame(grey, orangeFlagLeftOrig)
-        pygame.mixer.music.play(0)
-    time.sleep(0.1)
 
-    if ("bK" in str(msg.payload) or "rK" in str(msg.payload)):
+    if ("bK" in str(msg.payload)):
+        blues+=1
+        print("Reds: " + str(reds) + ", Blues: " + str(blues))
+
+    if ("rK" in str(msg.payload)):
+        reds+=1
         print("Reds: " + str(reds) + ", Blues: " + str(blues))
     
 
@@ -177,6 +104,7 @@ client.connect(MQTT_SERVER, 1883, 60)
 #client.loop_forever()
 
 def askReady():
+    global redReady, orangeReady, whiteReady, greenReady, yellowReady, blueReady
     redReady = False
     orangeReady = False
     whiteReady = False
@@ -184,24 +112,35 @@ def askReady():
     yellowReady = False
     blueReady = False
     client.loop_start()
-    time.sleep(3)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:red")
-    time.sleep(3)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:orange")
-    time.sleep(3)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:white")
-    time.sleep(3)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:green")
-    time.sleep(3)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:yellow")
-    time.sleep(3)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "test:blue")
-    time.sleep(15)
-    client.loop_stop()
+    time.sleep(5)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:red")
+    time.sleep(10)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:orange")
+    time.sleep(10)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:white")
+    time.sleep(10)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:green")
+    time.sleep(10)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:yellow")
+    time.sleep(10)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:blue")
+    time.sleep(10)
+    counter = 0
+    while counter < 4:
+        if (redReady and orangeReady and whiteReady and greenReady and yellowReady and blueReady):
+            client.loop_stop()
+            print("DONE. ALL CONNECTED")
+            counter = 5
+        else:
+            print("Retrying...Not connected")
+            time.sleep(60)
+            counter+=1
+    print("Done")
+
 
 def startTargetGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    time.sleep(1)
+    time.sleep(5)
     global globalSound
     globalSound = soundEffect
     print(globalSound)
@@ -285,6 +224,7 @@ def startTargetGame(playlist, soundEffect):
                         stop(proc.pid)
                         print("Done")
                         count = 9999
+                        client.loop_stop()
                         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                     if redFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 1):
@@ -349,7 +289,7 @@ def startTargetGame(playlist, soundEffect):
 
 def startKnockOutGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    time.sleep(1)
+    time.sleep(5)
     global globalSound, reds, blues
     reds = 3
     blues = 3
@@ -373,7 +313,7 @@ def startKnockOutGame(playlist, soundEffect):
     time.sleep(1)
     client.loop_start()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "knockout")
-    while (count < 9000):
+    while (count < 9000 or reds<6 or blues<6):
         count+=1
         #os.system("mosquitto_pub -h localhost -t test_channel -m " + "status")
         for event in pygame.event.get():
@@ -391,6 +331,7 @@ def startKnockOutGame(playlist, soundEffect):
                     client.loop_stop()
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                     count = 999999999
+                    client.loop_stop()
 
                 if redFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
@@ -436,7 +377,7 @@ def startCaptureGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     global globalSound
     globalSound = soundEffect
-    time.sleep(1)
+    time.sleep(5)
     print(globalSound)
     # 1 = Red
     # 2 = Orange
@@ -473,6 +414,7 @@ def startCaptureGame(playlist, soundEffect):
                     client.loop_stop()
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                     count = 99999999
+                    client.loop_stop()
 
                 if redFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
@@ -516,7 +458,7 @@ def startCaptureGame(playlist, soundEffect):
 
 def startPopupGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    time.sleep(1)
+    time.sleep(5)
     global globalSound
     globalSound = soundEffect
     print(globalSound)
@@ -530,12 +472,10 @@ def startPopupGame(playlist, soundEffect):
     pygame.mixer.music.play(0)
     time.sleep(5)
     pygame.display.set_caption("Popup Game")
-    rand = random.sample(range(6), 6)
     count = 0
     pygame.mixer.music.set_volume(1.0)
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
-    print(rand)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + str("red") + str(1))
     os.system("mosquitto_pub -h localhost -t test_channel -m " + str("orange") + str(2))
     os.system("mosquitto_pub -h localhost -t test_channel -m " + str("yellow") + str(3))
@@ -544,8 +484,7 @@ def startPopupGame(playlist, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + str("white") + str(6))
     client.loop_start()
     while (count < 10):
-        targetFlag = ((rand[count])+1)
-        print(rand)
+        targetFlag = random.randint(1,6)
         print("Target: " + str(targetFlag))
         setHit(False)
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
@@ -594,6 +533,7 @@ def startPopupGame(playlist, soundEffect):
                         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                         count = 999999
                         popping = 999999999
+                        client.loop_stop()
                     if redFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 1):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")

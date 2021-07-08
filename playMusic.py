@@ -45,14 +45,14 @@ def playSong(rand, count):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + 'song' + str(rand[count]+1))
     print("Programmed song playing. Programmed song count: " + str(count+1) + ". Song index: " + str(rand[count]+1) + "")
-    i = 5
+    i = 0
     allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
     pygame.mixer.music.load(path + "/songs/song" + str(rand[count]+1) + ".mp3")
     pygame.mixer.music.play(0)
-    while (i < len(allInfo)):
-        showTargets(rand, count, i)
-        i+=8
-        #time.sleep(0.0001)
+    while (i < 59):
+        #showTargets(rand, count, i)
+        i+=1
+        time.sleep(1)
     pygame.mixer.music.stop()
 
 def playPandora(playlist, delay, soundEffect):
@@ -74,8 +74,8 @@ def playPandora(playlist, delay, soundEffect):
     
     client.loop_start()
     while timer < delay*60:
-        time.sleep(1)
-        timer+=1
+        time.sleep(0.01)
+        timer+=0.01
         showStop()
         refresh()
         for event in pygame.event.get():
@@ -83,27 +83,27 @@ def playPandora(playlist, delay, soundEffect):
                 mouse_pos = event.pos
                 if redFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
-                    time.sleep(1)
+
 
                 if whiteFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
-                    time.sleep(1)
+
 
                 if orangeFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
-                    time.sleep(1)
+
 
                 if yellowFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
-                    time.sleep(1)
+
 
                 if greenFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
-                    time.sleep(1)
+
 
                 if blueFlagOuter.collidepoint(mouse_pos):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
-                    time.sleep(1)
+
                 if stopbutton.collidepoint(mouse_pos):
                     stop(proc.pid)
                     print("Done")
@@ -111,13 +111,15 @@ def playPandora(playlist, delay, soundEffect):
                     client.loop_stop()
                     timer = 9999999999999999999999
                     break
+    print("Done with pandora")
+    stop(proc.pid)
 
 def play(playlist, delay, soundEffect):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     #client.loop_forever()
     count = 0
     rand = random.sample(range(numSongs), numSongs)
-    print(rand)
+    print(str(rand) + " Delay: " + str(delay))
     while count < numSongs:
         playSong(rand, count)
         count+=1
