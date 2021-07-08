@@ -363,6 +363,10 @@ def startKnockOutGame(playlist, soundEffect):
         showStop()
         pygame.display.flip()   
         clock.tick(60)
+    if (blues>5):
+        
+    else:
+        herheheheheh
     pygame.mixer.music.load("effects/gameCompleted.mp3")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     pygame.mixer.music.play(0)
