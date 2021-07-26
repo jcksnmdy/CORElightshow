@@ -151,15 +151,21 @@ def lightsOptions():
     elif (song == 2):
         songName = font.render('Thunderstruck', True, white)
     elif (song == 3):
-        songName = font.render('Hit Me', True, white)
+        songName = font.render('Eye Tiger', True, white)
     elif (song == 4):
-        songName = font.render('Eye of the Tiger', True, white)
+        songName = font.render('Hit Me', True, white)
     elif (song == 5):
-        songName = font.render('Despacito', True, white)
+        songName = font.render('Enter S', True, white)
     elif (song == 6):
         songName = font.render('Beat It', True, white)
     elif (song == 7):
-        songName = font.render('Thriller', True, white)
+        songName = font.render('Lil bit', True, white)
+    elif (song == 8):
+        songName = font.render('Beggin', True, white)
+    elif (song == 9):
+        songName = font.render('Yeah!', True, white)
+    elif (song == 10):
+        songName = font.render('Uptown', True, white)
     
     if (station == 1):
         stationText = font.render('Hip Hop', True, white)
