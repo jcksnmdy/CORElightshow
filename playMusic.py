@@ -43,11 +43,14 @@ client.connect(MQTT_SERVER, 1883, 60)
 
 def playSong(rand, count):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'load' + str(rand[count]+1))
+    time.sleep(3)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + 'song' + str(rand[count]+1))
     print("Programmed song playing. Programmed song count: " + str(count+1) + ". Song index: " + str(rand[count]+1) + "")
     i = 0
     allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
     pygame.mixer.music.load(path + "/songs/song" + str(rand[count]+1) + ".mp3")
+    time.sleep(0.0)
     pygame.mixer.music.play(0)
     while (i < 59):
         #showTargets(rand, count, i)

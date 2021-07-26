@@ -83,10 +83,12 @@ def on_message(client, userdata, msg):
 
     if ("bK" in str(msg.payload)):
         blues+=1
+        reds-=1
         print("Reds: " + str(reds) + ", Blues: " + str(blues))
 
     if ("rK" in str(msg.payload)):
         reds+=1
+        blues-=1
         print("Reds: " + str(reds) + ", Blues: " + str(blues))
     
 
@@ -313,7 +315,7 @@ def startKnockOutGame(playlist, soundEffect):
     time.sleep(1)
     client.loop_start()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "knockout")
-    while (count < 9000 or reds<6 or blues<6):
+    while (count < 9000 and reds<6 and blues<6):
         count+=1
         #os.system("mosquitto_pub -h localhost -t test_channel -m " + "status")
         for event in pygame.event.get():
@@ -364,9 +366,11 @@ def startKnockOutGame(playlist, soundEffect):
         pygame.display.flip()   
         clock.tick(60)
     if (blues>5):
-        
+        pygame.mixer.music.load("effects/blueWon.mp3")
     else:
-        herheheheheh
+        pygame.mixer.music.load("effects/redWon.mp3")
+    pygame.mixer.music.play(0)
+    time.sleep(2)
     pygame.mixer.music.load("effects/gameCompleted.mp3")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     pygame.mixer.music.play(0)
