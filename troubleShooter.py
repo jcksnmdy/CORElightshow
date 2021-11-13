@@ -32,9 +32,23 @@ darkgreen = (0,255/2,0)
 grey = (128,128,128)
 black = (0,0,0)
 
+redLives = 3
+orangeLives = 3
+whiteLives = 3
+yellowLives = 3
+greenLives = 3
+blueLives = 3
+popUp = False
+
+pulseR = threading.Thread(group=None, target=pulseBlue, name=None)
+pulseO = threading.Thread(group=None, target=pulseBlue, name=None)
+pulseW = threading.Thread(group=None, target=pulseBlue, name=None)
+pulseY = threading.Thread(group=None, target=pulseBlue, name=None)
+pulseG = threading.Thread(group=None, target=pulseBlue, name=None)
+pulseB = threading.Thread(group=None, target=pulseBlue, name=None)
 
 globalSound = "pew"
-MQTT_SERVER = "192.168.1.119"
+MQTT_SERVER = "192.168.99.93"
 MQTT_PATH = "test_channel"
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -48,7 +62,7 @@ reds = 3
 blues = 3
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    global reds, blues, red, blue, black, grey, redReady, orangeReady, whiteReady, greenReady, yellowReady, blueReady
+    global pulseR, pulseO, pulseW, pulseY, pulseG, pulseB, reds, blues, red, blue, black, grey, redReady, orangeReady, whiteReady, greenReady, yellowReady, blueReady, popUp, redLives, orangeLives, whiteLives, yellowLives, greenLives, blueLives
     print(msg.topic+" "+str(msg.payload))
     
     if ("redStatus:rK" in str(msg.payload)):
@@ -124,6 +138,105 @@ def on_message(client, userdata, msg):
         setOrangeFlagSame(grey, orangeFlagLeftOrig)
         pygame.mixer.music.play(0)
 
+    if ("hit" in str(msg.payload) and "red" not in str(msg.payload) and "orange" not in str(msg.payload) and "white" not in str(msg.payload) and "yellow" not in str(msg.payload) and "green" not in str(msg.payload) and "blue" not in str(msg.payload)):
+        setHit(True)
+        if(pulseR.is_alive()):
+            pulseR.join()
+        if(pulseO.is_alive()):
+            pulseO.join()
+        if(pulseW.is_alive()):
+            pulseW.join()
+        if(pulseY.is_alive()):
+            pulseY.join()
+        if(pulseG.is_alive()):
+            pulseG.join()
+        if(pulseB.is_alive()):
+            pulseB.join()
+
+    if ("stop" in str(msg.payload)):
+        if(pulseR.is_alive()):
+            pulseR.join()
+        if(pulseO.is_alive()):
+            pulseO.join()
+        if(pulseW.is_alive()):
+            pulseW.join()
+        if(pulseY.is_alive()):
+            pulseY.join()
+        if(pulseG.is_alive()):
+            pulseG.join()
+        if(pulseB.is_alive()):
+            pulseB.join()
+
+        redLives = 3
+        orangeLives = 3
+        whiteLives = 3
+        yellowLives = 3
+        greenLives = 3
+        blueLives = 3
+        popUp = False
+        setRedFlagSame(grey, redFlagLeftOrig)
+        setBlueFlagSame(grey, blueFlagLeftOrig)
+        setGreenFlagSame(grey, greenFlagLeftOrig)
+        setWhiteFlagSame(grey, whiteFlagLeftOrig)
+        setYellowFlagSame(grey, yellowFlagLeftOrig)
+        setOrangeFlagSame(grey, orangeFlagLeftOrig)
+
+
+    if ("targetGameR" in str(msg.payload)):
+        print("RED")
+        if(pulseR.is_alive()):
+            pulseR.join()
+        pulseR = threading.Thread(group=None, target=pulseRed, name=None)
+        pulseR.start()
+    if ("targetGameO" in str(msg.payload)):
+        print("ORANGE")
+        if(pulseO.is_alive()):
+            pulseO.join()
+        pulseO = threading.Thread(group=None, target=pulseOrange, name=None)
+        pulseO.start()
+    if ("targetGameW" in str(msg.payload)):
+        print("WHITE")
+        if(pulseW.is_alive()):
+            pulseW.join()
+        pulseW = threading.Thread(group=None, target=pulseWhite, name=None)
+        pulseW.start()
+    if ("targetGameY" in str(msg.payload)):
+        print("YELLOW")
+        if(pulseY.is_alive()):
+            pulseY.join()
+        pulseY = threading.Thread(group=None, target=pulseYellow, name=None)
+        pulseY.start()
+    if ("targetGameG" in str(msg.payload)):
+        print("GREEN")
+        if(pulseG.is_alive()):
+            pulseG.join()
+        pulseG = threading.Thread(group=None, target=pulseGreen, name=None)
+        pulseG.start()
+    if ("targetGameB" in str(msg.payload)):
+        print("BLUE")
+        if(pulseB.is_alive()):
+            pulseB.join()
+        pulseB = threading.Thread(group=None, target=pulseBlue, name=None)
+        pulseB.start()
+    
+
+    if ("capture" in str(msg.payload)):
+        popUp = True
+
+    if(popUp):
+        if ("red" in str(msg.payload)):
+            redLives-=1
+        if ("orange" in str(msg.payload)):
+            orangeLives-=1
+        if ("white" in str(msg.payload)):
+            whiteLives-=1
+        if ("yellow" in str(msg.payload)):
+            yellowLives-=1
+        if ("green" in str(msg.payload)):
+            greenLives-=1
+        if ("blue" in str(msg.payload)):
+            blueLives-=1
+
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
@@ -160,6 +273,8 @@ stopText = font.render('STOP', True, black)
 
 # Load the main Menu
 def main():
+
+    global redLives, orangeLives, whiteLives, yellowLives, greenLives, blueLives
 
     while True:
         
@@ -199,6 +314,12 @@ def main():
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:blue")
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "endstop")
 
+        redLifeText = font.render(str(redLives), True, black)
+        orangeLifeText = font.render(str(orangeLives), True, black)
+        whiteLifeText = font.render(str(whiteLives), True, black)
+        yellowLifeText = font.render(str(yellowLives), True, black)
+        greenLifeText = font.render(str(greenLives), True, black)
+        blueLifeText = font.render(str(blueLives), True, black)
         
         pygame.draw.rect(screen, white, restartAll)  # draw button
         screen.blit(restartAllText, restartAll)
@@ -218,6 +339,13 @@ def main():
         screen.blit(stopText, stop)
 
         refresh()
+
+        screen.blit(redLifeText, (120, 330))
+        screen.blit(orangeLifeText, (450, 280))
+        screen.blit(whiteLifeText, (340, 190))
+        screen.blit(yellowLifeText, (150, 220))
+        screen.blit(greenLifeText, (240, 160))
+        screen.blit(blueLifeText, (470, 100))
 
         pygame.display.flip()
         

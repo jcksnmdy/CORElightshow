@@ -231,6 +231,9 @@ welcomeText = font.render('Welcome', True, black)
 testButton = pygame.Rect(565, 510, 100, 39)
 testText = font.render('Test', True, black)
 
+startButton = pygame.Rect(580, 380, 100, 39)
+startText = font.render('Start', True, black)
+
 soundEffect = "pew"
 soundButton = pygame.Rect(225, 250, 90, 39)
 soundEffectText = font.render(soundEffect, True, black)
@@ -373,6 +376,9 @@ def quickOptions():
     screen.blit(welcomeText, welcomeButton)
     pygame.draw.rect(screen, white, testButton)  # draw button
     screen.blit(testText, testButton)
+
+    pygame.draw.rect(screen, white, startButton)  # draw button
+    screen.blit(startText, startButton)
 
 def checkEventMain(mouse_pos):
     global state, song, station, period, periodText, selectedColor, selectedFlag, soundEffect, playStation
@@ -565,4 +571,10 @@ def checkEventMain(mouse_pos):
 
     if stopButton.collidepoint(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+
+    if startButton.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
+
+
+os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
 main()

@@ -38,7 +38,7 @@ yellowReady = False
 blueReady = False
 
 globalSound = "pew"
-MQTT_SERVER = "192.168.1.119"
+MQTT_SERVER = "192.168.99.93"
 MQTT_PATH = "test_channel"
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -114,7 +114,8 @@ def askReady():
     yellowReady = False
     blueReady = False
     client.loop_start()
-    time.sleep(5)
+    time.sleep(15)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "newcode")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:red")
     time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:orange")
@@ -162,12 +163,6 @@ def startTargetGame(playlist, soundEffect):
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
     print(rand)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("red") + str(1))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("orange") + str(2))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("yellow") + str(3))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("blue") + str(4))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("green") + str(5))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("white") + str(6))
     client.loop_start()
     while (count < 6):
         targetFlag = ((rand[count])+1)
@@ -179,38 +174,26 @@ def startTargetGame(playlist, soundEffect):
             pygame.mixer.music.load("effects/targetRed.mp3")
             pygame.mixer.music.play(0)
             os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameR")
-            pulse = threading.Thread(group=None, target=pulseRed, name=None)
-            pulse.start()
         elif (targetFlag == 2):
             pygame.mixer.music.load("effects/targetOrange.mp3")
             pygame.mixer.music.play(0)
             os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameO")
-            pulse = threading.Thread(group=None, target=pulseOrange, name=None)
-            pulse.start()
         elif (targetFlag == 3):
             pygame.mixer.music.load("effects/targetWhite.mp3")
             pygame.mixer.music.play(0)
             os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameW")
-            pulse = threading.Thread(group=None, target=pulseWhite, name=None)
-            pulse.start()
         elif (targetFlag == 4):
             pygame.mixer.music.load("effects/targetYellow.mp3")
             pygame.mixer.music.play(0)
             os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameY")
-            pulse = threading.Thread(group=None, target=pulseYellow, name=None)
-            pulse.start()
         elif (targetFlag == 5):
             pygame.mixer.music.load("effects/targetGreen.mp3")
             pygame.mixer.music.play(0)
             os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameG")
-            pulse = threading.Thread(group=None, target=pulseGreen, name=None)
-            pulse.start()
         elif (targetFlag == 6):
             pygame.mixer.music.load("effects/targetBlue.mp3")
             pygame.mixer.music.play(0)
             os.system("mosquitto_pub -h localhost -t test_channel -m " + "targetGameB")
-            pulse = threading.Thread(group=None, target=pulseBlue, name=None)
-            pulse.start()
         time.sleep(1)
         while (getHit() == False):
             for event in pygame.event.get():
@@ -231,44 +214,31 @@ def startTargetGame(playlist, soundEffect):
                     if redFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 1):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitred")
-                            setHit(True)
-                            pulse.join()
                             time.sleep(1)
 
                     if whiteFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 3):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitwhite")
-                            setHit(True)
-                            pulse.join()
                             time.sleep(1)
 
                     if orangeFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 2):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitorange")
-                            setHit(True)
-                            pulse.join()
                             time.sleep(1)
 
                     if yellowFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 4):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hityellow")
-                            setHit(True)
-                            pulse.join()
                             time.sleep(1)
-                    
                     
                     if greenFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 5):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitgreen")
-                            setHit(True)
-                            pulse.join()
                             time.sleep(1)
 
                     if blueFlagOuter.collidepoint(mouse_pos):
                         if (targetFlag == 6):
                             os.system("mosquitto_pub -h localhost -t test_channel -m " + "hitblue")
-                            setHit(True)
-                            pulse.join()
                             time.sleep(1)
 
             screen.fill([0,0,0])
@@ -276,7 +246,6 @@ def startTargetGame(playlist, soundEffect):
             showStop()
             pygame.display.flip()   
             clock.tick(60)
-        pulse.join()
         count+=1
         setHit(False)
     time.sleep(1)
@@ -484,12 +453,6 @@ def startPopupGame(playlist, soundEffect):
     pygame.mixer.music.set_volume(1.0)
     print("playing pandora station: " + str(playlist))
     proc = subprocess.Popen('pydora -t {0}'.format(playlist), shell=True, preexec_fn=os.setsid)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("red") + str(1))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("orange") + str(2))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("yellow") + str(3))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("blue") + str(4))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("green") + str(5))
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + str("white") + str(6))
     client.loop_start()
     while (count < 10):
         targetFlag = random.randint(1,6)

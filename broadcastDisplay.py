@@ -131,76 +131,57 @@ def sparkleRed():
 
 def pulseRed():
     global hit
-    hit == False
+    hit = False
     while (hit == False):
-        setRedFlag(red, grey, grey, redFlagLeftOrig)
+        setRedFlag(red, red, red, redFlagLeftOrig)
         time.sleep(0.2)
-        setRedFlag(grey, red, grey, redFlagLeftOrig)
-        time.sleep(0.1)
-        setRedFlag(grey, grey, red, redFlagLeftOrig)
-        time.sleep(0.09)
         setRedFlag(grey, grey, grey, redFlagLeftOrig)
-        time.sleep(1)
+        time.sleep(0.1)
     
 def pulseOrange():
     global hit
+    hit = False
     while (hit == False):
-        setOrangeFlag(orange, grey, grey, orangeFlagLeftOrig)
+        setOrangeFlag(orange, orange, orange, orangeFlagLeftOrig)
         time.sleep(0.2)
-        setOrangeFlag(grey, orange, grey, orangeFlagLeftOrig)
-        time.sleep(0.1)
-        setOrangeFlag(grey, grey, orange, orangeFlagLeftOrig)
-        time.sleep(0.09)
         setOrangeFlag(grey, grey, grey, orangeFlagLeftOrig)
-        time.sleep(1)
+        time.sleep(0.1)
 
 def pulseWhite():
     global hit
+    hit = False
     while (hit == False):
-        setWhiteFlag(white, grey, grey, whiteFlagLeftOrig)
+        setWhiteFlag(white, white, white, whiteFlagLeftOrig)
         time.sleep(0.2)
-        setWhiteFlag(grey, white, grey, whiteFlagLeftOrig)
-        time.sleep(0.1)
-        setWhiteFlag(grey, grey, white, whiteFlagLeftOrig)
-        time.sleep(0.09)
         setWhiteFlag(grey, grey, grey, whiteFlagLeftOrig)
-        time.sleep(1)
+        time.sleep(0.1)
 
 def pulseYellow():
     global hit
+    hit = False
     while (hit == False):
-        setYellowFlag(yellow, grey, grey, yellowFlagLeftOrig)
+        setYellowFlag(yellow, yellow, yellow, yellowFlagLeftOrig)
         time.sleep(0.2)
-        setYellowFlag(grey, yellow, grey, yellowFlagLeftOrig)
-        time.sleep(0.1)
-        setYellowFlag(grey, grey, yellow, yellowFlagLeftOrig)
-        time.sleep(0.09)
         setYellowFlag(grey, grey, grey, yellowFlagLeftOrig)
-        time.sleep(1)
+        time.sleep(0.1)
 
 def pulseGreen():
     global hit
+    hit = False
     while (hit == False):
-        setGreenFlag(green, grey, grey, greenFlagLeftOrig)
+        setGreenFlag(green, green, green, greenFlagLeftOrig)
         time.sleep(0.2)
-        setGreenFlag(grey, green, grey, greenFlagLeftOrig)
-        time.sleep(0.1)
-        setGreenFlag(grey, grey, green, greenFlagLeftOrig)
-        time.sleep(0.09)
         setGreenFlag(grey, grey, grey, greenFlagLeftOrig)
-        time.sleep(1)
+        time.sleep(0.1)
 
 def pulseBlue():
     global hit
+    hit = False
     while (hit == False):
-        setBlueFlag(blue, grey, grey, blueFlagLeftOrig)
+        setBlueFlag(blue, blue, blue, blueFlagLeftOrig)
         time.sleep(0.2)
-        setBlueFlag(grey, blue, grey, blueFlagLeftOrig)
-        time.sleep(0.1)
-        setBlueFlag(grey, grey, blue, blueFlagLeftOrig)
-        time.sleep(0.09)
         setBlueFlag(grey, grey, grey, blueFlagLeftOrig)
-        time.sleep(1)
+        time.sleep(0.1)
 
 def setRedFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)

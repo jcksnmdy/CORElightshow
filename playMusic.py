@@ -6,17 +6,23 @@ import random
 import subprocess
 import signal
 import threading
+import datetime
 import pygame_widgets
 import paho.mqtt.client as mqtt
 from broadcastDisplay import showTargets, stopbutton, showStop, pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
 import sys
 sys.path.append('/home/pi/Desktop/globals/')
 #sys.path.append('/Users/s1034274/Desktop/globals/')
-from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
+from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numStations, holiday, michealJ, yacht, path
 
-MQTT_SERVER = "192.168.1.119"
+MQTT_SERVER = "192.168.99.93"
 MQTT_PATH = "test_channel"
 globalSoundEffect = "pew"
+numSongs = 10
+
+now = datetime.datetime.now()
+current_time = now.strftime("%H:%M:%S")
+print(current_time[7])
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -42,17 +48,26 @@ client.on_message = on_message
 client.connect(MQTT_SERVER, 1883, 60)
 
 def playSong(rand, count):
+    global now, current_time
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'load' + str(rand[count]+1))
     time.sleep(3)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'load' + str(rand[count]+1))
+    time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + 'song' + str(rand[count]+1))
+    pygame.mixer.music.load(path + "/songs/song" + str(rand[count]+1) + ".mp3")
+    current_time = "55:55:55"
+    while ("0" not in current_time[7]):
+        now = datetime.datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        print(current_time[7])
+    print("Song starting")
+    
     print("Programmed song playing. Programmed song count: " + str(count+1) + ". Song index: " + str(rand[count]+1) + "")
     i = 0
-    allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
-    pygame.mixer.music.load(path + "/songs/song" + str(rand[count]+1) + ".mp3")
-    time.sleep(0.0)
     pygame.mixer.music.play(0)
-    while (i < 59):
+    #os.system("sudo /home/pi/PI_FM/fm_transmitter/fm_transmitter -f 96.7 -r /home/pi/Desktop/songs/song" + str(rand[count]+1) + ".wav")
+    #allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
+    while (pygame.mixer.music.get_busy()):
         #showTargets(rand, count, i)
         i+=1
         time.sleep(1)
@@ -130,6 +145,7 @@ def play(playlist, delay, soundEffect):
         #os.system("mosquitto_pub -h localhost -t test_channel -m " + str(4))
         #pandoraA = threading.Thread(group=None, target=playPandora, args=("playlist, delay,"), name=None)
         #pandoraA.start()
+        time.sleep(15)
         playPandora(playlist, delay, globalSoundEffect)
     print("Yep Done")
 
