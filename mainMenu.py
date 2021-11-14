@@ -597,7 +597,7 @@ def checkEventMain(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
         welcomeMessage()
-        playMusic.play(stationT, 1, soundEffect)
+        playMusic.play(stationT, 20, soundEffect)
 
 os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
 main()
