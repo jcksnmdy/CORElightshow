@@ -114,31 +114,25 @@ def askReady():
     yellowReady = False
     blueReady = False
     client.loop_start()
-    time.sleep(15)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + "newcode")
+    time.sleep(5)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:red")
-    time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:orange")
-    time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:white")
-    time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:green")
-    time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:yellow")
-    time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:blue")
     time.sleep(10)
     counter = 0
-    while counter < 4:
+    while counter < 99:
         if (redReady and orangeReady and whiteReady and greenReady and yellowReady and blueReady):
             client.loop_stop()
             print("DONE. ALL CONNECTED")
-            counter = 5
+            counter = 105
         else:
             print("Retrying...Not connected")
-            time.sleep(60)
+            time.sleep(10)
             counter+=1
-    print("Done")
+    print("Done. Moving on")
 
 
 def startTargetGame(playlist, soundEffect):

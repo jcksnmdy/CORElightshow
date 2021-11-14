@@ -166,6 +166,26 @@ def lightsOptions():
         songName = font.render('Yeah!', True, white)
     elif (song == 10):
         songName = font.render('Uptown', True, white)
+    elif (song == 11):
+        songName = font.render('AOK', True, white)
+    elif (song == 12):
+        songName = font.render('Mon.Mash', True, white)
+    elif (song == 13):
+        songName = font.render('Thriller', True, white)
+    elif (song == 14):
+        songName = font.render('Halloween', True, white)
+    elif (song == 15):
+        songName = font.render('Squid', True, white)
+    elif (song == 16):
+        songName = font.render('immabe', True, white)
+    elif (song == 17):
+        songName = font.render('CHIS', True, white)
+    elif (song == 18):
+        songName = font.render('MAS', True, white)
+    elif (song == 19):
+        songName = font.render('SONGS', True, white)
+    elif (song == 20):
+        songName = font.render('NOW', True, white)
     
     if (station == 1):
         stationText = font.render('Hip Hop', True, white)
@@ -541,27 +561,28 @@ def checkEventMain(mouse_pos):
         print("Pop Up")
         startPopupGame(playStation, soundEffect)
     
-    
+    stationT = fridayHits
     if sunday.collidepoint(mouse_pos):
-        playMusic.play(sunCountry, period, soundEffect)
+        stationT = sunCountry
+
 
     if monday.collidepoint(mouse_pos):
-        playMusic.play(monHipHop, period, soundEffect)
+        stationT = monHipHop
 
     if tuesday.collidepoint(mouse_pos):
-        playMusic.play(tuesRock, period, soundEffect)
+        stationT = tuesRock
 
     if wednesday.collidepoint(mouse_pos):
-        playMusic.play(wedWayBack, period, soundEffect)
+        stationT = wedWayBack
 
     if thursday.collidepoint(mouse_pos):
-        playMusic.play(thursThrowback, period, soundEffect)
+        stationT = thursThrowback
 
     if friday.collidepoint(mouse_pos):
-        playMusic.play(fridayHits, period, soundEffect)
+        stationT = fridayHits
     
     if saturday.collidepoint(mouse_pos):
-        playMusic.play(satDisco, period, soundEffect)
+        stationT = satDisco
 
     if welcomeButton.collidepoint(mouse_pos):
         welcomeMessage()
@@ -574,7 +595,9 @@ def checkEventMain(mouse_pos):
 
     if startButton.collidepoint(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
-
+        askReady()
+        welcomeMessage()
+        playMusic.play(stationT, 1, soundEffect)
 
 os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
 main()

@@ -55,12 +55,7 @@ def playSong(rand, count):
     time.sleep(10)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + 'song' + str(rand[count]+1))
     pygame.mixer.music.load(path + "/songs/song" + str(rand[count]+1) + ".mp3")
-    current_time = "55:55:55"
-    while ("0" not in current_time[7]):
-        now = datetime.datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        print(current_time[7])
-    print("Song starting")
+    
     
     print("Programmed song playing. Programmed song count: " + str(count+1) + ". Song index: " + str(rand[count]+1) + "")
     i = 0
