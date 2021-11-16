@@ -546,6 +546,7 @@ def checkEventMain(mouse_pos):
             periodText = font.render('7 mins', True, black)
     if endButton.collidepoint(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
+        playMusic.shutdownMessage()
     
     if knockButton.collidepoint(mouse_pos):
         print("Knockout")

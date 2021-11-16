@@ -68,6 +68,18 @@ def playSong(rand, count):
         time.sleep(1)
     pygame.mixer.music.stop()
 
+def shutdownMessage():
+    global now, current_time
+    pygame.mixer.music.load(path + "/songs/closingTime.mp3")
+    print("shutting down")
+    i = 0
+    pygame.mixer.music.play(0)
+    #os.system("sudo /home/pi/PI_FM/fm_transmitter/fm_transmitter -f 96.7 -r /home/pi/Desktop/songs/song" + str(rand[count]+1) + ".wav")
+    #allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
+    while (pygame.mixer.music.get_busy()):
+        #showTargets(rand, count, i)
+        time.sleep(0.01)
+
 def playPandora(playlist, delay, soundEffect):
     global globalSoundEffect
     globalSoundEffect = soundEffect
