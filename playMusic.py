@@ -155,7 +155,23 @@ def play(playlist, delay, soundEffect):
         time.sleep(15)
         playPandora(playlist, delay, globalSoundEffect)
     print("Yep Done")
-
+def play(playlist, delay, soundEffect, loopLength):
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    #client.loop_forever()
+    count = 0
+    rand = random.sample(range(numSongs), numSongs)
+    print(str(rand) + " Delay: " + str(delay))
+    while count < loopLength:
+        playSong(rand, count)
+        count+=1
+        pygame.mixer.music.stop()
+        #os.system("mosquitto_pub -h localhost -t test_channel -m " + str(4))
+        #pandoraA = threading.Thread(group=None, target=playPandora, args=("playlist, delay,"), name=None)
+        #pandoraA.start()
+        time.sleep(15)
+        playPandora(playlist, delay, globalSoundEffect)
+    print("Yep Done")
+    
 def stop(id):
     pygame.mixer.music.stop()
     pygame.mixer.music.stop()
