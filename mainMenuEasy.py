@@ -63,7 +63,8 @@ else:
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
     askReady()
     welcomeMessage()
-    playMusic.play(station, 1, "pew", loop)
-    pygame.mixer.music.load(path + "/songs/closingTime.mp3")
+    playMusic.play(station, 1, "pew", 1)
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
+    playMusic.shutdownMessage()
     print("CLOSE")
-    pygame.mixer.music.play(0)
+    
