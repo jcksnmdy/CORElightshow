@@ -130,6 +130,7 @@ def askReady():
             counter = 105
         else:
             print("Retrying...Not connected")
+            os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
             time.sleep(10)
             counter+=1
     print("Done. Moving on")
