@@ -59,7 +59,8 @@ else:
         loop = 8
 
     playMusic.playPandora(station, 0.2, "pew")
-
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+    time.sleep(30)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
     askReady()
     welcomeMessage()
