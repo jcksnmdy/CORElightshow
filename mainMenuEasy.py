@@ -19,7 +19,7 @@ from datetime import datetime
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
 
-while current_time != "18:51:30":
+while current_time != "07:00:00":
     time.sleep(0.5)
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
@@ -58,13 +58,13 @@ else:
         station = sunCountry
         loop = 8
 
-    playMusic.playPandora(station, 0.2, "pew")
+    playMusic.playPandora(station, 660, "pew")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     time.sleep(30)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
     askReady()
     welcomeMessage()
-    playMusic.play(station, 1, "pew", 1)
+    playMusic.play(station, 15, "pew", loop)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
     playMusic.shutdownMessage()
     print("CLOSE")
