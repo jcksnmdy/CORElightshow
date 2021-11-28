@@ -19,7 +19,7 @@ from datetime import datetime
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
 
-while current_time != "18:49:20":
+while current_time != "18:51:30":
     time.sleep(0.5)
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
