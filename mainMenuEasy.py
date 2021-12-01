@@ -70,8 +70,8 @@ while True:
         time.sleep(30)
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
-        welcomeMessage()
-        loop = (int(close-current_time[0:2])*4)-(int(current_time[3:5]))/13
+        #welcomeMessage()
+        loop = (close-int(current_time[0:2])*4)-(int(current_time[3:5]))/13
         print("Loop playing songs num: " + str(loop))
         playMusic.play(station, 13, "pew", loop)
         
