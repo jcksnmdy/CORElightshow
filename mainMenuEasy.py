@@ -78,7 +78,7 @@ while True:
         playMusic.play(station, 13, "pew", loop)
         
     elif (int(current_time[0:2])>morningMusic):
-        minutes = ((nightMusic-int(current_time[0:2]*60))-60)+int(current_time[3:5])
+        minutes = (((nightMusic-int(current_time[0:2]))*60)-60)+int(current_time[3:5])
         print("Minutes playing regular: " + str(minutes))
         playMusic.playPandora(station, minutes, "pew")
         
