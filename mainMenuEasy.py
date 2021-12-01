@@ -15,58 +15,65 @@ sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 from datetime import datetime
 
+morningMusic = 7
+nightMusic = 17
+close = 21
+
 while True:
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
+    print(current_time[0:2])
 
-    while current_time != "07:00:00":
-        time.sleep(0.5)
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        print(current_time)
-
-    current_time = "00:00:00"
     print("Starting music for: ")
-    station = fridayHits
-    loop = 10
     if (datetime.today().isoweekday() == 1):
         print("Monday")
         station = monHipHop
-        playMusic.playPandora(station, 840, "pew")
-    else:
-        if (datetime.today().isoweekday() == 2):
-            print("Tuesday")
-            station = tuesRock
-            loop = 12
-        if (datetime.today().isoweekday() == 3):
-            print("Wednesday")
-            station = wedWayBack
-            loop = 12
-        if (datetime.today().isoweekday() == 4):
-            print("Thursday")
-            station = thursThrowback
-            loop = 12
-        if (datetime.today().isoweekday() == 5):
-            print("Friday")
-            station = fridayHits
-            loop = 16
-        if (datetime.today().isoweekday() == 6):
-            print("Saturday")
-            station = satDisco
-            loop = 16
-        if (datetime.today().isoweekday() == 7):
-            print("Sunday")
-            station = sunCountry
-            loop = 8
+    if (datetime.today().isoweekday() == 2):
+        print("Tuesday")
+        station = tuesRock
+        loop = 12
+        close = 21
+    if (datetime.today().isoweekday() == 3):
+        print("Wednesday")
+        station = wedWayBack
+        loop = 12
+        close = 21
+    if (datetime.today().isoweekday() == 4):
+        print("Thursday")
+        station = thursThrowback
+        loop = 12
+        close = 21
+    if (datetime.today().isoweekday() == 5):
+        print("Friday")
+        station = fridayHits
+        loop = 16
+        close = 22
+    if (datetime.today().isoweekday() == 6):
+        print("Saturday")
+        station = satDisco
+        loop = 16
+        close = 22
+    if (datetime.today().isoweekday() == 7):
+        print("Sunday")
+        station = sunCountry
+        loop = 8
+        close = 20
 
-        playMusic.playPandora(station, 660, "pew")
+
+    if (int(current_time[0:2])>close):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
+        playMusic.shutdownMessage()
+        print("CLOSE")
+
+    elif (int(current_time[0:2])>nightMusic):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
         time.sleep(30)
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
         welcomeMessage()
-        playMusic.play(station, 15, "pew", loop)
-        os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
-        playMusic.shutdownMessage()
-        print("CLOSE")
+        playMusic.play(station, 13, "pew", (close-current_time[0:2]*4)-(current_time[3:5])/13)
+        
+    elif (int(current_time[0:2])>morningMusic):
+        playMusic.playPandora(station, ((nightMusic-current_time[0:2]*60)-60)+current_time[3:5], "pew")
+        
         
