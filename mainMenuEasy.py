@@ -71,8 +71,10 @@ while True:
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
         #welcomeMessage()
-        loop = (close-int(current_time[0:2])*4)-((int(current_time[3:5]))/13)
-        print("Loop playing songs num: " + str(loop) + "minutes" + current_time[3:5])
+        hourss = (close-int(current_time[0:2])*4)
+        minutess = ((int(current_time[3:5]))/13)
+        loop = (close-int(current_time[0:2])*4)-
+        print("Loop playing songs num: " + str(loop) + "minutes" + current_time[3:5] + " " + str(hourss) + " " + str(minutess))
         playMusic.play(station, 13, "pew", loop)
         
     elif (int(current_time[0:2])>morningMusic):
