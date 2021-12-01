@@ -64,6 +64,7 @@ while True:
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
         playMusic.shutdownMessage()
         print("CLOSE")
+        time.sleep(21600)
 
     elif (int(current_time[0:2])>nightMusic):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
