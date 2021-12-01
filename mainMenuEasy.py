@@ -73,7 +73,7 @@ while True:
         #welcomeMessage()
         hourss = (close-int(current_time[0:2]))*4
         minutess = ((int(current_time[3:5]))/13)
-        loop = hours-minutess
+        loop = hourss-minutess
         print("Loop playing songs num: " + str(loop) + "minutes" + current_time[3:5] + " " + str(hourss) + " " + str(minutess))
         playMusic.play(station, 13, "pew", loop)
         
