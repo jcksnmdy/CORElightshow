@@ -71,9 +71,11 @@ while True:
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
         welcomeMessage()
-        playMusic.play(station, 13, "pew", (close-current_time[0:2]*4)-(current_time[3:5])/13)
+        loop = (int(close-current_time[0:2])*4)-(int(current_time[3:5]))/13
+        playMusic.play(station, 13, "pew", loop)
         
     elif (int(current_time[0:2])>morningMusic):
-        playMusic.playPandora(station, ((nightMusic-current_time[0:2]*60)-60)+current_time[3:5], "pew")
+        minutes = ((nightMusic-int(current_time[0:2]*60))-60)+int(current_time[3:5])
+        playMusic.playPandora(station, minutes, "pew")
         
         
