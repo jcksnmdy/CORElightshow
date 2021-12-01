@@ -72,7 +72,7 @@ while True:
         askReady()
         #welcomeMessage()
         loop = (close-int(current_time[0:2])*4)-((int(current_time[3:5]))/13)
-        print("Loop playing songs num: " + str(loop))
+        print("Loop playing songs num: " + str(loop) + "minutes" + current_time[3:5])
         playMusic.play(station, 13, "pew", loop)
         
     elif (int(current_time[0:2])>morningMusic):
