@@ -155,7 +155,7 @@ def play(playlist, delay, soundEffect):
         time.sleep(15)
         playPandora(playlist, delay, globalSoundEffect)
     print("Yep Done")
-    
+
 def play(playlist, delay, soundEffect, loopLength):
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     #client.loop_forever()
@@ -169,7 +169,7 @@ def play(playlist, delay, soundEffect, loopLength):
         #os.system("mosquitto_pub -h localhost -t test_channel -m " + str(4))
         #pandoraA = threading.Thread(group=None, target=playPandora, args=("playlist, delay,"), name=None)
         #pandoraA.start()
-        time.sleep(15)
+        time.sleep(10)
         playPandora(playlist, delay, globalSoundEffect)
     print("Yep Done")
     

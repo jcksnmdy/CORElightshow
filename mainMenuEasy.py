@@ -60,23 +60,44 @@ while True:
         close = 20
 
 
-    if (int(current_time[0:2])>close):
-        os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
-        playMusic.shutdownMessage()
-        print("CLOSE")
-        time.sleep(21600)
+    # if (int(current_time[0:2])>close):
+    #     os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
+    #     playMusic.shutdownMessage()
+    #     print("CLOSE")
+    #     time.sleep(21600)
 
     elif (int(current_time[0:2])>nightMusic):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
         time.sleep(30)
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
-        #welcomeMessage()
-        hourss = (close-int(current_time[0:2]))*4
-        minutess = ((int(current_time[3:5]))/13)
-        loop = hourss-minutess
-        print("Loop playing songs num: " + str(loop) + "minutes" + current_time[3:5] + " " + str(hourss) + " " + str(minutess))
-        playMusic.play(station, 13, "pew", loop)
+        welcomeMessage()
+        hour = (close-int(current_time[0:2]))
+        minute = (int(current_time[3:5]))
+        running = True
+        rand = random.sample(range(numSongs), numSongs)
+        count = 0
+        print(str(rand))
+        while running:
+            hour = (close-int(current_time[0:2]))
+            minute = (int(current_time[3:5]))
+            if (hour == 0) and (minute > 40):
+                playMusic.play(station, 53-minute, "pew")
+                playMusic.playSong(rand, count)
+                pygame.mixer.music.stop()
+                os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
+                playMusic.shutdownMessage()
+                print("CLOSE")
+                time.sleep(21600)
+            else:
+                playMusic.playPandora(station, 13, "pew")
+                playMusic.playSong(rand, count)
+                count+=1
+                pygame.mixer.music.stop()
+                time.sleep(10)
+                    #loop = hourss-minutess
+            #print("Loop playing songs num: " + str(loop) + "minutes" + current_time[3:5] + " " + str(hourss) + " " + str(minutess))
+
         
     elif (int(current_time[0:2])>morningMusic):
         minutes = (((nightMusic-int(current_time[0:2]))*60)-60)+int(current_time[3:5])
