@@ -60,7 +60,7 @@ while True:
         close = 20
 
 
-    if (int(current_time[0:2])>close) and (int(current_time[3:5])<30) and (int(current_time[0:2])<close+1):
+    if (int(current_time[0:2])>close) and (int(current_time[3:5])<15) and (int(current_time[0:2])<close+1):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
         playMusic.shutdownMessage()
         print("CLOSE")
@@ -88,7 +88,7 @@ while True:
                 os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
                 playMusic.shutdownMessage()
                 print("CLOSE")
-                time.sleep(1)
+                time.sleep(1800)
                 os.system("sudo reboot")
             else:
                 playMusic.playPandora(station, 13, "pew")
@@ -104,5 +104,7 @@ while True:
         minutes = (((nightMusic-int(current_time[0:2]))*60)-60)+int(current_time[3:5])
         print("Minutes playing regular: " + str(minutes))
         playMusic.playPandora(station, minutes, "pew")
+
+    time.sleep(100)
         
         
