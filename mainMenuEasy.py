@@ -66,7 +66,7 @@ while True:
         print("CLOSE")
         time.sleep(21600)
 
-    elif (int(current_time[0:2])>nightMusic):
+    elif (int(current_time[0:2])>nightMusic) and (int(current_time[0:2])<close):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
         time.sleep(30)
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
