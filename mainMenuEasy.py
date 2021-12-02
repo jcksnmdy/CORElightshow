@@ -60,7 +60,7 @@ while True:
         close = 20
 
 
-    if (int(current_time[0:2])>close) and (int(current_time[3:5])<30):
+    if (int(current_time[0:2])>close) and (int(current_time[3:5])<30) and (int(current_time[0:2])<close+1):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
         playMusic.shutdownMessage()
         print("CLOSE")
