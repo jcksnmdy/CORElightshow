@@ -88,6 +88,7 @@ while True:
                 os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
                 playMusic.shutdownMessage()
                 print("CLOSE")
+                time.sleep(1)
                 os.system("sudo reboot")
             else:
                 playMusic.playPandora(station, 13, "pew")
