@@ -179,13 +179,13 @@ def lightsOptions():
     elif (song == 16):
         songName = font.render('immabe', True, white)
     elif (song == 17):
-        songName = font.render('CHIS', True, white)
+        songName = font.render('DeckThe', True, white)
     elif (song == 18):
-        songName = font.render('MAS', True, white)
+        songName = font.render('Jin.Roc', True, white)
     elif (song == 19):
-        songName = font.render('SONGS', True, white)
+        songName = font.render('mele.k', True, white)
     elif (song == 20):
-        songName = font.render('NOW', True, white)
+        songName = font.render('12days', True, white)
     
     if (station == 1):
         stationText = font.render('Hip Hop', True, white)
