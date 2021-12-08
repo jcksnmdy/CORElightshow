@@ -14,10 +14,10 @@ from games import startTargetGame, startKnockOutGame, startCaptureGame, askReady
 sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 from datetime import datetime
-from twilio.rest import Client
+#from twilio.rest import Client
 
 # the following line needs your Twilio Account SID and Auth Token
-messenger = Client("ACa34bd8ffed1250406642b1801b24da28", "107528f32ebc7d2ebfc0753db5861c9e")
+#messenger = Client("ACa34bd8ffed1250406642b1801b24da28", "107528f32ebc7d2ebfc0753db5861c9e")
 
 morningMusic = 7
 nightMusic = 17
