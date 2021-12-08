@@ -20,7 +20,7 @@ from datetime import datetime
 #messenger = Client("ACa34bd8ffed1250406642b1801b24da28", "107528f32ebc7d2ebfc0753db5861c9e")
 
 morningMusic = 7
-nightMusic = 17
+nightMusic = 18
 close = 21
 
 while True:
@@ -83,12 +83,11 @@ while True:
         count = 0
         print(str(rand))
         while running:
-            hour = (close-int(current_time[0:2]))
+            hour = (close-int(current_time[0:2]))-3
             minute = (int(current_time[3:5]))
-            if (hour == 0) and (minute > 40):
+            if (hour <= 0) and (minute > 30):
                 playMusic.play(station, 53-minute, "pew")
                 playMusic.playSong(rand, count)
-                pygame.mixer.music.stop()
                 os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
                 playMusic.shutdownMessage()
                 print("CLOSE")
@@ -105,10 +104,10 @@ while True:
 
         
     elif (int(current_time[0:2])>morningMusic) and (int(current_time[0:2])<nightMusic):
-        minutes = (((nightMusic-int(current_time[0:2]))*60)-60)+int(current_time[3:5])
-        print("Minutes playing regular: " + str(minutes))
+        minutes = (((nightMusic-int(current_time[0:2]))*60)-60)+(60-int(current_time[3:5]))
+        print("Minutes playing regular: " + str(minutes+5))
         playMusic.playPandora(station, minutes, "pew")
 
-    time.sleep(100)
+    time.sleep(1)
         
         
