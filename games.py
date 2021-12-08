@@ -121,9 +121,9 @@ def askReady():
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:green")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:yellow")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:blue")
-    time.sleep(10)
+    time.sleep(20)
     counter = 0
-    while counter < 90:
+    while counter < 30:
         if (redReady and orangeReady and whiteReady and greenReady and yellowReady and blueReady):
             client.loop_stop()
             print("DONE. ALL CONNECTED")

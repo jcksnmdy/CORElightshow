@@ -8,8 +8,8 @@ import signal
 import threading
 import pygame_widgets
 import sys
-#sys.path.append('/Users/s1034274/Desktop/globals')
-sys.path.append('/home/pi/Desktop/globals/')
+sys.path.append('/Users/s1034274/Desktop/globals')
+#sys.path.append('/home/pi/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 
 pygame.init()

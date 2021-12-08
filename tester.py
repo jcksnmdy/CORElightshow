@@ -2,7 +2,7 @@
 from twilio.rest import Client
 
 # the following line needs your Twilio Account SID and Auth Token
-messenger = Client("ACa34bd8ffed1250406642b1801b24da28", "107528f32ebc7d2ebfc0753db5861c9e")
+messenger = Client("ACa34bd8ffed1250406642b1801b24da28", authToken)
 
 # change the "from_" number to your Twilio number and the "to" number
 # to the phone number you signed up for Twilio with, or upgrade your
