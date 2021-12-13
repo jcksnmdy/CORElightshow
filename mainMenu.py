@@ -530,15 +530,15 @@ def checkEventMain(mouse_pos):
             period = 11
             periodText = font.render('11 mins', True, black)
         elif (period == 11):
-            period = 15
-            periodText = font.render('15 mins', True, black)
-        elif (period == 15):
             period = 30
             periodText = font.render('30 mins', True, black)
         elif (period == 30):
-            period = 3
-            periodText = font.render('3 mins', True, black)
-        elif (period == 3):
+            period = 90
+            periodText = font.render('90 mins', True, black)
+        elif (period == 90):
+            period = 180
+            periodText = font.render('180 mins', True, black)
+        elif (period == 180):
             period = 0
             periodText = font.render('0 mins', True, black)
         else:
@@ -598,7 +598,7 @@ def checkEventMain(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
         welcomeMessage()
-        playMusic.play(stationT, 13, soundEffect, 4)
+        playMusic.play(stationT, period, soundEffect, 4)
 
 os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
 main()
