@@ -461,7 +461,7 @@ def checkEventMain(mouse_pos):
         playMusic.playPandora(playStation, period, soundEffect)
 
     if playBoth.collidepoint(mouse_pos):
-        playMusic.play(playStation, period, soundEffect)
+        playMusic.play(playStation, period, soundEffect, 9)
     if mix.collidepoint(mouse_pos):
         print("MIX: " + soundEffect)
         startTargetGame(fridayHits, soundEffect)
