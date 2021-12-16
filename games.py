@@ -12,9 +12,7 @@ from broadcastDisplay import pulseRed, pulseOrange, pulseWhite, pulseYellow, pul
 from playMusic import stop
 
 
-font = pygame.font.Font('freesansbold.ttf', 19)
-screen = pygame.display.set_mode((750, 550))
-clock = pygame.time.Clock()
+
 
 red = (255,0,0)
 orange = (255,128,0)
@@ -97,7 +95,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
  
-client.connect(MQTT_SERVER, 1883, 60)
+#client.connect(MQTT_SERVER, 1883, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
@@ -137,6 +135,9 @@ def askReady():
 
 
 def startTargetGame(playlist, soundEffect):
+    font = pygame.font.Font('freesansbold.ttf', 19)
+    screen = pygame.display.set_mode((750, 550))
+    clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     time.sleep(5)
     global globalSound
@@ -254,6 +255,9 @@ def startTargetGame(playlist, soundEffect):
     pygame.mixer.music.stop()
 
 def startKnockOutGame(playlist, soundEffect):
+    font = pygame.font.Font('freesansbold.ttf', 19)
+    screen = pygame.display.set_mode((750, 550))
+    clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     time.sleep(5)
     global globalSound, reds, blues
@@ -346,6 +350,9 @@ def startKnockOutGame(playlist, soundEffect):
     pygame.mixer.music.stop()
 
 def startCaptureGame(playlist, soundEffect):
+    font = pygame.font.Font('freesansbold.ttf', 19)
+    screen = pygame.display.set_mode((750, 550))
+    clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     global globalSound
     globalSound = soundEffect
@@ -429,6 +436,9 @@ def startCaptureGame(playlist, soundEffect):
     pygame.mixer.music.stop()
 
 def startPopupGame(playlist, soundEffect):
+    font = pygame.font.Font('freesansbold.ttf', 19)
+    screen = pygame.display.set_mode((750, 550))
+    clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     time.sleep(5)
     global globalSound

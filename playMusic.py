@@ -15,14 +15,13 @@ sys.path.append('/home/pi/Desktop/globals/')
 #sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numStations, holiday, michealJ, yacht, path
 
-MQTT_SERVER = "192.168.99.93"
+#MQTT_SERVER = "192.168.99.93"
+MQTT_SERVER = "192.168.1.228"
+
 MQTT_PATH = "test_channel"
 globalSoundEffect = "pew"
-numSongs = 10
+numSongs = 20
 
-now = datetime.datetime.now()
-current_time = now.strftime("%H:%M:%S")
-print(current_time[7])
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
