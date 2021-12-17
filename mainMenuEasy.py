@@ -23,9 +23,12 @@ halfAuth = "8f31f5a2178908"
 otherAuth = "926794f25fb427bff9"
 # the following line needs your Twilio Account SID and Auth Token
 messenger = Client(clientIdHalf+ClientIdOther, halfAuth+otherAuth)
-
+        
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
+messenger.messages.create(to="+18658046479", 
+                       from_="+12185271160", 
+                       body="Main Menu Easy Started" + str(now))
 
 MSTARTTIME = 7
 GOLFTIME = 17
@@ -44,7 +47,7 @@ test = now.replace(hour=3, minute=20, second=0, microsecond=0)
 while True:
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
-    print(current_time[0:2])
+    print(current_time)
 
     print("Starting music for: ")
     if (datetime.today().isoweekday() == 1):
