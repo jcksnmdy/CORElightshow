@@ -15,8 +15,8 @@ sys.path.append('/home/pi/Desktop/globals/')
 #sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numStations, holiday, michealJ, yacht, path
 
-#MQTT_SERVER = "192.168.99.93"
-MQTT_SERVER = "192.168.1.228"
+MQTT_SERVER = "192.168.99.93"
+#MQTT_SERVER = "192.168.1.228"
 
 MQTT_PATH = "test_channel"
 globalSoundEffect = "pew"
