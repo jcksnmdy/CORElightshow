@@ -167,7 +167,7 @@ while True:
 
         
     elif (now>=morningMusic) and (now<=nightMusic):
-        minutes = ((((GOLFTIME-int(current_time[0:2]))*60)-60)+(62-int(current_time[3:5])))
+        minutes = ((((GOLFTIME-int(current_time[0:2]))*60)-60)+(62-int(current_time[3:5])))+15
         messenger.messages.create(to="+18658046479", 
                        from_="+12185271160", 
                        body="Playing morning Music for " + str(minutes) + " minutes")
