@@ -41,7 +41,13 @@ close = now.replace(hour=CLOSETIME, minute=0, second=0, microsecond=0)
 gone = now.replace(hour=CLOSETIME, minute=15, second=0, microsecond=0)
 
 print("Open: " + str(morningMusic) + " Start: " + str(nightMusic) + " End: " + str(nightMusicEnd) + " Close: " + str(close) + " Leaving: " + str(gone))
+messenger.messages.create(to="+18658046479", 
+                       from_="+12185271160", 
+                       body="Open: " + str(morningMusic) + " Start: " + str(nightMusic) + " End: " + str(nightMusicEnd) + " Close: " + str(close) + " Leaving: " + str(gone))
 test = now.replace(hour=3, minute=20, second=0, microsecond=0)
+midnight = now.replace(hour=0, minute=0, second=0, microsecond=0)
+midday = now.replace(hour=12, minute=0, second=0, microsecond=0)
+
 
 
 while True:
@@ -88,6 +94,7 @@ while True:
     gone = now.replace(hour=CLOSETIME, minute=15, second=0, microsecond=0)
 
     if (now>=close) and (now<=gone):
+        print("Shutting down")
         messenger.messages.create(to="+18658046479", 
                        from_="+12185271160", 
                        body="Shutting Down Flags")
@@ -96,7 +103,7 @@ while True:
         print("CLOSE")
         time.sleep(54000)
 
-    elif (now>=nightMusic) and (now<=nightMusicEnd):
+    elif (now>=nightMusic) and (now<=nightMusicEnd) and (now!=midnight) and (now!=midday):
         print("Starting Galactic Golf")
         messenger.messages.create(to="+18658046479", 
                        from_="+12185271160", 
@@ -130,32 +137,41 @@ while True:
         while running:
             now = datetime.now()
             current_time = now.strftime("%H:%M:%S")
-            if (now>=nightMusic) and (now<=nightMusicEnd):
+            if (now<=nightMusicEnd):
                 print("playing pandora for 11 minutes")
                 playMusic.playPandora(station, 11, "pew")
                 print("Playing rogrammed song")
                 playMusic.playSong(rand, count)
                 count+=1
                 pygame.mixer.music.stop()
-                time.sleep(10)
+                time.sleep(5)
             else:
-                playMusic.play(station, 53-minute, "pew")
+                print("Preparing shutdown from galactic golf")
+                messenger.messages.create(to="+18658046479", 
+                    from_="+12185271160", 
+                    body="Preparing shutdown from galactic golf")
+                now = datetime.now()
+                current_time = now.strftime("%H:%M:%S")
+                minShutdown = int(current_time[3:5])
+                if (minShutdown<53):
+                    playMusic.play(station, 53-minShutdown, "pew")
                 playMusic.playSong(rand, count)
                 os.system("mosquitto_pub -h localhost -t test_channel -m " + "shutdown")
                 playMusic.shutdownMessage()
                 print("CLOSE")
                 time.sleep(1800)
-                os.system("sudo reboot")                
+                running = False
+            os.system("sudo reboot")                
                     #loop = hourss-minutess
             #print("Loop playing songs num: " + str(loop) + "minutes" + current_time[3:5] + " " + str(hourss) + " " + str(minutess))
 
         
     elif (now>=morningMusic) and (now<=nightMusic):
-        minutes = ((((GOLFTIME-int(current_time[0:2]))*60)-60)+(60-int(current_time[3:5])))
+        minutes = ((((GOLFTIME-int(current_time[0:2]))*60)-60)+(62-int(current_time[3:5])))
         messenger.messages.create(to="+18658046479", 
                        from_="+12185271160", 
                        body="Playing morning Music for " + str(minutes) + " minutes")
-        print("Minutes playing regular: " + str(minutes+5))
+        print("Minutes playing regular: " + str(minutes))
         playMusic.playPandora(station, minutes, "pew")
 
     time.sleep(10)

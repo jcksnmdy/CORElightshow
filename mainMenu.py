@@ -122,8 +122,8 @@ nextStationText = font.render('->', True, black)
 
 periodTitleText = font.render('Period', True, white)
 periodButton = pygame.Rect(115, 370, 100, 39)
-periodText = font.render('7 mins', True, black)
-period = 7
+periodText = font.render('11 mins', True, black)
+period = 11
 playBoth = pygame.Rect(115, 410, 100, 39)
 playBothText = font.render('Both', True, black)
 
@@ -598,7 +598,7 @@ def checkEventMain(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
         askReady()
         welcomeMessage()
-        playMusic.play(stationT, period, soundEffect, 4)
+        playMusic.play(stationT, period, soundEffect, 20)
 
 os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
 main()

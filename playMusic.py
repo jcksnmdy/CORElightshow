@@ -80,7 +80,7 @@ def shutdownMessage():
         time.sleep(0.01)
 
 def playPandora(playlist, delay, soundEffect):
-    global globalSoundEffect
+    global globalSoundEffect, count
     globalSoundEffect = soundEffect
     print(globalSoundEffect)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
@@ -134,11 +134,13 @@ def playPandora(playlist, delay, soundEffect):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                     client.loop_stop()
                     timer = 9999999999999999999999
+                    count = 1000
                     break
     print("Done with pandora")
     stop(proc.pid)
 
 def play(playlist, delay, soundEffect):
+    global count
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     #client.loop_forever()
     count = 0
