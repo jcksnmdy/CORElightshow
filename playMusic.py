@@ -142,7 +142,7 @@ def playPandora(playlist, delay, soundEffect):
         timer+=0.01
         showStop()
         refresh()
-        broadcastDisplay.troubleShootTextBroadcast("", "Pandora: " + str(playlist) + ", " + ((delay*60)-timer)/60 + " minutes")
+        broadcastDisplay.troubleShootTextBroadcast("", "Pandora: " + str(playlist) + ", " + str(((delay*60)-timer)/60) + " minutes")
 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
