@@ -9,6 +9,7 @@ import threading
 import datetime
 import pygame_widgets
 import paho.mqtt.client as mqtt
+import broadcastDisplay
 from broadcastDisplay import showTargets, stopbutton, showStop, pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
 import sys
 #sys.path.append('/home/pi/Desktop/globals/')
@@ -46,6 +47,15 @@ client.on_message = on_message
  
 #client.connect(MQTT_SERVER, 1883, 60)
 
+def toTuple(before):
+    print("Before: " + str(before))
+    firstNum = float(before[before.find("(")+1:before.find(",")])
+    secNum = float(before[before.find(",")+2:before.find(",", 9)])
+    thirdNum = float(before[before.find(",", 9)+2:before.find(")")])
+    returning = (firstNum, secNum, thirdNum)
+    print("Returning:" + str(returning))
+    return returning
+
 def playSong(rand, count):
     global now, current_time
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
@@ -60,9 +70,15 @@ def playSong(rand, count):
     i = 0
     pygame.mixer.music.play(0)
     #os.system("sudo /home/pi/PI_FM/fm_transmitter/fm_transmitter -f 96.7 -r /home/pi/Desktop/songs/song" + str(rand[count]+1) + ".wav")
-    #allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
+    allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
     while (pygame.mixer.music.get_busy()):
-        #showTargets(rand, count, i)
+        
+        broadcastDisplay.setRedFlag(toTuple(allInfo.loc[(i),'red Left']), red, red, redFlagOuter)
+        broadcastDisplay.setOrangeFlag(orange, orange, orange, orangeFlagOuter)
+        broadcastDisplay.setWhiteFlag(white, white, white, whiteFlagOuter)
+        broadcastDisplay.setGreenFlag(green, green, green, greenFlagOuter)
+        broadcastDisplay.setYellowFlag(yellow, yellow, yellow, yellowFlagOuter)
+        broadcastDisplay.setBlueFlag(blue, blue, blue, blueFlagOuter)
         i+=1
         time.sleep(1)
     pygame.mixer.music.stop()
