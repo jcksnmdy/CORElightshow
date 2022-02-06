@@ -31,7 +31,7 @@ black = (0,0,0)
 
 troubleTitle = font.render('TroubleShooting', True, white)
 mainTitle = font.render('Main: ', True, white)
-mainTitle = font.size(100, 50)
+# mainTitle = font.size(100, 50)
 
 def troubleShootTextBroadcast(troubleText, mainText):
     global troubleTitle, mainTitle
