@@ -1,9 +1,10 @@
 import pygame
 import time
 import os
-
+import broadcastDisplay
 
 def welcomeMessage():
+    broadcastDisplay.troubleShootTextBroadcast("", "playing opening")
     pygame.mixer.music.load("/home/pi/Desktop/coreLightShow/effects/welcome.mp3")
     pygame.mixer.music.play(0)
     time.sleep(7)

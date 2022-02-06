@@ -8,6 +8,7 @@ import threading
 import playMusic
 import sys
 import paho.mqtt.client as mqtt
+import broadcastDisplay
 from broadcastDisplay import pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, showStop, stopbutton, redFlagLeftOrig, orangeFlagLeftOrig, whiteFlagLeftOrig, yellowFlagLeftOrig, greenFlagLeftOrig, blueFlagLeftOrig, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
 from playMusic import stop
 
@@ -56,20 +57,26 @@ def on_message(client, userdata, msg):
         if("red:Ready" in str(msg.payload)):
             redReady = True
             time.sleep(0.5)
+            broadcastDisplay.setRedFlag(red, red, red, redFlagOuter)
         if("white:Ready" in str(msg.payload)):
             whiteReady = True
             time.sleep(0.5)
+            broadcastDisplay.setWhiteFlag(white, white, white, whiteFlagOuter)
         if("orange:Ready" in str(msg.payload)):
             orangeReady = True
             time.sleep(0.5)
+            broadcastDisplay.setOrangeFlag(orange, orange, orange, orangeFlagOuter)
         if("green:Ready" in str(msg.payload)):
             greenReady = True
             time.sleep(0.5)
+            broadcastDisplay.setGreenFlag(green, green, green, greenFlagOuter)
         if("yellow:Ready" in str(msg.payload)):
             yellowReady = True
             time.sleep(0.5)
+            broadcastDisplay.setYellowFlag(yellow, yellow, yellow, yellowFlagOuter)
         if("blue:Ready" in str(msg.payload)):
             blueReady = True
+            broadcastDisplay.setBlueFlag(blue, blue, blue, blueFlagOuter)
             time.sleep(0.5)
         print("Red: " + str(redReady) + ", " + "White: " + str(whiteReady) + ", " + "Orange: " + str(orangeReady) + ", " + "Green: " + str(greenReady) + ", " + "Yellow: " + str(yellowReady) + ", " + "Blue: " + str(blueReady))
     if("hit" in str(msg.payload) and "red" not in str(msg.payload) and "yellow" not in str(msg.payload) and "orange" not in str(msg.payload) and "green" not in str(msg.payload) and "blue" not in str(msg.payload) and "white" not in str(msg.payload)):
@@ -121,6 +128,12 @@ def askReady():
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:green")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:yellow")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:blue")
+    broadcastDisplay.setRedFlag(grey, grey, grey, redFlagOuter)
+    broadcastDisplay.setOrangeFlag(grey, grey, grey, orangeFlagOuter)
+    broadcastDisplay.setWhiteFlag(grey, grey, grey, whiteFlagOuter)
+    broadcastDisplay.setGreenFlag(grey, grey, grey, greenFlagOuter)
+    broadcastDisplay.setYellowFlag(grey, grey, grey, yellowFlagOuter)
+    broadcastDisplay.setBlueFlag(grey, grey, grey, blueFlagOuter)
     time.sleep(20)
     counter = 0
     while counter < 12:

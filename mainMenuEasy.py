@@ -594,6 +594,7 @@ def checkEventMain(mouse_pos):
 
     if stopButton.collidepoint(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
+        broadcastDisplay("", "stopping all")
 
     if startButton.collidepoint(mouse_pos):
         print("Starting")

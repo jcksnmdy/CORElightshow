@@ -98,7 +98,7 @@ def playSong(rand, count):
         broadcastDisplay.setYellowFlag(toTuple(allInfo.loc[(i),'yellow Left']), toTuple(allInfo.loc[(i),'yellow Middle']), toTuple(allInfo.loc[(i),'yellow Right']), yellowFlagOuter)
         broadcastDisplay.setBlueFlag(toTuple(allInfo.loc[(i),'blue Left']), toTuple(allInfo.loc[(i),'blue Middle']), toTuple(allInfo.loc[(i),'blue Right']), blueFlagOuter)
         i+=1
-        time.sleep(0.06)
+        time.sleep(0.061)
 
 
         pygame.display.flip()
@@ -176,7 +176,7 @@ def playPandora(playlist, delay, soundEffect):
                     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
                     client.loop_stop()
                     timer = 9999999999999999999999
-                    count = 1000
+                    count = 99999999999
                     break
     print("Done with pandora")
     stop(proc.pid)
