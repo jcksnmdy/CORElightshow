@@ -11,8 +11,8 @@ import pygame_widgets
 import paho.mqtt.client as mqtt
 from broadcastDisplay import showTargets, stopbutton, showStop, pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
 import sys
-sys.path.append('/home/pi/Desktop/globals/')
-#sys.path.append('/Users/s1034274/Desktop/globals/')
+#sys.path.append('/home/pi/Desktop/globals/')
+sys.path.append('/Users/s1034274/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numStations, holiday, michealJ, yacht, path
 
 MQTT_SERVER = "192.168.99.93"
@@ -44,7 +44,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
  
-client.connect(MQTT_SERVER, 1883, 60)
+#client.connect(MQTT_SERVER, 1883, 60)
 
 def playSong(rand, count):
     global now, current_time

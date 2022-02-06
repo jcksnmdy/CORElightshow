@@ -8,8 +8,8 @@ import signal
 import threading
 import pygame_widgets
 import sys
-#sys.path.append('/Users/s1034274/Desktop/globals')
-sys.path.append('/home/pi/Desktop/globals/')
+sys.path.append('/Users/s1034274/Desktop/globals')
+#sys.path.append('/home/pi/Desktop/globals/')
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht, path
 
 pygame.init()
@@ -51,14 +51,24 @@ yellowFlagColorRight = yellow
 greenFlagColorRight = green
 blueFlagColorRight = blue
 
-#tester
-redFlagOuter = pygame.Rect((120, 330, 79, 79))
-orangeFlagOuter = pygame.Rect((450, 280, 79, 79))
-whiteFlagOuter = pygame.Rect((340, 190, 79, 79))
-yellowFlagOuter = pygame.Rect((150, 220, 79, 79))
-greenFlagOuter = pygame.Rect((240, 160, 79, 79))
-blueFlagOuter = pygame.Rect((470, 100, 79, 79))
-
+#tester#######################################tester######################################
+#############################################
+#############################################
+#tester#######################################tester######################################
+#############################################
+#############################################
+redFlagOuter = pygame.Rect((460, 90, 39, 39))
+orangeFlagOuter = pygame.Rect((460, 160, 39, 39))
+whiteFlagOuter = pygame.Rect((460, 230, 39, 39))
+yellowFlagOuter = pygame.Rect((460, 300, 39, 39))
+greenFlagOuter = pygame.Rect((460, 370, 39, 39))
+blueFlagOuter = pygame.Rect((460, 440, 39, 39))
+#tester######################################
+##############################################tester######################################
+##############################################tester######################################
+##############################################tester######################################
+##############################################tester######################################
+#############################################
 ## Left
 redFlagLeftOrig = (120, 330, 19, 79)
 orangeFlagLeftOrig = (450, 280, 19, 79)
@@ -183,126 +193,74 @@ def pulseBlue():
         time.sleep(0.2)
         setBlueFlag(grey, grey, grey, blueFlagLeftOrig)
         time.sleep(0.1)
-
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
 def setRedFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    Left = space
-    middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
-
-    global redFlagColorLeft, redFlagLeft, redFlagColorMiddle, redFlagMiddle, redFlagColorRight, redFlagRight
-    redFlagColorLeft = colorLeft
-    redFlagLeft = pygame.Rect(Left)
-    redFlagColorMiddle = colorMiddle
-    redFlagMiddle = pygame.Rect(middle)
-    redFlagColorRight = colorRight
-    redFlagRight = pygame.Rect(Right)
-    pygame.draw.rect(screen, redFlagColorLeft, redFlagLeft)  # draw button
     
-    pygame.draw.rect(screen, redFlagColorMiddle, redFlagMiddle)  # draw button
+    pygame.draw.line(screen, colorLeft, (spaceList[0]-20,spaceList[1]), (spaceList[0]+39,spaceList[1]+39), 8)  # draw button
     
-    pygame.draw.rect(screen, redFlagColorRight, redFlagRight)  # draw button
+    pygame.draw.rect(screen, colorMiddle, (spaceList[0]+5,spaceList[1]-5,spaceList[2]-30,spaceList[3]+10))  # draw button
+    
+    pygame.draw.line(screen, colorRight, (spaceList[0]-20,spaceList[1]+39), (spaceList[0]+39,spaceList[1]), 8)  # draw button
     
 
 def setOrangeFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    Left = space
-    middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
-
-    global orangeFlagColorLeft, orangeFlagLeft, orangeFlagColorMiddle, orangeFlagMiddle, orangeFlagColorRight, orangeFlagRight
-    orangeFlagColorLeft = colorLeft
-    orangeFlagLeft = pygame.Rect(Left)
-    orangeFlagColorMiddle = colorMiddle
-    orangeFlagMiddle = pygame.Rect(middle)
-    orangeFlagColorRight = colorRight
-    orangeFlagRight = pygame.Rect(Right)
-
-    pygame.draw.rect(screen, orangeFlagColorLeft, orangeFlagLeft)  # draw button
     
-    pygame.draw.rect(screen, orangeFlagColorMiddle, orangeFlagMiddle)  # draw button
+    pygame.draw.line(screen, colorLeft, (spaceList[0]-20,spaceList[1]), (spaceList[0]+39,spaceList[1]+39), 8)  # draw button
     
-    pygame.draw.rect(screen, orangeFlagColorRight, orangeFlagRight)  # draw button
+    pygame.draw.rect(screen, colorMiddle, (spaceList[0]+5,spaceList[1]-5,spaceList[2]-30,spaceList[3]+10))  # draw button
+    
+    pygame.draw.line(screen, colorRight, (spaceList[0]-20,spaceList[1]+39), (spaceList[0]+39,spaceList[1]), 8)  # draw button
     
 
 def setWhiteFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    Left = space
-    middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
-
-    global whiteFlagColorLeft, whiteFlagLeft, whiteFlagColorMiddle, whiteFlagMiddle, whiteFlagColorRight, whiteFlagRight
-    whiteFlagColorLeft = colorLeft
-    whiteFlagLeft = pygame.Rect(Left)
-    whiteFlagColorMiddle = colorMiddle
-    whiteFlagMiddle = pygame.Rect(middle)
-    whiteFlagColorRight = colorRight
-    whiteFlagRight = pygame.Rect(Right)
-    pygame.draw.rect(screen, whiteFlagColorLeft, whiteFlagLeft)  # draw button
     
-    pygame.draw.rect(screen, whiteFlagColorMiddle, whiteFlagMiddle)  # draw button
+    pygame.draw.line(screen, colorLeft, (spaceList[0]-20,spaceList[1]), (spaceList[0]+39,spaceList[1]+39), 8)  # draw button
     
-    pygame.draw.rect(screen, whiteFlagColorRight, whiteFlagRight)  # draw button
-
+    pygame.draw.rect(screen, colorMiddle, (spaceList[0]+5,spaceList[1]-5,spaceList[2]-30,spaceList[3]+10))  # draw button
+    
+    pygame.draw.line(screen, colorRight, (spaceList[0]-20,spaceList[1]+39), (spaceList[0]+39,spaceList[1]), 8)  # draw button
+    
     
 
 def setYellowFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    Left = space
-    middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
-
-    global yellowFlagColorLeft, yellowFlagLeft, yellowFlagColorMiddle, yellowFlagMiddle, yellowFlagColorRight, yellowFlagRight
-    yellowFlagColorLeft = colorLeft
-    yellowFlagLeft = pygame.Rect(Left)
-    yellowFlagColorMiddle = colorMiddle
-    yellowFlagMiddle = pygame.Rect(middle)
-    yellowFlagColorRight = colorRight
-    yellowFlagRight = pygame.Rect(Right)
-    pygame.draw.rect(screen, yellowFlagColorLeft, yellowFlagLeft)  # draw button
     
-    pygame.draw.rect(screen, yellowFlagColorMiddle, yellowFlagMiddle)  # draw button
+    pygame.draw.line(screen, colorLeft, (spaceList[0]-20,spaceList[1]), (spaceList[0]+39,spaceList[1]+39), 8)  # draw button
     
-    pygame.draw.rect(screen, yellowFlagColorRight, yellowFlagRight)  # draw button
-
+    pygame.draw.rect(screen, colorMiddle, (spaceList[0]+5,spaceList[1]-5,spaceList[2]-30,spaceList[3]+10))  # draw button
+    
+    pygame.draw.line(screen, colorRight, (spaceList[0]-20,spaceList[1]+39), (spaceList[0]+39,spaceList[1]), 8)  # draw button
+    
 def setGreenFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    Left = space
-    middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
-
-    global greenFlagColorLeft, greenFlagLeft, greenFlagColorMiddle, greenFlagMiddle, greenFlagColorRight, greenFlagRight
-    greenFlagColorLeft = colorLeft
-    greenFlagLeft = pygame.Rect(Left)
-    greenFlagColorMiddle = colorMiddle
-    greenFlagMiddle = pygame.Rect(middle)
-    greenFlagColorRight = colorRight
-    greenFlagRight = pygame.Rect(Right)
-    pygame.draw.rect(screen, greenFlagColorLeft, greenFlagLeft)  # draw button
     
-    pygame.draw.rect(screen, greenFlagColorMiddle, greenFlagMiddle)  # draw button
+    pygame.draw.line(screen, colorLeft, (spaceList[0]-20,spaceList[1]), (spaceList[0]+39,spaceList[1]+39), 8)  # draw button
     
-    pygame.draw.rect(screen, greenFlagColorRight, greenFlagRight)  # draw button
-
+    pygame.draw.rect(screen, colorMiddle, (spaceList[0]+5,spaceList[1]-5,spaceList[2]-30,spaceList[3]+10))  # draw button
+    
+    pygame.draw.line(screen, colorRight, (spaceList[0]-20,spaceList[1]+39), (spaceList[0]+39,spaceList[1]), 8)  # draw button
+    
 def setBlueFlag(colorLeft, colorMiddle, colorRight, space):
     spaceList = list(space)
-    Left = space
-    middle = (spaceList[0]-10,spaceList[1]-10,spaceList[2]+20,spaceList[3]+20)
-    Right = (spaceList[0]-20,spaceList[1]-20,spaceList[2]+40,spaceList[3]+40)
-
-    global blueFlagColorLeft, blueFlagLeft, blueFlagColorMiddle, blueFlagMiddle, blueFlagColorRight, blueFlagRight
-    blueFlagColorLeft = colorLeft
-    blueFlagLeft = pygame.Rect(Left)
-    blueFlagColorMiddle = colorMiddle
-    blueFlagMiddle = pygame.Rect(middle)
-    blueFlagColorRight = colorRight
-    blueFlagRight = pygame.Rect(Right)
-    pygame.draw.rect(screen, blueFlagColorLeft, blueFlagLeft)  # draw button
     
-    pygame.draw.rect(screen, blueFlagColorMiddle, blueFlagMiddle)  # draw button
+    pygame.draw.line(screen, colorLeft, (spaceList[0]-20,spaceList[1]), (spaceList[0]+39,spaceList[1]+39), 8)  # draw button
     
-    pygame.draw.rect(screen, blueFlagColorRight, blueFlagRight)  # draw button
-
+    pygame.draw.rect(screen, colorMiddle, (spaceList[0]+5,spaceList[1]-5,spaceList[2]-30,spaceList[3]+10))  # draw button
+    
+    pygame.draw.line(screen, colorRight, (spaceList[0]-20,spaceList[1]+39), (spaceList[0]+39,spaceList[1]), 8)  # draw button
+    
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
 def setRedFlagSame(color, space):
     setRedFlag(color, color, color, space)
 
@@ -364,12 +322,30 @@ def showTargets(rand, count, i):
     #print(len(allInfo))
     #print(str(i)+ " "+ str(toColor(df.loc[(i),'Red 1'])))
     #print(toTuple(allInfo.loc[(i),'red Left']))
-    setRedFlagSame(toTuple(allInfo.loc[(i),'red Left']), redFlagLeftOrig)
-    setOrangeFlagSame(toTuple(allInfo.loc[(i),'orange Left']), orangeFlagLeftOrig)
-    setWhiteFlagSame(toTuple(allInfo.loc[(i),'white Left']), whiteFlagLeftOrig)
-    setYellowFlagSame(toTuple(allInfo.loc[(i),'yellow Left']), yellowFlagLeftOrig)
-    setGreenFlagSame(toTuple(allInfo.loc[(i),'green Left']), greenFlagLeftOrig)
-    setBlueFlagSame(toTuple(allInfo.loc[(i),'blue Left']), blueFlagLeftOrig)
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'red Left']), (120, 330), (160, 370), 8)  # draw button
+    pygame.draw.rect(screen, toTuple(allInfo.loc[(i),'red Middle']), redButton)  # draw button
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'red Right']), (160, 330), (120, 370), 8)  # draw button
+    
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'orange Left']), (400, 280), (440, 320), 8)  # draw button
+    pygame.draw.rect(screen, toTuple(allInfo.loc[(i),'orange Middle']), orangeButton)  # draw button
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'orange Right']), (440, 280), (400, 320), 8)  # draw button
+
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'white Left']), (290, 190), (330, 230), 8)  # draw button
+    pygame.draw.rect(screen, toTuple(allInfo.loc[(i),'white Middle']), whiteButton)  # draw button
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'white Right']), (330, 190), (290, 230), 8)  # draw button
+
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'yellow Left']), (150, 220), (190, 260), 8)  # draw button
+    pygame.draw.rect(screen, toTuple(allInfo.loc[(i),'yellow Middle']), yellowButton)  # draw button
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'yellow Right']), (190, 220), (150, 260), 8)  # draw button
+
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'green Left']), (240, 160), (280, 200), 8)  # draw button
+    pygame.draw.rect(screen, toTuple(allInfo.loc[(i),'green Middle']), greenButton)  # draw button
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'green Right']), (280, 160), (240, 200), 8)  # draw button
+
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'blue Left']), (420, 100), (460, 140), 8)  # draw button
+    pygame.draw.rect(screen, toTuple(allInfo.loc[(i),'blue Middle']), blueButton)  # draw button
+    pygame.draw.line(screen, toTuple(allInfo.loc[(i),'blue Right']), (460, 100), (420, 140), 8)  # draw button
+
 
     
     for event in pygame.event.get():
