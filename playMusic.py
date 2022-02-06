@@ -56,6 +56,10 @@ def toTuple(before):
     print("Returning:" + str(returning))
     return returning
 
+pygame.init()
+screen = pygame.display.set_mode((750, 500))
+clock = pygame.time.Clock()
+pygame.display.set_caption("Programmer")
 def playSong(rand, count):
     global now, current_time
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
@@ -72,7 +76,19 @@ def playSong(rand, count):
     #os.system("sudo /home/pi/PI_FM/fm_transmitter/fm_transmitter -f 96.7 -r /home/pi/Desktop/songs/song" + str(rand[count]+1) + ".wav")
     allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
     while (pygame.mixer.music.get_busy()):
+        screen.fill([0,0,0])
         
+        for event in pygame.event.get():
+            
+            # determin if X was clicked, or Ctrl+W or Alt+F4 was used
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos  # gets mouse position
+                checkEventMain(mouse_pos)
+
         broadcastDisplay.setRedFlag(toTuple(allInfo.loc[(i),'red Left']), toTuple(allInfo.loc[(i),'red Middle']), toTuple(allInfo.loc[(i),'red Right']), redFlagOuter)
         broadcastDisplay.setOrangeFlag(toTuple(allInfo.loc[(i),'orange Left']), toTuple(allInfo.loc[(i),'orange Middle']), toTuple(allInfo.loc[(i),'orange Right']), orangeFlagOuter)
         broadcastDisplay.setWhiteFlag(toTuple(allInfo.loc[(i),'white Left']), toTuple(allInfo.loc[(i),'white Middle']), toTuple(allInfo.loc[(i),'white Right']), whiteFlagOuter)
@@ -80,7 +96,12 @@ def playSong(rand, count):
         broadcastDisplay.setYellowFlag(toTuple(allInfo.loc[(i),'yellow Left']), toTuple(allInfo.loc[(i),'yellow Middle']), toTuple(allInfo.loc[(i),'yellow Right']), yellowFlagOuter)
         broadcastDisplay.setBlueFlag(toTuple(allInfo.loc[(i),'blue Left']), toTuple(allInfo.loc[(i),'blue Middle']), toTuple(allInfo.loc[(i),'blue Right']), blueFlagOuter)
         i+=1
-        time.sleep(1)
+        time.sleep(0.06)
+
+
+        pygame.display.flip()
+        
+        clock.tick(60)
     pygame.mixer.music.stop()
 
 def shutdownMessage():

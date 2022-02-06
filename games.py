@@ -36,7 +36,7 @@ yellowReady = False
 blueReady = False
 
 globalSound = "pew"
-MQTT_SERVER = "192.168.99.93"
+MQTT_SERVER = "localhost"
 MQTT_PATH = "test_channel"
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -95,7 +95,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
  
-#client.connect(MQTT_SERVER, 1883, 60)
+client.connect(MQTT_SERVER, 1883, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
@@ -111,8 +111,10 @@ def askReady():
     greenReady = False
     yellowReady = False
     blueReady = False
+    print("Before loop")
     client.loop_start()
     time.sleep(5)
+    print("afeter")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:red")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:orange")
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:white")
@@ -121,7 +123,7 @@ def askReady():
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "testSilent:blue")
     time.sleep(20)
     counter = 0
-    while counter < 30:
+    while counter < 12:
         if (redReady and orangeReady and whiteReady and greenReady and yellowReady and blueReady):
             client.loop_stop()
             print("DONE. ALL CONNECTED")
