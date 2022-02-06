@@ -559,11 +559,11 @@ def checkEventMain(mouse_pos):
             periodText = font.render('30 mins', True, black)
         elif (period == 30):
             period = 90
-            periodText = font.render('90 mins', True, black)
-        elif (period == 90):
-            period = 180
             periodText = font.render('180 mins', True, black)
-        elif (period == 180):
+        elif (period == 90):
+            period = 500
+            periodText = font.render('500 mins', True, black)
+        elif (period == 500):
             period = 0
             periodText = font.render('0 mins', True, black)
         else:
