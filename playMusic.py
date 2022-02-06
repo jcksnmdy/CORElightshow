@@ -74,11 +74,11 @@ def playSong(rand, count):
     while (pygame.mixer.music.get_busy()):
         
         broadcastDisplay.setRedFlag(toTuple(allInfo.loc[(i),'red Left']), toTuple(allInfo.loc[(i),'red Middle']), toTuple(allInfo.loc[(i),'red Right']), redFlagOuter)
-        broadcastDisplay.setOrangeFlag(allInfo.loc[(i),'orange Left']), toTuple(allInfo.loc[(i),'orange Middle']), toTuple(allInfo.loc[(i),'orange Right']), orangeFlagOuter)
-        broadcastDisplay.setWhiteFlag(allInfo.loc[(i),'white Left']), toTuple(allInfo.loc[(i),'white Middle']), toTuple(allInfo.loc[(i),'white Right']), whiteFlagOuter)
-        broadcastDisplay.setGreenFlag(allInfo.loc[(i),'green Left']), toTuple(allInfo.loc[(i),'green Middle']), toTuple(allInfo.loc[(i),'green Right']), greenFlagOuter)
-        broadcastDisplay.setYellowFlag(allInfo.loc[(i),'yellow Left']), toTuple(allInfo.loc[(i),'yellow Middle']), toTuple(allInfo.loc[(i),'yellow Right']), yellowFlagOuter)
-        broadcastDisplay.setBlueFlag(allInfo.loc[(i),'blue Left']), toTuple(allInfo.loc[(i),'blue Middle']), toTuple(allInfo.loc[(i),'blue Right']), blueFlagOuter)
+        broadcastDisplay.setOrangeFlag(toTuple(allInfo.loc[(i),'orange Left']), toTuple(allInfo.loc[(i),'orange Middle']), toTuple(allInfo.loc[(i),'orange Right']), orangeFlagOuter)
+        broadcastDisplay.setWhiteFlag(toTuple(allInfo.loc[(i),'white Left']), toTuple(allInfo.loc[(i),'white Middle']), toTuple(allInfo.loc[(i),'white Right']), whiteFlagOuter)
+        broadcastDisplay.setGreenFlag(toTuple(allInfo.loc[(i),'green Left']), toTuple(allInfo.loc[(i),'green Middle']), toTuple(allInfo.loc[(i),'green Right']), greenFlagOuter)
+        broadcastDisplay.setYellowFlag(toTuple(allInfo.loc[(i),'yellow Left']), toTuple(allInfo.loc[(i),'yellow Middle']), toTuple(allInfo.loc[(i),'yellow Right']), yellowFlagOuter)
+        broadcastDisplay.setBlueFlag(toTuple(allInfo.loc[(i),'blue Left']), toTuple(allInfo.loc[(i),'blue Middle']), toTuple(allInfo.loc[(i),'blue Right']), blueFlagOuter)
         i+=1
         time.sleep(1)
     pygame.mixer.music.stop()
