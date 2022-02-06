@@ -13,7 +13,12 @@ from broadcastDisplay import pulseRed, pulseOrange, pulseWhite, pulseYellow, pul
 from playMusic import stop
 
 
-
+pygame.init()
+pygame.font.init()
+font = pygame.font.Font('freesansbold.ttf', 19)
+screen = pygame.display.set_mode((750, 550))
+clock = pygame.time.Clock()
+pygame.display.set_caption("Game Runner")
 
 red = (255,0,0)
 orange = (255,128,0)
@@ -137,6 +142,17 @@ def askReady():
     time.sleep(20)
     counter = 0
     while counter < 12:
+        screen.fill([0,0,0])
+        
+        for event in pygame.event.get():
+            
+            # determin if X was clicked, or Ctrl+W or Alt+F4 was used
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = event.pos  # gets mouse position
         if (not redReady):
             broadcastDisplay.setRedFlag(grey, grey, grey, redFlagOuter)
         if (not orangeReady):
@@ -159,6 +175,10 @@ def askReady():
             time.sleep(10)
             counter+=1
         
+
+        pygame.display.flip()
+        
+        clock.tick(60)
     print("Done. Moving on")
 
 
