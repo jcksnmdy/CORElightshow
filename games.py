@@ -137,6 +137,18 @@ def askReady():
     time.sleep(20)
     counter = 0
     while counter < 12:
+        if (not redReady):
+            broadcastDisplay.setRedFlag(grey, grey, grey, redFlagOuter)
+        if (not orangeReady):
+            broadcastDisplay.setOrangeFlag(grey, grey, grey, orangeFlagOuter)
+        if (not whiteReady):
+            broadcastDisplay.setWhiteFlag(grey, grey, grey, whiteFlagOuter)
+        if (not greenReady):
+            broadcastDisplay.setGreenFlag(grey, grey, grey, greenFlagOuter)
+        if (not yellowReady):
+            broadcastDisplay.setYellowFlag(grey, grey, grey, yellowFlagOuter)
+        if (not blueReady):
+            broadcastDisplay.setBlueFlag(grey, grey, grey, blueFlagOuter)
         if (redReady and orangeReady and whiteReady and greenReady and yellowReady and blueReady):
             client.loop_stop()
             print("DONE. ALL CONNECTED")
@@ -146,6 +158,7 @@ def askReady():
             os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
             time.sleep(10)
             counter+=1
+        
     print("Done. Moving on")
 
 
