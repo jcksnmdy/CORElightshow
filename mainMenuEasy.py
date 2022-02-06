@@ -135,11 +135,31 @@ saturdayText = font.render('Saturday', True, black)
 sunday = pygame.Rect(450, 290, 140, 39)
 sundayText = font.render('Sunday', True, black)
 
-restartRed = pygame.Rect((460, 90, 39, 39))
-
+restartText = font.render('Restart', True, black)
+restartRed = pygame.Rect(440, 130, 70, 20)
+restartOrange = pygame.Rect(440, 200, 70, 20)
+restartWhite = pygame.Rect(440, 270, 70, 20)
+restartGreen = pygame.Rect(440, 340, 70, 20)
+restartYellow = pygame.Rect(440, 410, 70, 20)
+restartBlue = pygame.Rect(440, 480, 70, 20)
+restartAll = pygame.Rect(440, 520, 70, 20)
+restartAllText = font.render('Restart All', True, black)
 
 def troubleShootOptions():
-    print("more")
+    pygame.draw.rect(screen, white, restartAll)  # draw button
+    screen.blit(restartAllText, restartAll)
+    pygame.draw.rect(screen, white, restartRed)  # draw button
+    screen.blit(restartText, restartRed)
+    pygame.draw.rect(screen, white, restartOrange)  # draw button
+    screen.blit(restartText, restartOrange)
+    pygame.draw.rect(screen, white, restartWhite)  # draw button
+    screen.blit(restartText, restartWhite)
+    pygame.draw.rect(screen, white, restartGreen)  # draw button
+    screen.blit(restartText, restartGreen)
+    pygame.draw.rect(screen, white, restartYellow)  # draw button
+    screen.blit(restartText, restartYellow)
+    pygame.draw.rect(screen, white, restartBlue)  # draw button
+    screen.blit(restartText, restartBlue)
 
 def troubleShootText():
     troubleTitle = font.render('TroubleShooting', True, white)
@@ -584,6 +604,29 @@ def checkEventMain(mouse_pos):
         askReady()
         welcomeMessage()
         playMusic.play(stationT, period, soundEffect, 20)
+    
+    if restartRed.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:red")
+    if restartOrange.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:orange")
+    if restartWhite.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:white")
+    if restartGreen.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:green")
+    if restartYellow.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:yellow")
+    if restartBlue.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:blue")
+  
+    if restartAll.collidepoint(mouse_pos):
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:red")
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:orange")
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:white")
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:green")
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:yellow")
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "restart:blue")
+        os.system("mosquitto_pub -h localhost -t test_channel -m " + "endstop")
+
 
 os.system("mosquitto_pub -h localhost -t test_channel -m " + "start")
 main()
