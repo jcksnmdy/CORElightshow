@@ -13,7 +13,9 @@ from broadcastDisplay import pulseRed, pulseOrange, pulseWhite, pulseYellow, pul
 from funAudio import welcomeMessage
 import paho.mqtt.client as mqtt
 from games import startTargetGame, startKnockOutGame, startCaptureGame, askReady, startPopupGame
-sys.path.append('/Users/s1034274/Desktop/globals/')
+#sys.path.append('/Users/s1034274/Desktop/globals/')
+sys.path.append('/home/pi/Desktop/globals/')
+
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht
 
 

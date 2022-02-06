@@ -15,7 +15,9 @@ from broadcastDisplay import pulseRed, pulseOrange, pulseWhite, pulseYellow, pul
 from playMusic import stop
 
 from games import startTargetGame, startKnockOutGame, startCaptureGame, askReady
-sys.path.append('/Users/s1034274/Desktop/globals/')
+#sys.path.append('/Users/s1034274/Desktop/globals/')
+sys.path.append('/home/pi/Desktop/globals/')
+
 from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHits, satDisco, sunCountry, numSongs, numStations, holiday, michealJ, yacht
 
 red = (255,0,0)
