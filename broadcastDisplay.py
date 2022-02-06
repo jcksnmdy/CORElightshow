@@ -29,6 +29,15 @@ white = (255,255,255)
 grey = (128,128,128)
 black = (0,0,0)
 
+troubleTitle = font.render('TroubleShooting', True, white)
+mainTitle = font.render('Main: ', True, white)
+
+def troubleShootTextBroadcast(troubleText, mainText):
+    global troubleTitle, mainTitle
+    troubleTitle = font.render('TroubleShooting: ' + troubleText, True, white)
+    mainTitle = font.render('Main: ' + mainText, True, white)
+    screen.blit(troubleTitle, (440, 10))
+    screen.blit(mainTitle, (440, 50))
 ## Left
 redFlagColorLeft = red
 orangeFlagColorLeft = orange
@@ -297,24 +306,12 @@ def toTuple(before):
     return returning
 
 def refresh():
-    pygame.draw.rect(screen, redFlagColorLeft, redFlagLeft)  # draw button
-    pygame.draw.rect(screen, orangeFlagColorLeft, orangeFlagLeft)  # draw button
-    pygame.draw.rect(screen, whiteFlagColorLeft, whiteFlagLeft)  # draw button
-    pygame.draw.rect(screen, yellowFlagColorLeft, yellowFlagLeft)  # draw button
-    pygame.draw.rect(screen, greenFlagColorLeft, greenFlagLeft)  # draw button
-    pygame.draw.rect(screen, blueFlagColorLeft, blueFlagLeft)  # draw button
-    pygame.draw.rect(screen, redFlagColorMiddle, redFlagMiddle)  # draw button
-    pygame.draw.rect(screen, orangeFlagColorMiddle, orangeFlagMiddle)  # draw button
-    pygame.draw.rect(screen, whiteFlagColorMiddle, whiteFlagMiddle)  # draw button
-    pygame.draw.rect(screen, yellowFlagColorMiddle, yellowFlagMiddle)  # draw button
-    pygame.draw.rect(screen, greenFlagColorMiddle, greenFlagMiddle)  # draw button
-    pygame.draw.rect(screen, blueFlagColorMiddle, blueFlagMiddle)  # draw button
-    pygame.draw.rect(screen, redFlagColorRight, redFlagRight)  # draw button
-    pygame.draw.rect(screen, orangeFlagColorRight, orangeFlagRight)  # draw button
-    pygame.draw.rect(screen, whiteFlagColorRight, whiteFlagRight)  # draw button
-    pygame.draw.rect(screen, yellowFlagColorRight, yellowFlagRight)  # draw button
-    pygame.draw.rect(screen, greenFlagColorRight, greenFlagRight)  # draw button
-    pygame.draw.rect(screen, blueFlagColorRight, blueFlagRight)  # draw button
+    setRedFlag(red, red, red, redFlagOuter)
+    setOrangeFlag(orange, orange, orange, orangeFlagOuter)
+    setWhiteFlag(white, white, white, whiteFlagOuter)
+    setGreenFlag(green, green, green, greenFlagOuter)
+    setYellowFlag(yellow, yellow, yellow, yellowFlagOuter)
+    setBlueFlag(blue, blue, blue, blueFlagOuter)
 
 def showTargets(rand, count, i):
     allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")

@@ -75,6 +75,7 @@ def playSong(rand, count):
     pygame.mixer.music.play(0)
     #os.system("sudo /home/pi/PI_FM/fm_transmitter/fm_transmitter -f 96.7 -r /home/pi/Desktop/songs/song" + str(rand[count]+1) + ".wav")
     allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
+    
     while (pygame.mixer.music.get_busy()):
         screen.fill([0,0,0])
         
@@ -87,8 +88,9 @@ def playSong(rand, count):
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos  # gets mouse position
-                checkEventMain(mouse_pos)
+                #checkEventMain(mouse_pos)
 
+        broadcastDisplay.troubleShootTextBroadcast("", "Playing song: " + str(count+1))
         broadcastDisplay.setRedFlag(toTuple(allInfo.loc[(i),'red Left']), toTuple(allInfo.loc[(i),'red Middle']), toTuple(allInfo.loc[(i),'red Right']), redFlagOuter)
         broadcastDisplay.setOrangeFlag(toTuple(allInfo.loc[(i),'orange Left']), toTuple(allInfo.loc[(i),'orange Middle']), toTuple(allInfo.loc[(i),'orange Right']), orangeFlagOuter)
         broadcastDisplay.setWhiteFlag(toTuple(allInfo.loc[(i),'white Left']), toTuple(allInfo.loc[(i),'white Middle']), toTuple(allInfo.loc[(i),'white Right']), whiteFlagOuter)
@@ -110,10 +112,11 @@ def shutdownMessage():
     print("shutting down")
     i = 0
     pygame.mixer.music.play(0)
+
     #os.system("sudo /home/pi/PI_FM/fm_transmitter/fm_transmitter -f 96.7 -r /home/pi/Desktop/songs/song" + str(rand[count]+1) + ".wav")
     #allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
     while (pygame.mixer.music.get_busy()):
-        #showTargets(rand, count, i)
+        broadcastDisplay.troubleShootTextBroadcast("Shutting down", "Playing Shutdown song")
         time.sleep(0.01)
 
 def playPandora(playlist, delay, soundEffect):
@@ -139,6 +142,8 @@ def playPandora(playlist, delay, soundEffect):
         timer+=0.01
         showStop()
         refresh()
+        broadcastDisplay.troubleShootTextBroadcast("", "Pandora: " + str(playlist) + ", " + ((delay*60)-timer)/60 + " minutes")
+
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos

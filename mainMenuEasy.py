@@ -9,7 +9,7 @@ import threading
 import playMusic
 import sys
 import broadcastDisplay
-from broadcastDisplay import pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, showStop, stopbutton, redFlagLeftOrig, orangeFlagLeftOrig, whiteFlagLeftOrig, yellowFlagLeftOrig, greenFlagLeftOrig, blueFlagLeftOrig, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
+from broadcastDisplay import mainTitle, troubleTitle, pulseRed, pulseOrange, pulseWhite, pulseYellow, pulseGreen, pulseBlue, sparkleRed, whiteFlagOuter, redFlagOuter, orangeFlagOuter, blueFlagOuter, greenFlagOuter, yellowFlagOuter, setHit, getHit, refresh, showStop, stopbutton, redFlagLeftOrig, orangeFlagLeftOrig, whiteFlagLeftOrig, yellowFlagLeftOrig, greenFlagLeftOrig, blueFlagLeftOrig, setRedFlagSame, setOrangeFlagSame, setWhiteFlagSame, setGreenFlagSame, setBlueFlagSame, setYellowFlagSame
 from funAudio import welcomeMessage
 import paho.mqtt.client as mqtt
 from games import startTargetGame, startKnockOutGame, startCaptureGame, askReady, startPopupGame
@@ -76,7 +76,6 @@ def main():
         elif (state == 4):
             controlOptions()
         troubleShootOptions()
-        troubleShootText()
         lightUpdate()
         
             
@@ -162,12 +161,8 @@ def troubleShootOptions():
     screen.blit(restartText, restartYellow)
     pygame.draw.rect(screen, white, restartBlue)  # draw button
     screen.blit(restartText, restartBlue)
+    
 
-def troubleShootText():
-    troubleTitle = font.render('TroubleShooting', True, white)
-    screen.blit(troubleTitle, (440, 10))
-    mainTitle = font.render('Main: ', True, white)
-    screen.blit(mainTitle, (440, 50))
 
 def lightUpdate():
     broadcastDisplay.setRedFlag(red, red, red, redFlagOuter)
@@ -431,7 +426,7 @@ def controlOptions():
 
 
 def checkEventMain(mouse_pos):
-    global state, song, station, period, periodText, selectedColor, selectedFlag, soundEffect, playStation
+    global troubleTitle, mainTitle, state, song, station, period, periodText, selectedColor, selectedFlag, soundEffect, playStation
     if soundButton.collidepoint(mouse_pos):
         if (soundEffect == "pew"):
             soundEffect = "ka-ching"
@@ -492,9 +487,10 @@ def checkEventMain(mouse_pos):
 
     if playBoth.collidepoint(mouse_pos):
         playMusic.play(playStation, period, soundEffect, 9)
+
     if mix.collidepoint(mouse_pos):
-        print("MIX: " + soundEffect)
-        startTargetGame(fridayHits, soundEffect)
+        print("MIX: OFF FOR NOW" + soundEffect)
+        #startTargetGame(fridayHits, soundEffect)
                         
     if lights.collidepoint(mouse_pos):
         if (state!=1):
@@ -574,23 +570,21 @@ def checkEventMain(mouse_pos):
         playMusic.shutdownMessage()
     
     if knockButton.collidepoint(mouse_pos):
-        print("Knockout")
-        startKnockOutGame(playStation, soundEffect)
+        print("Knockout: OFF FOR NOW")
+        #startKnockOutGame(playStation, soundEffect)
     if targetButton.collidepoint(mouse_pos):
-        print("Target")
-        startTargetGame(playStation, soundEffect)
+        print("Target: OFF FOR NOW")
+        #startTargetGame(playStation, soundEffect)
     if captureButton.collidepoint(mouse_pos):
-        print("Capture")
-        startCaptureGame(playStation, soundEffect)
-
+        print("Capture: OFF FOR NOW")
+        #startCaptureGame(playStation, soundEffect)
     if popupButton.collidepoint(mouse_pos):
-        print("Pop Up")
-        startPopupGame(playStation, soundEffect)
+        print("Pop Up: OFF FOR NOW")
+        #startPopupGame(playStation, soundEffect)
     
     stationT = fridayHits
     if sunday.collidepoint(mouse_pos):
         stationT = sunCountry
-
 
     if welcomeButton.collidepoint(mouse_pos):
         welcomeMessage()
