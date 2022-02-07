@@ -15,7 +15,7 @@ from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHit
 pygame.init()
 pygame.font.init()
 pygame.display.set_caption("Player")
-font = pygame.font.Font('freesansbold.ttf', 12)
+font = pygame.font.Font('freesansbold.ttf', 15)
 pygame.mixer.init()
 screen = pygame.display.set_mode((640, 480))
 clock = pygame.time.Clock()

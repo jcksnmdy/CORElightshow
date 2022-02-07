@@ -22,6 +22,7 @@ MQTT_SERVER = "192.168.99.93"
 MQTT_PATH = "test_channel"
 globalSoundEffect = "pew"
 numSongs = 20
+grey = (128,128,128)
 
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -89,16 +90,23 @@ def playSong(rand, count):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos  # gets mouse position
                 #checkEventMain(mouse_pos)
-
-        broadcastDisplay.troubleShootTextBroadcast("", "Playing song: " + str(count+1))
-        broadcastDisplay.setRedFlag(toTuple(allInfo.loc[(i),'red Left']), toTuple(allInfo.loc[(i),'red Middle']), toTuple(allInfo.loc[(i),'red Right']), redFlagOuter)
-        broadcastDisplay.setOrangeFlag(toTuple(allInfo.loc[(i),'orange Left']), toTuple(allInfo.loc[(i),'orange Middle']), toTuple(allInfo.loc[(i),'orange Right']), orangeFlagOuter)
-        broadcastDisplay.setWhiteFlag(toTuple(allInfo.loc[(i),'white Left']), toTuple(allInfo.loc[(i),'white Middle']), toTuple(allInfo.loc[(i),'white Right']), whiteFlagOuter)
-        broadcastDisplay.setGreenFlag(toTuple(allInfo.loc[(i),'green Left']), toTuple(allInfo.loc[(i),'green Middle']), toTuple(allInfo.loc[(i),'green Right']), greenFlagOuter)
-        broadcastDisplay.setYellowFlag(toTuple(allInfo.loc[(i),'yellow Left']), toTuple(allInfo.loc[(i),'yellow Middle']), toTuple(allInfo.loc[(i),'yellow Right']), yellowFlagOuter)
-        broadcastDisplay.setBlueFlag(toTuple(allInfo.loc[(i),'blue Left']), toTuple(allInfo.loc[(i),'blue Middle']), toTuple(allInfo.loc[(i),'blue Right']), blueFlagOuter)
+        if (i+2 < len(allInfo)):
+            broadcastDisplay.troubleShootTextBroadcast("", "Playing song: " + str(count+1))
+            broadcastDisplay.setRedFlag(toTuple(allInfo.loc[(i),'red Left']), toTuple(allInfo.loc[(i),'red Middle']), toTuple(allInfo.loc[(i),'red Right']), redFlagOuter)
+            broadcastDisplay.setOrangeFlag(toTuple(allInfo.loc[(i),'orange Left']), toTuple(allInfo.loc[(i),'orange Middle']), toTuple(allInfo.loc[(i),'orange Right']), orangeFlagOuter)
+            broadcastDisplay.setWhiteFlag(toTuple(allInfo.loc[(i),'white Left']), toTuple(allInfo.loc[(i),'white Middle']), toTuple(allInfo.loc[(i),'white Right']), whiteFlagOuter)
+            broadcastDisplay.setGreenFlag(toTuple(allInfo.loc[(i),'green Left']), toTuple(allInfo.loc[(i),'green Middle']), toTuple(allInfo.loc[(i),'green Right']), greenFlagOuter)
+            broadcastDisplay.setYellowFlag(toTuple(allInfo.loc[(i),'yellow Left']), toTuple(allInfo.loc[(i),'yellow Middle']), toTuple(allInfo.loc[(i),'yellow Right']), yellowFlagOuter)
+            broadcastDisplay.setBlueFlag(toTuple(allInfo.loc[(i),'blue Left']), toTuple(allInfo.loc[(i),'blue Middle']), toTuple(allInfo.loc[(i),'blue Right']), blueFlagOuter)
+        else:
+            broadcastDisplay.setRedFlag(grey, grey, grey, redFlagOuter)
+            broadcastDisplay.setOrangeFlag(grey, grey, grey, orangeFlagOuter)
+            broadcastDisplay.setWhiteFlag(grey, grey, grey, whiteFlagOuter)
+            broadcastDisplay.setGreenFlag(grey, grey, grey, greenFlagOuter)
+            broadcastDisplay.setYellowFlag(grey, grey, grey, yellowFlagOuter)
+            broadcastDisplay.setBlueFlag(grey, grey, grey, blueFlagOuter)
         i+=1
-        time.sleep(0.061)
+        time.sleep(0.06)
 
 
         pygame.display.flip()
