@@ -15,7 +15,7 @@ from constants import monHipHop, tuesRock, wedWayBack, thursThrowback, fridayHit
 pygame.init()
 pygame.font.init()
 pygame.display.set_caption("Player")
-font = pygame.font.Font('freesansbold.ttf', 16)
+font = pygame.font.Font('freesansbold.ttf', 12)
 pygame.mixer.init()
 screen = pygame.display.set_mode((640, 480))
 clock = pygame.time.Clock()
@@ -37,8 +37,8 @@ def troubleShootTextBroadcast(troubleText, mainText):
     global troubleTitle, mainTitle
     troubleTitle = font.render('TroubleShooting: ' + troubleText, True, white)
     mainTitle = font.render('Main: ' + mainText, True, white)
-    screen.blit(troubleTitle, (440, 10))
-    screen.blit(mainTitle, (440, 50))
+    screen.blit(troubleTitle, (480, 10))
+    screen.blit(mainTitle, (10, 430))
 ## Left
 redFlagColorLeft = red
 orangeFlagColorLeft = orange

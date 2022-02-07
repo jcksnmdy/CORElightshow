@@ -248,7 +248,7 @@ client.loop_start()
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.Font('freesansbold.ttf', 19)
+font = pygame.font.Font('freesansbold.ttf', 12)
 screen = pygame.display.set_mode((750, 550))
 clock = pygame.time.Clock()
 pygame.display.set_caption("Trouble Shooter")

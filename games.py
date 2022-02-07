@@ -1,3 +1,4 @@
+from pickle import TRUE
 import pygame
 import os
 import time
@@ -15,7 +16,7 @@ from playMusic import stop
 
 pygame.init()
 pygame.font.init()
-font = pygame.font.Font('freesansbold.ttf', 19)
+font = pygame.font.Font('freesansbold.ttf', 12)
 screen = pygame.display.set_mode((750, 550))
 clock = pygame.time.Clock()
 pygame.display.set_caption("Game Runner")
@@ -124,6 +125,7 @@ def askReady():
     yellowReady = False
     blueReady = False
     print("Before loop")
+    broadcastDisplay.troubleShootTextBroadcast("", "Testing Connections")
     client.loop_start()
     time.sleep(5)
     print("afeter")
@@ -144,6 +146,8 @@ def askReady():
     while counter < 12:
         screen.fill([0,0,0])
         
+        broadcastDisplay.troubleShootTextBroadcast("", "Testing Connections")
+        showStop()
         for event in pygame.event.get():
             
             # determin if X was clicked, or Ctrl+W or Alt+F4 was used
@@ -153,6 +157,11 @@ def askReady():
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos  # gets mouse position
+                if stopbutton.collidepoint(mouse_pos):
+                    print("Skipping")
+                    broadcastDisplay.troubleShootTextBroadcast("", "Testing Connections")
+                    counter = 20000
+                    break
         if (not redReady):
             broadcastDisplay.setRedFlag(grey, grey, grey, redFlagOuter)
         if (not orangeReady):
@@ -175,7 +184,7 @@ def askReady():
             time.sleep(10)
             counter+=1
         
-
+        
         pygame.display.flip()
         
         clock.tick(60)
@@ -183,7 +192,7 @@ def askReady():
 
 
 def startTargetGame(playlist, soundEffect):
-    font = pygame.font.Font('freesansbold.ttf', 19)
+    font = pygame.font.Font('freesansbold.ttf', 12)
     screen = pygame.display.set_mode((750, 550))
     clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
@@ -303,7 +312,7 @@ def startTargetGame(playlist, soundEffect):
     pygame.mixer.music.stop()
 
 def startKnockOutGame(playlist, soundEffect):
-    font = pygame.font.Font('freesansbold.ttf', 19)
+    font = pygame.font.Font('freesansbold.ttf', 12)
     screen = pygame.display.set_mode((750, 550))
     clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
@@ -398,7 +407,7 @@ def startKnockOutGame(playlist, soundEffect):
     pygame.mixer.music.stop()
 
 def startCaptureGame(playlist, soundEffect):
-    font = pygame.font.Font('freesansbold.ttf', 19)
+    font = pygame.font.Font('freesansbold.ttf', 12)
     screen = pygame.display.set_mode((750, 550))
     clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
@@ -484,7 +493,7 @@ def startCaptureGame(playlist, soundEffect):
     pygame.mixer.music.stop()
 
 def startPopupGame(playlist, soundEffect):
-    font = pygame.font.Font('freesansbold.ttf', 19)
+    font = pygame.font.Font('freesansbold.ttf', 12)
     screen = pygame.display.set_mode((750, 550))
     clock = pygame.time.Clock()
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
