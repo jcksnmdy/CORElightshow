@@ -1,9 +1,8 @@
 git pull
-sudo cd
-sudo cd /Desktop/flagCode
+cd /home/pi/Desktop/flagCode/
 git pull
 cd
-cd /Desktop/songs
+cd /home/pi/Desktop/songs/
 git pull
 cd
 python3 /home/pi/Desktop/coreLightShow/mainMenuEasy.py
