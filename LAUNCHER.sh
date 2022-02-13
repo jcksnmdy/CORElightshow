@@ -1,6 +1,6 @@
 git pull
-cd
-cd /Desktop/flagCode
+sudo cd
+sudo cd /Desktop/flagCode
 git pull
 cd
 cd /Desktop/songs
