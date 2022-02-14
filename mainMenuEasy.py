@@ -226,13 +226,13 @@ def lightsOptions():
     elif (song == 16):
         songName = font.render('immabe', True, white)
     elif (song == 17):
-        songName = font.render('DeckThe', True, white) # DeckThe or Sheesh!
+        songName = font.render('Sheesh!', True, white) # DeckThe or Sheesh!
     elif (song == 18):
-        songName = font.render('ChittyBang', True, white) # Jin.Roc or ChittyBang
+        songName = font.render('ChittyB.', True, white) # Jin.Roc or ChittyBang
     elif (song == 19):
         songName = font.render('ENEMY', True, white) # mele.k or ENEMY
     elif (song == 20):
-        songName = font.render('12days', True, white) # 12days or motto
+        songName = font.render('Motto', True, white) # 12days or motto
     
     if (station == 1):
         stationText = font.render('Hip Hop', True, white)
