@@ -198,7 +198,7 @@ def lightsOptions():
     elif (song == 2):
         songName = font.render('Thunderstruck', True, white)
     elif (song == 3):
-        songName = font.render('Eye Tiger', True, white)
+        songName = font.render('Part.Rok', True, white)
     elif (song == 4):
         songName = font.render('Hit Me', True, white)
     elif (song == 5):
@@ -218,7 +218,7 @@ def lightsOptions():
     elif (song == 12):
         songName = font.render('Sing.Lad', True, white) #Mon. Mash or Sing.Lad
     elif (song == 13):
-        songName = font.render('Thriller', True, white)
+        songName = font.render('I.L.Rok', True, white) # Thrller or I.L.Rok
     elif (song == 14):
         songName = font.render('Edemame', True, white) #Halloween or Edemame
     elif (song == 15):

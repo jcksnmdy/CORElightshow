@@ -147,7 +147,6 @@ def askReady():
         screen.fill([0,0,0])
         
         broadcastDisplay.troubleShootTextBroadcast("", "Testing Connections")
-        showStop()
         for event in pygame.event.get():
             
             # determin if X was clicked, or Ctrl+W or Alt+F4 was used
@@ -185,9 +184,7 @@ def askReady():
             counter+=1
         
         
-        pygame.display.flip()
-        
-        clock.tick(60)
+        showStop()
     print("Done. Moving on")
 
 
