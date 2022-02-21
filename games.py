@@ -173,6 +173,7 @@ def askReady():
             broadcastDisplay.setYellowFlag(grey, grey, grey, yellowFlagOuter)
         if (not blueReady):
             broadcastDisplay.setBlueFlag(grey, grey, grey, blueFlagOuter)
+        showStop()
         if (redReady and orangeReady and whiteReady and greenReady and yellowReady and blueReady):
             client.loop_stop()
             print("DONE. ALL CONNECTED")
@@ -183,8 +184,6 @@ def askReady():
             time.sleep(10)
             counter+=1
         
-        
-        showStop()
     print("Done. Moving on")
 
 
