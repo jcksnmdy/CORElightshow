@@ -49,12 +49,10 @@ client.on_message = on_message
 #client.connect(MQTT_SERVER, 1883, 60)
 
 def toTuple(before):
-    print("Before: " + str(before))
     firstNum = float(before[before.find("(")+1:before.find(",")])
     secNum = float(before[before.find(",")+2:before.find(",", 9)])
     thirdNum = float(before[before.find(",", 9)+2:before.find(")")])
     returning = (firstNum, secNum, thirdNum)
-    print("Returning:" + str(returning))
     return returning
 
 pygame.init()

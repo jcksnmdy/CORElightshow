@@ -177,7 +177,7 @@ def lightsOptions():
     elif (song == 14):
         songName = font.render('Halloween', True, white)
     elif (song == 15):
-        songName = font.render('Squid', True, white)
+        songName = font.render('Up.Funk', True, white)
     elif (song == 16):
         songName = font.render('immabe', True, white)
     elif (song == 17):

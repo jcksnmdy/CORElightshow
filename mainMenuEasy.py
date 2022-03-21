@@ -480,7 +480,7 @@ def checkEventMain(mouse_pos):
         selectedColor = 9
 
     if playButton.collidepoint(mouse_pos):
-        playMusic.playSong([song-1], 0)
+        playMusic.playSong(song-1, 0)
 
     if pandoraButton.collidepoint(mouse_pos):
         playMusic.playPandora(playStation, period, soundEffect)
