@@ -24,6 +24,15 @@ globalSoundEffect = "pew"
 numSongs = 20
 grey = (128,128,128)
 
+listForMake = []
+h = 0
+while h < numSongs:
+    print(listForMake)
+    listForMake.append(h)
+    h += 1
+rand = random.sample(listForMake, numSongs)
+print(listForMake)
+print(rand)
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -61,19 +70,20 @@ clock = pygame.time.Clock()
 pygame.display.set_caption("Programmer")
 def playSong(rand, count):
     global now, current_time
+    print(rand)
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     time.sleep(3)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'load' + str(rand[count]+1))
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'load' + str(rand))
     time.sleep(10)
-    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'song' + str(rand[count]+1))
-    pygame.mixer.music.load(path + "/songs/song" + str(rand[count]+1) + ".mp3")
+    os.system("mosquitto_pub -h localhost -t test_channel -m " + 'song' + str((rand)))
+    pygame.mixer.music.load(path + "/songs/song" + str(rand) + ".mp3")
     
     
-    print("Programmed song playing. Programmed song count: " + str(count+1) + ". Song index: " + str(rand[count]+1) + "")
+    print("Programmed song playing")
     i = 0
     pygame.mixer.music.play(0)
     #os.system("sudo /home/pi/PI_FM/fm_transmitter/fm_transmitter -f 96.7 -r /home/pi/Desktop/songs/song" + str(rand[count]+1) + ".wav")
-    allInfo = pd.read_excel(path + "/flagCode/song" + str(rand[count]+1) + ".xlsx")
+    allInfo = pd.read_excel(path + "/flagCode/song" + str(rand) + ".xlsx")
     
     while (pygame.mixer.music.get_busy()):
         screen.fill([0,0,0])
@@ -188,11 +198,10 @@ def playPandora(playlist, delay, soundEffect):
     stop(proc.pid)
 
 def play(playlist, delay, soundEffect):
-    global count
+    global count, rand
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     #client.loop_forever()
     count = 0
-    rand = random.sample(range(numSongs), numSongs)
     print(str(rand) + " Delay: " + str(delay))
     while count < numSongs:
         playSong(rand, count)
@@ -204,12 +213,12 @@ def play(playlist, delay, soundEffect):
         time.sleep(15)
         playPandora(playlist, delay, globalSoundEffect)
     print("Yep Done")
-
+    print(str(rand) + " Delay: " + str(delay))
 def play(playlist, delay, soundEffect, loopLength):
+    global rand
     os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
     #client.loop_forever()
     count = 0
-    rand = random.sample(range(numSongs), numSongs)
     print(str(rand) + " Delay: " + str(delay))
     while count < loopLength:
         playSong(rand, count)

@@ -140,8 +140,8 @@ restartText = font.render('Restart', True, black)
 restartRed = pygame.Rect(440, 130, 70, 20)
 restartOrange = pygame.Rect(440, 200, 70, 20)
 restartWhite = pygame.Rect(440, 270, 70, 20)
-restartGreen = pygame.Rect(440, 340, 70, 20)
-restartYellow = pygame.Rect(440, 410, 70, 20)
+restartYellow = pygame.Rect(440, 340, 70, 20)
+restartGreen = pygame.Rect(440, 410, 70, 20)
 restartBlue = pygame.Rect(440, 480, 70, 20)
 restartAll = pygame.Rect(440, 520, 70, 20)
 restartAllText = font.render('Restart All', True, black)
@@ -480,7 +480,7 @@ def checkEventMain(mouse_pos):
         selectedColor = 9
 
     if playButton.collidepoint(mouse_pos):
-        playMusic.playSong(song-1, 0)
+        playMusic.playSong(song, 0)
 
     if pandoraButton.collidepoint(mouse_pos):
         playMusic.playPandora(playStation, period, soundEffect)
@@ -594,7 +594,6 @@ def checkEventMain(mouse_pos):
 
     if stopButton.collidepoint(mouse_pos):
         os.system("mosquitto_pub -h localhost -t test_channel -m " + "stop")
-        broadcastDisplay("", "stopping all")
 
     if startButton.collidepoint(mouse_pos):
         print("Starting")
